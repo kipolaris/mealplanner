@@ -5,7 +5,7 @@ import org.springframework.data.annotation.Id
 
 @Entity
 data class Meal(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @jakarta.persistence.Id @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
     val name: String,
     @ManyToMany(cascade = [CascadeType.ALL])
@@ -16,3 +16,4 @@ data class Meal(
     )
     val foods: MutableList<Food> = mutableListOf()
 )
+
