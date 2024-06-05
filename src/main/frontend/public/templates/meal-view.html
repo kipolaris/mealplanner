@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title th:text="${meal} + ' View'">Meal View</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/static/css/meal-view.css}" />
+  <script th:src="@{/static/js/meal-view.js}"></script>
+</head>
+<body>
+<div class="meal-view-container">
+  <h1 th:text="${meal} + ' View'">Meal View</h1>
+  <table class="meal-view-table">
+    <thead>
+    <tr>
+      <th>Day</th>
+      <th>Food</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="day : ${daysOfWeek}">
+      <td th:text="${day}"></td>
+      <td th:text="${mealPlan[day][meal]}" th:onclick="|showModal('${day}', '${meal}')|"></td>
+    </tr>
+    </tbody>
+  </table>
+  <button onclick="resetMealView()">Reset</button>
+</div>
+</body>
+</html>

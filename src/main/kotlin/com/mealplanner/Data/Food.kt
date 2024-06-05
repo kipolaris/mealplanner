@@ -1,7 +1,6 @@
 package com.mealplanner.Data
 
 import jakarta.persistence.*
-import org.springframework.data.annotation.Id
 
 @Entity
 data class Food(

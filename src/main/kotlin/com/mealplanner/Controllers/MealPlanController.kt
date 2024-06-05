@@ -1,12 +1,14 @@
 package com.mealplanner.Controllers
 
+import com.mealplanner.Data.MealDay
+import com.mealplanner.Data.Meal
 import com.mealplanner.Data.MealPlan
 import com.mealplanner.Service.MealPlanService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/api/meal-plan")
+@RequestMapping("/api/meal-plan.html")
 class MealPlanController(private val mealPlanService: MealPlanService) {
 
     @GetMapping
@@ -19,8 +21,17 @@ class MealPlanController(private val mealPlanService: MealPlanService) {
         return ResponseEntity.ok(mealPlanService.resetMealPlan())
     }
 
-    @DeleteMapping("/meals/{mealId}/foods/{foodId}")
-    fun removeFoodFromMeal(@PathVariable mealId: Long, @PathVariable foodId: Long): ResponseEntity<MealPlan> {
-        return ResponseEntity.ok(mealPlanService.removeFoodFromMeal(mealId, foodId))
+    @PutMapping("/days/{dayId}/meals/{mealType}")
+    fun updateMealInDay(@PathVariable dayId: Long, @PathVariable mealType: String, @RequestBody meal: Meal): ResponseEntity<MealDay> {
+        return mealPlanService.updateMealInDay(dayId, mealType, meal)?.let {
+            ResponseEntity.ok(it)
+        } ?: ResponseEntity.notFound().build()
+    }
+
+    @DeleteMapping("/days/{dayId}/meals/{mealType}/foods/{foodId}")
+    fun removeFoodFromMeal(@PathVariable dayId: Long, @PathVariable mealType: String, @PathVariable foodId: Long): ResponseEntity<MealDay> {
+        return mealPlanService.removeFoodFromMeal(dayId, mealType, foodId)?.let {
+            ResponseEntity.ok(it)
+        } ?: ResponseEntity.notFound().build()
     }
 }

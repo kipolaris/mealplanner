@@ -1,20 +1,19 @@
 package com.mealplanner.Data
 
 import jakarta.persistence.*
-import org.springframework.data.annotation.Id
 
 @Entity
-data class Day(
-    @jakarta.persistence.Id @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+data class MealDay(
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0,
     val name: String,
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "breakfast_id")
-    val breakfast: Meal? = null,
+    var breakfast: Meal? = null,
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "lunch_id")
-    val lunch: Meal? = null,
+    var lunch: Meal? = null,
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "dinner_id")
-    val dinner: Meal? = null
+    var dinner: Meal? = null
 )

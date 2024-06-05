@@ -1,11 +1,10 @@
 package com.mealplanner.Data
 
 import jakarta.persistence.*
-import org.springframework.data.annotation.Id
 
 @Entity
 data class Meal(
-    @jakarta.persistence.Id @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
     val name: String,
     @ManyToMany(cascade = [CascadeType.ALL])

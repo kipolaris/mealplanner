@@ -1,8 +1,8 @@
 package com.mealplanner.Repositories
 
-import com.mealplanner.Data.Day
+import com.mealplanner.Data.MealDay
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface DayRepository : JpaRepository<Day, Long>
+interface MealDayRepository : JpaRepository<MealDay, Long>

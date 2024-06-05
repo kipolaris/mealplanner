@@ -1,0 +1,47 @@
+.meal-view-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.meal-view-container h1 {
+    text-align: center;
+}
+
+.meal-view-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.meal-view-table th,
+.meal-view-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.meal-view-table th {
+    background-color: #f2f2f2;
+}
+
+.meal-view-table td {
+    cursor: pointer;
+}
+
+.meal-view-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.meal-view-table tr:hover {
+    background-color: #ddd;
+}
+
+.meal-view-container button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

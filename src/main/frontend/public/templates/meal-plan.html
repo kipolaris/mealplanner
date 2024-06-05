@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Meal Plan</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/static/css/meal-plan.css}" />
+  <script th:src="@{/static/js/meal-plan.js}"></script>
+</head>
+<body>
+<div class="meal-plan-container">
+  <h1>Meal Plan</h1>
+  <table class="meal-plan-table">
+    <thead>
+    <tr>
+      <th></th>
+      <th>Monday</th>
+      <th>Tuesday</th>
+      <th>Wednesday</th>
+      <th>Thursday</th>
+      <th>Friday</th>
+      <th>Saturday</th>
+      <th>Sunday</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>Breakfast <button onclick="viewMeal('breakfast')">View</button></td>
+      <td onclick="showModal('Monday', 'Breakfast')"></td>
+      <td onclick="showModal('Tuesday', 'Breakfast')"></td>
+      <td onclick="showModal('Wednesday', 'Breakfast')"></td>
+      <td onclick="showModal('Thursday', 'Breakfast')"></td>
+      <td onclick="showModal('Friday', 'Breakfast')"></td>
+      <td onclick="showModal('Saturday', 'Breakfast')"></td>
+      <td onclick="showModal('Sunday', 'Breakfast')"></td>
+    </tr>
+    <tr>
+      <td>Lunch <button onclick="viewMeal('lunch')">View</button></td>
+      <td onclick="showModal('Monday', 'Lunch')"></td>
+      <td onclick="showModal('Tuesday', 'Lunch')"></td>
+      <td onclick="showModal('Wednesday', 'Lunch')"></td>
+      <td onclick="showModal('Thursday', 'Lunch')"></td>
+      <td onclick="showModal('Friday', 'Lunch')"></td>
+      <td onclick="showModal('Saturday', 'Lunch')"></td>
+      <td onclick="showModal('Sunday', 'Lunch')"></td>
+    </tr>
+    <tr>
+      <td>Dinner <button onclick="viewMeal('dinner')">View</button></td>
+      <td onclick="showModal('Monday', 'Dinner')"></td>
+      <td onclick="showModal('Tuesday', 'Dinner')"></td>
+      <td onclick="showModal('Wednesday', 'Dinner')"></td>
+      <td onclick="showModal('Thursday', 'Dinner')"></td>
+      <td onclick="showModal('Friday', 'Dinner')"></td>
+      <td onclick="showModal('Saturday', 'Dinner')"></td>
+      <td onclick="showModal('Sunday', 'Dinner')"></td>
+    </tr>
+    </tbody>
+  </table>
+  <button onclick="resetMealPlan()">Reset</button>
+</div>
+<div id="addFoodModal" class="modal-overlay" style="display: none;">
+  <div class="modal-content">
+    <h2>Select or Add Food</h2>
+    <select id="savedFoodsSelect">
+      <option value="">Select a food</option>
+      <!-- Options will be dynamically populated -->
+    </select>
+    <input type="text" id="newFoodInput" placeholder="Or add a new food" />
+    <button onclick="saveFood()">Save</button>
+    <button onclick="closeModal()">Cancel</button>
+  </div>
+</div>
+
+<script>
+  // JavaScript code to handle modal and food selection
+
+  let currentDay = '';
+  let currentMeal = '';
+
+  function showModal(day, meal) {
+    currentDay = day;
+    currentMeal = meal;
+    document.getElementById('addFoodModal').style.display = 'block';
+    // Fetch previously saved foods and populate the dropdown
+    fetchSavedFoods();
+  }
+
+  function closeModal() {
+    document.getElementById('addFoodModal').style.display = 'none';
+  }
+
+  function fetchSavedFoods() {
+    // Replace with actual API call to fetch saved foods
+    fetch('/api/saved-foods')
+            .then(response => response.json())
+            .then(data => {
+              const savedFoodsSelect = document.getElementById('savedFoodsSelect');
+              savedFoodsSelect.innerHTML = '<option value="">Select a food</option>';
+              data.forEach(food => {
+                const option = document.createElement('option');
+                option.value = food.id;
+                option.textContent = food.name;
+                savedFoodsSelect.appendChild(option);
+              });
+            })
+            .catch(error => console.error('Error fetching saved foods:', error));
+  }
+
+  function saveFood() {
+    const selectedFoodId = document.getElementById('savedFoodsSelect').value;
+    const newFood = document.getElementById('newFoodInput').value;
+
+    let foodName = '';
+
+    if (selectedFoodId) {
+      const selectedOption = document.getElementById('savedFoodsSelect').selectedOptions[0];
+      foodName = selectedOption.textContent;
+    } else if (newFood) {
+      foodName = newFood;
+    }
+
+    if (foodName) {
+      // Save the food to the meal plan
+      const cell = document.querySelector(`td[onclick="showModal('${currentDay}', '${currentMeal}')"]`);
+      cell.textContent = foodName;
+
+      // Optionally, you can make an API call to save the meal plan update
+      // fetch('/api/meal-plan/update', { method: 'POST', body: JSON.stringify({ day: currentDay, meal: currentMeal, food: foodName }) });
+
+      closeModal();
+    }
+  }
+
+  function resetMealPlan() {
+    // Add logic to reset the meal plan
+    // Optionally, make an API call to reset the meal plan
+    fetch('/component/MealPlan.jsx/reset', { method: 'POST' })
+            .then(() => {
+              document.querySelectorAll('.meal-plan-table td').forEach(cell => {
+                cell.textContent = '';
+              });
+            })
+            .catch(error => console.error('Error resetting meal plan:', error));
+  }
+
+  function viewMeal(meal) {
+    window.location.href = `/meal-view/${meal}`;
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+.day-view-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.day-view-container h1 {
+    text-align: center;
+}
+
+.day-view-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.day-view-table th,
+.day-view-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.day-view-table th {
+    background-color: #f2f2f2;
+}
+
+.day-view-table td {
+    cursor: pointer;
+}
+
+.day-view-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.day-view-table tr:hover {
+    background-color: #ddd;
+}
+
+.day-view-container button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
