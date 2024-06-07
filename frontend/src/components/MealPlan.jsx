@@ -7,7 +7,7 @@ import MealView from './MealView';
 import DayView from './DayView';
 import FoodProfile from './FoodProfile';
 import AddFoodModal from './AddFoodModal';
-import '../../public/static/css/meal-plan.css';
+import './static/css/meal-plan.css';
 
 const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 const meals = ["Breakfast", "Lunch", "Dinner"];

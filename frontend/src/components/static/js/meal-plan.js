@@ -14,7 +14,6 @@ function closeModal() {
 }
 
 function fetchSavedFoods() {
-    // Replace with actual API call to fetch saved foods
     fetch('/api/saved-foods')
         .then(response => response.json())
         .then(data => {
@@ -48,7 +47,6 @@ function saveFood() {
         const cell = document.querySelector(`td[onclick="showModal('${currentDay}', '${currentMeal}')"]`);
         cell.textContent = foodName;
 
-        // Optionally, you can make an API call to save the meal plan update
         fetch('/api/meal-plan/update', {
             method: 'POST',
             headers: {
