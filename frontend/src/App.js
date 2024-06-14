@@ -12,7 +12,24 @@ function App() {
     useEffect(() => {
         fetch(`${BackendUrl}/api/meal-plan`)
             .then(response => response.json())
-            .then(data => setMealPlan(data))
+            .then(data => {
+                // Ensure mealPlan has required properties and default meals
+                const defaultMeals = ['breakfast', 'lunch', 'dinner'];
+                const initialMealPlan = {
+                    mealDays: [],
+                    meals: defaultMeals,
+                    ...data // Merge fetched data
+                };
+                // Initialize each day with default meals
+                initialMealPlan.mealDays = initialMealPlan.mealDays.map(day => ({
+                    ...day,
+                    ...defaultMeals.reduce((acc, meal) => {
+                        acc[meal] = '';
+                        return acc;
+                    }, {})
+                }));
+                setMealPlan(initialMealPlan);
+            })
             .catch(error => console.error('Error fetching meal plan:', error));
     }, []);
 
@@ -22,21 +39,41 @@ function App() {
     };
 
     const handleSaveFood = (food) => {
+        if (!selectedCell.day || !selectedCell.meal) {
+            console.error('Selected cell information missing');
+            return;
+        }
+
         const updatedMealPlan = { ...mealPlan };
-        const dayIndex = mealPlan.mealDays.findIndex(d => d.name === selectedCell.day);
+        const dayIndex = updatedMealPlan.mealDays.findIndex(d => d.name === selectedCell.day);
         updatedMealPlan.mealDays[dayIndex][selectedCell.meal] = food;
         setMealPlan(updatedMealPlan);
-        setIsModalOpen(false); // Close modal after saving
+        setIsModalOpen(false);
     };
 
-    if (!mealPlan) {
+    const handleAddMeal = () => {
+        const newMealName = prompt('Enter the name of the new meal:');
+        if (newMealName) {
+            setMealPlan(prevMealPlan => {
+                const updatedMealPlan = { ...prevMealPlan };
+                updatedMealPlan.meals = [...prevMealPlan.meals, newMealName.toLowerCase()];
+                updatedMealPlan.mealDays = updatedMealPlan.mealDays.map(day => ({
+                    ...day,
+                    [newMealName.toLowerCase()]: ''
+                }));
+                return updatedMealPlan;
+            });
+        }
+    };
+
+    if (!mealPlan || !mealPlan.mealDays || !mealPlan.meals) {
         return <div>Loading...</div>;
     }
 
     return (
         <div className="app-container">
             <h1>Meal Plan</h1>
-            <MealPlanTable mealPlan={mealPlan} onCellClick={handleCellClick} />
+            <MealPlanTable mealPlan={mealPlan} onCellClick={handleCellClick} onAddMeal={handleAddMeal} />
             <AddFoodModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
