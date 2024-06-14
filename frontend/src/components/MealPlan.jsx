@@ -1,7 +1,3 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { FaTrash } from 'react-icons/fa';
-
 import React, { useState } from 'react';
 import MealView from './MealView';
 import DayView from './DayView';
@@ -11,7 +7,6 @@ import './static/css/meal-plan.css';
 
 const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 const meals = ["Breakfast", "Lunch", "Dinner"];
-const savedFoods = ["Pizza", "Salad", "Pasta", "Burger"]; // Example saved foods
 
 const MealPlan = () => {
     const [mealPlan, setMealPlan] = useState(initializeMealPlan());
@@ -21,6 +16,7 @@ const MealPlan = () => {
     const [selectedFood, setSelectedFood] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [cellInfo, setCellInfo] = useState({ day: '', meal: '' });
+    const [savedFoods, setSavedFoods] = useState(["Pizza", "Salad", "Pasta", "Burger"]); // Initial saved foods
 
     const initializeMealPlan = () => {
         let plan = {};
@@ -34,9 +30,11 @@ const MealPlan = () => {
     };
 
     const handleCellClick = (day, meal) => {
+        console.log('Clicked cell:', day, meal); // Debugging line
         setCellInfo({ day, meal });
         setIsModalOpen(true);
     };
+
 
     const handleMealClick = (meal) => {
         setSelectedMeal(meal);
@@ -62,6 +60,16 @@ const MealPlan = () => {
                 [meal]: food
             }
         }));
+    };
+
+    const handleReset = () => {
+        setMealPlan(initializeMealPlan());
+    };
+
+    const addNewFood = (food) => {
+        if (!savedFoods.includes(food)) {
+            setSavedFoods([...savedFoods, food]);
+        }
     };
 
     return (
@@ -102,6 +110,7 @@ const MealPlan = () => {
                 onClose={() => setIsModalOpen(false)}
                 onSave={handleSaveFood}
                 savedFoods={savedFoods}
+                addNewFood={addNewFood}
             />
         </div>
     );

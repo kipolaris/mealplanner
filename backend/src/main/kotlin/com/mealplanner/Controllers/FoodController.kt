@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/foods")
+@CrossOrigin
 class FoodController(private val foodService: FoodService) {
 
     @GetMapping
