@@ -1,6 +1,10 @@
 import React from 'react';
 
-function MealPlanTable({ mealPlan, onCellClick }) {
+function MealPlanTable({ mealPlan, onCellClick, onAddMeal }) {
+    if (!mealPlan || !mealPlan.mealDays || !mealPlan.meals) {
+        return null; // Or handle loading state differently
+    }
+
     return (
         <table className="meal-plan-table">
             <thead>
@@ -12,7 +16,7 @@ function MealPlanTable({ mealPlan, onCellClick }) {
             </tr>
             </thead>
             <tbody>
-            {['breakfast', 'lunch', 'dinner'].map(meal => (
+            {mealPlan.meals.map(meal => (
                 <tr key={meal}>
                     <td>{meal.charAt(0).toUpperCase() + meal.slice(1)}</td>
                     {mealPlan.mealDays.map(day => (
@@ -22,6 +26,11 @@ function MealPlanTable({ mealPlan, onCellClick }) {
                     ))}
                 </tr>
             ))}
+            <tr>
+                <td colSpan={mealPlan.mealDays.length + 1}>
+                    <button onClick={onAddMeal}>Add Meal</button>
+                </td>
+            </tr>
             </tbody>
         </table>
     );

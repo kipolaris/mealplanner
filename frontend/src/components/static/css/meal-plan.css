@@ -1,4 +1,7 @@
-/* meal-plan.css */
+.modal button {
+    margin: 10px;
+}
+
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -16,10 +19,11 @@
 }
 
 .modal-content {
-    background: white;
+    background-color: #fefefe;
+    margin: 15% auto;
     padding: 20px;
-    border-radius: 5px;
-    text-align: left;
+    border: 1px solid #888;
+    width: 80%;
 }
 
 .modal-content h2 {
@@ -36,4 +40,25 @@
 
 .modal-content button {
     margin-right: 10px;
+}
+
+.meal-plan-container {
+    text-align: center;
+}
+
+.meal-plan-table {
+    width: 80%;
+    margin: auto;
+}
+
+.meal-plan-table th, .meal-plan-table td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+}
+
+.meal-plan-table button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
 }
