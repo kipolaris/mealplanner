@@ -22,11 +22,13 @@ body {
 }
 
 .meal-plan-table th, .meal-plan-table td {
-    border: 3px solid rgba(0,0,0,0.2);
     padding: 10px;
     text-align: center;
     font-weight: bold;
     background-color: white;
+    border: none; /* Remove borders */
+    border-radius: 10px; /* Add rounded corners */
+    box-shadow: 0 0 5px rgba(0,0,0,0.1); /* Optional: Add a slight shadow for better visibility */
     position: relative;
 }
 
@@ -48,6 +50,7 @@ body {
     bottom: 0;
     right: 0;
     font-weight: bold;
+    border-radius: 10px; /* Ensure the button also has rounded corners */
 }
 
 .modal button {
