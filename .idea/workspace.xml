@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="394f1832-2bd8-4dcd-b968-3262c9a548d2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/static/pictures/background.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/MealPlan.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/MealPlan.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/static/css/meal-plan.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/static/css/meal-plan.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/static/js/meal-plan.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/static/js/meal-plan.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/templates/meal-plan.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/templates/meal-plan.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
