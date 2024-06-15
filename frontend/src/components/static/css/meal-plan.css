@@ -5,7 +5,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #FDB16D; /* Set background color to #FDB16D */
+    background-color: #FDB16D;
 }
 
 .meal-plan-container {
@@ -17,16 +17,17 @@ body {
 .meal-plan-table {
     width: 80%;
     margin: 20px auto;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 10px;
 }
 
 .meal-plan-table th, .meal-plan-table td {
-    border: 1px solid black;
+    border: 3px solid rgba(0,0,0,0.2);
     padding: 10px;
     text-align: center;
     font-weight: bold;
-    background-color: white; /* Set background color to white */
-    position: relative; /* Ensure the button fills the cell */
+    background-color: white;
+    position: relative;
 }
 
 .meal-plan-table td.food-item {
@@ -41,11 +42,12 @@ body {
     border: none;
     background: none;
     cursor: pointer;
-    position: absolute; /* Make the button fill the cell */
+    position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
+    font-weight: bold;
 }
 
 .modal button {
