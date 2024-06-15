@@ -2,25 +2,24 @@ import React, { useState, useEffect } from 'react';
 import MealPlanTable from './components/MealPlanTable';
 import AddFoodModal from './components/AddFoodModal';
 import { BackendUrl } from "./constants";
+import './components/static/css/meal-plan.css';
 
 function App() {
     const [mealPlan, setMealPlan] = useState(null);
     const [selectedCell, setSelectedCell] = useState({});
-    const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
-    const [savedFoods, setSavedFoods] = useState(["Pizza", "Salad", "Pasta", "Burger"]); // Initial saved foods
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [savedFoods, setSavedFoods] = useState(["Pizza", "Salad", "Pasta", "Burger"]);
 
     useEffect(() => {
         fetch(`${BackendUrl}/api/meal-plan`)
             .then(response => response.json())
             .then(data => {
-                // Ensure mealPlan has required properties and default meals
                 const defaultMeals = ['breakfast', 'lunch', 'dinner'];
                 const initialMealPlan = {
                     mealDays: [],
                     meals: defaultMeals,
-                    ...data // Merge fetched data
+                    ...data
                 };
-                // Initialize each day with default meals
                 initialMealPlan.mealDays = initialMealPlan.mealDays.map(day => ({
                     ...day,
                     ...defaultMeals.reduce((acc, meal) => {
@@ -35,7 +34,7 @@ function App() {
 
     const handleCellClick = (day, meal) => {
         setSelectedCell({ day, meal });
-        setIsModalOpen(true); // Use state to control modal visibility
+        setIsModalOpen(true);
     };
 
     const handleSaveFood = (food) => {

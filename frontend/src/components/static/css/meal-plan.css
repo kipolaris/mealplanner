@@ -1,3 +1,41 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.meal-plan-container {
+    text-align: center;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.meal-plan-table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+.meal-plan-table th, .meal-plan-table td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.meal-plan-table td.food-item {
+    font-weight: normal !important;
+}
+
+.meal-plan-table button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
 .modal button {
     margin: 10px;
 }
@@ -9,13 +47,13 @@
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
-    display: none; /* Hide by default */
+    display: none;
     align-items: center;
     justify-content: center;
 }
 
 .modal-overlay.open {
-    display: flex; /* Show when open */
+    display: flex;
 }
 
 .modal-content {
@@ -40,25 +78,4 @@
 
 .modal-content button {
     margin-right: 10px;
-}
-
-.meal-plan-container {
-    text-align: center;
-}
-
-.meal-plan-table {
-    width: 80%;
-    margin: auto;
-}
-
-.meal-plan-table th, .meal-plan-table td {
-    border: 1px solid black;
-    padding: 10px;
-    text-align: center;
-}
-
-.meal-plan-table button {
-    margin-top: 10px;
-    padding: 5px 10px;
-    cursor: pointer;
 }
