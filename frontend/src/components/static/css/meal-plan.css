@@ -97,33 +97,48 @@ body {
     display: none;
     align-items: center;
     justify-content: center;
+    z-index: 1000;
 }
 
 .modal-overlay.open {
     display: flex;
 }
 
+/* Styles for modal content */
 .modal-content {
     background-color: #fefefe;
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
+    max-width: 400px; /* Optional: Set a max-width for better responsiveness */
+    border-radius: 10px; /* Rounded corners for the modal */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add a slight shadow */
 }
 
-.modal-content h2 {
-    margin-top: 0;
-}
-
-.modal-content select,
-.modal-content input {
+/* Styles for select and input fields in the modal */
+.modal-content select, .modal-content input {
     display: block;
     width: 100%;
     margin: 10px 0;
     padding: 8px;
     box-sizing: border-box;
+    border-radius: 10px; /* Rounded corners for fields */
+    border: 1px solid #ccc; /* Optional: Add a border */
 }
 
+/* Styles for buttons in the modal */
 .modal-content button {
     margin-right: 10px;
+    padding: 8px 16px;
+    border-radius: 10px; /* Rounded corners for buttons */
+    border: none; /* Optional: Remove border */
+    cursor: pointer;
+    background-color: #4CAF50; /* Optional: Button background color */
+    color: white; /* Optional: Button text color */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Optional: Add a slight shadow */
+}
+
+.modal-content button:last-child {
+    background-color: #f44336; /* Optional: Different color for cancel button */
 }

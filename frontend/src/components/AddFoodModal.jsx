@@ -25,7 +25,7 @@ const AddFoodModal = ({ isOpen, onClose, onSave, savedFoods = [] }) => {
     if (!isOpen) return null;
 
     return (
-        <div className="modal-overlay" style={{ display: isOpen ? 'flex' : 'none' }}>
+        <div className={`modal-overlay ${isOpen ? 'open' : ''}`}>
             <div className="modal-content">
                 <h2>Select or Add Food</h2>
                 <select
