@@ -146,7 +146,7 @@ function App() {
                                 <td>{meal.charAt(0).toUpperCase() + meal.slice(1)}</td>
                                 {mealPlan.mealDays.map((day, idx) => (
                                     <td key={idx} className="food-item" onClick={() => showModal(day.name, meal)}>
-                                        <button>{day[meal] || 'Add'}</button>
+                                        <button>{day[meal] || ''}</button>
                                     </td>
                                 ))}
                             </tr>
