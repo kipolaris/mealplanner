@@ -16,7 +16,7 @@ const MealPlan = () => {
     const [selectedFood, setSelectedFood] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [cellInfo, setCellInfo] = useState({ day: '', meal: '' });
-    const [savedFoods, setSavedFoods] = useState(["Pizza", "Salad", "Pasta", "Burger"]); // Initial saved foods
+    const [savedFoods, setSavedFoods] = useState(["Pizza", "Salad", "Pasta"]);
 
     const initializeMealPlan = () => {
         let plan = {};
@@ -30,11 +30,9 @@ const MealPlan = () => {
     };
 
     const handleCellClick = (day, meal) => {
-        console.log('Clicked cell:', day, meal); // Debugging line
         setCellInfo({ day, meal });
         setIsModalOpen(true);
     };
-
 
     const handleMealClick = (meal) => {
         setSelectedMeal(meal);

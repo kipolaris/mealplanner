@@ -5,7 +5,6 @@ function showModal(day, meal) {
     currentDay = day;
     currentMeal = meal;
     document.getElementById('addFoodModal').style.display = 'block';
-    // Fetch previously saved foods and populate the dropdown
     fetchSavedFoods();
 }
 
@@ -43,9 +42,9 @@ function saveFood() {
     }
 
     if (foodName) {
-        // Save the food to the meal plan
         const cell = document.querySelector(`td[onclick="showModal('${currentDay}', '${currentMeal}')"]`);
         cell.textContent = foodName;
+        cell.classList.add('food-item'); // Add this line to apply the CSS class
 
         fetch('/api/meal-plan/update', {
             method: 'POST',
@@ -59,9 +58,8 @@ function saveFood() {
     }
 }
 
+
 function resetMealPlan() {
-    // Add logic to reset the meal plan
-    // Optionally, make an API call to reset the meal plan
     fetch('/api/meal-plan/reset', { method: 'POST' })
         .then(() => {
             document.querySelectorAll('.meal-plan-table td').forEach(cell => {
