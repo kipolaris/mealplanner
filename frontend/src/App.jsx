@@ -126,35 +126,39 @@ function App() {
 
     return (
         <div className="app-container">
-            <div className="meal-plan-container">
-                <h1>Meal Plan</h1>
-                <table className="meal-plan-table">
-                    <thead>
-                    <tr>
-                        <th>
-                            <button onClick={resetMealPlan}>Reset</button>
-                        </th>
-                        {mealPlan.mealDays.map((day, index) => (
-                            <th key={index}>{day.name}</th>
-                        ))}
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {mealPlan.meals.map((meal, index) => (
-                        <tr key={index}>
-                            <td>{meal.charAt(0).toUpperCase() + meal.slice(1)}</td>
-                            {mealPlan.mealDays.map((day, idx) => (
-                                <td key={idx} onClick={() => showModal(day.name, meal)}>{day[meal]}</td>
+            <h1 className="meal-plan-title">Meal Plan</h1>
+            <div className="meal-plan-table-wrapper">
+                <div className="meal-plan-container">
+                    <table className="meal-plan-table">
+                        <thead>
+                        <tr>
+                            <th>
+                                <button onClick={resetMealPlan}>Reset</button>
+                            </th>
+                            {mealPlan.mealDays.map((day, index) => (
+                                <th key={index}>{day.name}</th>
                             ))}
                         </tr>
-                    ))}
-                    <tr>
-                        <td colSpan={mealPlan.mealDays.length + 1}>
-                            <button onClick={handleAddMeal}>Add new meal</button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        {mealPlan.meals.map((meal, index) => (
+                            <tr key={index}>
+                                <td>{meal.charAt(0).toUpperCase() + meal.slice(1)}</td>
+                                {mealPlan.mealDays.map((day, idx) => (
+                                    <td key={idx} className="food-item" onClick={() => showModal(day.name, meal)}>
+                                        <button>{day[meal] || 'Add'}</button>
+                                    </td>
+                                ))}
+                            </tr>
+                        ))}
+                        <tr>
+                            <td colSpan={mealPlan.mealDays.length + 1}>
+                                <button onClick={handleAddMeal}>Add new meal</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <AddFoodModal
                 isOpen={isModalOpen}
