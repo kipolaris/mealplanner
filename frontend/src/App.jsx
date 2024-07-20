@@ -56,7 +56,6 @@ function App() {
             body: JSON.stringify({ day: selectedCell.day, meal: selectedCell.meal, food })
         }).catch(error => console.error('Error saving food:', error));
 
-        // Add the new food to savedFoods if it doesn't already exist, and sort
         setSavedFoods(prevFoods => {
             const updatedFoods = [...prevFoods];
             if (!updatedFoods.includes(food)) {
@@ -142,7 +141,7 @@ function App() {
                         <thead>
                         <tr>
                             <th>
-                                <button onClick={resetMealPlan}>Reset</button>
+                                <button className="orange-button" onClick={resetMealPlan}>Reset</button>
                             </th>
                             {mealPlan.mealDays.map((day, index) => (
                                 <th key={index}>{day.name}</th>
@@ -162,7 +161,7 @@ function App() {
                         ))}
                         <tr>
                             <td colSpan={mealPlan.mealDays.length + 1}>
-                                <button onClick={handleAddMeal}>Add new meal</button>
+                                <button className="orange-button" onClick={handleAddMeal}>Add new meal</button>
                             </td>
                         </tr>
                         </tbody>
