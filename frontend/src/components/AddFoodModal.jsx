@@ -19,8 +19,8 @@ const AddFoodModal = ({ isOpen, onClose, onSave, savedFoods = [], onDeleteFood }
         if (food) {
             onSave(food);
             if (newFood && !savedFoods.includes(newFood)) {
-                // Avoid adding duplicates
-                onSave(newFood);
+                // Optionally: Add the new food to savedFoods if needed
+                // onSave(newFood); // Uncomment if you want to save new food items
             }
             onClose();
         }
@@ -28,8 +28,12 @@ const AddFoodModal = ({ isOpen, onClose, onSave, savedFoods = [], onDeleteFood }
 
     const handleDelete = (food) => {
         onDeleteFood(food);
-        // Update state to reflect changes
         setSelectedFood(prev => prev === food ? '' : prev);
+    };
+
+    const handleSelectFood = (food) => {
+        setSelectedFood(food);
+        setIsDropdownOpen(false);
     };
 
     const toggleDropdown = () => {
@@ -54,13 +58,16 @@ const AddFoodModal = ({ isOpen, onClose, onSave, savedFoods = [], onDeleteFood }
                         <div className="dropdown-menu">
                             {savedFoods.length === 0 && <div className="dropdown-item">No saved foods</div>}
                             {savedFoods.map(food => (
-                                <div key={food} className="dropdown-item">
+                                <div key={food} className="dropdown-item" onClick={() => handleSelectFood(food)}>
                                     <span>{food}</span>
                                     <img
                                         src={trashIcon}
                                         alt="Delete"
                                         className="trash-icon"
-                                        onClick={() => handleDelete(food)}
+                                        onClick={(e) => {
+                                            e.stopPropagation(); // Prevent triggering the parent onClick
+                                            handleDelete(food);
+                                        }}
                                     />
                                 </div>
                             ))}
