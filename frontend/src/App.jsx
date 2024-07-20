@@ -7,7 +7,7 @@ function App() {
     const [mealPlan, setMealPlan] = useState(null);
     const [selectedCell, setSelectedCell] = useState({});
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [savedFoods, setSavedFoods] = useState(["Pizza", "Salad", "Pasta", "Burger"]);
+    const [savedFoods, setSavedFoods] = useState(["Pizza", "Salad", "Pasta", "Burger", "Croissant"].sort());
 
     useEffect(() => {
         fetch(`${BackendUrl}/api/meal-plan`)
@@ -55,6 +55,15 @@ function App() {
             },
             body: JSON.stringify({ day: selectedCell.day, meal: selectedCell.meal, food })
         }).catch(error => console.error('Error saving food:', error));
+
+        // Add the new food to savedFoods if it doesn't already exist, and sort
+        setSavedFoods(prevFoods => {
+            const updatedFoods = [...prevFoods];
+            if (!updatedFoods.includes(food)) {
+                updatedFoods.push(food);
+            }
+            return updatedFoods.sort();
+        });
     };
 
     const handleAddMeal = () => {
@@ -81,7 +90,7 @@ function App() {
                 return response.json();
             })
             .then(data => {
-                setSavedFoods(data); // Assuming data is an array of saved foods
+                setSavedFoods(data.sort()); // Assuming data is an array of saved foods
             })
             .catch(error => console.error('Error fetching saved foods:', error));
     };

@@ -11,7 +11,5 @@ u
 Ebackend/src/main/kotlin/com/mealplanner/Controllers/FoodController.kt,7\a\7a2f486498e379c2a0eb5e650b8ea33f9d668521
 =
 frontend/.env,e\5\e51ccb9a6155f3c59685c017c8fce22c869af68e
-C
-frontend/src/App.js,d\6\d63b8ace488b6134c279ccc0cc109223d4d79c20
 I
 frontend/src/constants.js,e\7\e77758ef3de7ae03e13a93a0c66c0160da45a96c

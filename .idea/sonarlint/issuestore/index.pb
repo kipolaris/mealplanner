@@ -5,8 +5,6 @@ y
 Ibackend/src/main/kotlin/com/mealplanner/Controllers/MealPlanController.kt,d\3\d33d99279379fe12f6c76cb3df0d93745cbd4211
 =
 frontend/.env,e\5\e51ccb9a6155f3c59685c017c8fce22c869af68e
-C
-frontend/src/App.js,d\6\d63b8ace488b6134c279ccc0cc109223d4d79c20
 u
 Ebackend/src/main/kotlin/com/mealplanner/Controllers/MealController.kt,8\a\8a597f7f3814ca1a097cde52b7e0d5c4a2c3b116
 u
