@@ -7,7 +7,7 @@ function App() {
     const [mealPlan, setMealPlan] = useState(null);
     const [selectedCell, setSelectedCell] = useState({});
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [savedFoods, setSavedFoods] = useState(["Pizza", "Salad", "Pasta", "Burger"]);
+    const [savedFoods, setSavedFoods] = useState(["Pizza", "Salad", "Pasta", "Burger", "Croissant"].sort());
 
     useEffect(() => {
         fetch(`${BackendUrl}/api/meal-plan`)
@@ -55,6 +55,33 @@ function App() {
             },
             body: JSON.stringify({ day: selectedCell.day, meal: selectedCell.meal, food })
         }).catch(error => console.error('Error saving food:', error));
+
+        setSavedFoods(prevFoods => {
+            const updatedFoods = [...prevFoods];
+            if (!updatedFoods.includes(food)) {
+                updatedFoods.push(food);
+            }
+            return updatedFoods.sort();
+        });
+    };
+
+    const handleDeleteFood = (food) => {
+        setSavedFoods(prevFoods => prevFoods.filter(f => f !== food));
+        if (selectedCell.day && selectedCell.meal) {
+            const updatedMealPlan = { ...mealPlan };
+            const dayIndex = updatedMealPlan.mealDays.findIndex(d => d.name === selectedCell.day);
+            if (dayIndex !== -1) {
+                updatedMealPlan.mealDays[dayIndex][selectedCell.meal] = '';
+                setMealPlan(updatedMealPlan);
+                fetch('/api/meal-plan/update', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ day: selectedCell.day, meal: selectedCell.meal, food: '' })
+                }).catch(error => console.error('Error updating meal plan:', error));
+            }
+        }
     };
 
     const handleAddMeal = () => {
@@ -81,7 +108,7 @@ function App() {
                 return response.json();
             })
             .then(data => {
-                setSavedFoods(data); // Assuming data is an array of saved foods
+                setSavedFoods(data.sort()); // Assuming data is an array of saved foods
             })
             .catch(error => console.error('Error fetching saved foods:', error));
     };
@@ -133,7 +160,7 @@ function App() {
                         <thead>
                         <tr>
                             <th>
-                                <button onClick={resetMealPlan}>Reset</button>
+                                <button className="orange-button" onClick={resetMealPlan}>Reset</button>
                             </th>
                             {mealPlan.mealDays.map((day, index) => (
                                 <th key={index}>{day.name}</th>
@@ -153,7 +180,7 @@ function App() {
                         ))}
                         <tr>
                             <td colSpan={mealPlan.mealDays.length + 1}>
-                                <button onClick={handleAddMeal}>Add new meal</button>
+                                <button className="orange-button" onClick={handleAddMeal}>Add new meal</button>
                             </td>
                         </tr>
                         </tbody>
@@ -165,6 +192,7 @@ function App() {
                 onClose={closeModal}
                 onSave={handleSaveFood}
                 savedFoods={savedFoods}
+                onDeleteFood={handleDeleteFood} // Pass the handleDeleteFood function
             />
         </div>
     );

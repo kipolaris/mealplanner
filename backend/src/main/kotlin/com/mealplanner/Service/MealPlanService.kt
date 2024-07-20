@@ -42,6 +42,14 @@ class MealPlanService(
         return mealPlanRepository.save(mealPlan)
     }
 
+    fun resetMealDay(dayId: Long): MealDay? {
+        val day = mealDayRepository.findById(dayId).orElse(null) ?: return null
+        day.breakfast = null
+        day.lunch = null
+        day.dinner = null
+        return mealDayRepository.save(day)
+    }
+
     fun updateMealInDay(dayId: Long, mealType: String, meal: Meal): MealDay? {
         val day = mealDayRepository.findById(dayId).orElse(null) ?: return null
         val savedMeal = mealRepository.save(meal)
@@ -56,7 +64,7 @@ class MealPlanService(
 
     fun removeFoodFromMeal(dayId: Long, mealType: String, foodId: Long): MealDay? {
         val day = mealDayRepository.findById(dayId).orElse(null) ?: return null
-        val meal = when (mealType.toLowerCase()) {
+        val meal = when (mealType.lowercase(Locale.getDefault())) {
             "breakfast" -> day.breakfast
             "lunch" -> day.lunch
             "dinner" -> day.dinner
