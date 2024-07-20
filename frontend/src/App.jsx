@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import AddFoodModal from './components/AddFoodModal';
 import { BackendUrl } from "./constants";
 import './components/static/css/meal-plan.css';
+import arrowUpIcon from './components/static/images/arrowpointingup.png';
+import arrowDownIcon from './components/static/images/arrowpointingdown.png';
 
 function App() {
     const [mealPlan, setMealPlan] = useState(null);
@@ -63,25 +65,6 @@ function App() {
             }
             return updatedFoods.sort();
         });
-    };
-
-    const handleDeleteFood = (food) => {
-        setSavedFoods(prevFoods => prevFoods.filter(f => f !== food));
-        if (selectedCell.day && selectedCell.meal) {
-            const updatedMealPlan = { ...mealPlan };
-            const dayIndex = updatedMealPlan.mealDays.findIndex(d => d.name === selectedCell.day);
-            if (dayIndex !== -1) {
-                updatedMealPlan.mealDays[dayIndex][selectedCell.meal] = '';
-                setMealPlan(updatedMealPlan);
-                fetch('/api/meal-plan/update', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ day: selectedCell.day, meal: selectedCell.meal, food: '' })
-                }).catch(error => console.error('Error updating meal plan:', error));
-            }
-        }
     };
 
     const handleAddMeal = () => {
@@ -147,6 +130,19 @@ function App() {
             .catch(error => console.error('Error resetting meal plan:', error));
     };
 
+    const moveMeal = (index, direction) => {
+        const updatedMeals = [...mealPlan.meals];
+        if (direction === 'up' && index > 0) {
+            [updatedMeals[index - 1], updatedMeals[index]] = [updatedMeals[index], updatedMeals[index - 1]];
+        } else if (direction === 'down' && index < updatedMeals.length - 1) {
+            [updatedMeals[index + 1], updatedMeals[index]] = [updatedMeals[index], updatedMeals[index + 1]];
+        }
+        setMealPlan(prevMealPlan => ({
+            ...prevMealPlan,
+            meals: updatedMeals
+        }));
+    };
+
     if (!mealPlan || !mealPlan.mealDays || !mealPlan.meals) {
         return <div>Loading...</div>;
     }
@@ -170,7 +166,25 @@ function App() {
                         <tbody>
                         {mealPlan.meals.map((meal, index) => (
                             <tr key={index}>
-                                <td>{meal.charAt(0).toUpperCase() + meal.slice(1)}</td>
+                                <td className="meal-name-cell">
+                                    <div className="meal-name-container">
+                                        <span className="meal-name">{meal.charAt(0).toUpperCase() + meal.slice(1)}</span>
+                                        <div className="arrow-buttons">
+                                            <img
+                                                src={arrowUpIcon}
+                                                alt="Move Up"
+                                                className="arrow-button"
+                                                onClick={() => moveMeal(index, 'up')}
+                                            />
+                                            <img
+                                                src={arrowDownIcon}
+                                                alt="Move Down"
+                                                className="arrow-button"
+                                                onClick={() => moveMeal(index, 'down')}
+                                            />
+                                        </div>
+                                    </div>
+                                </td>
                                 {mealPlan.mealDays.map((day, idx) => (
                                     <td key={idx} className="food-item" onClick={() => showModal(day.name, meal)}>
                                         <button>{day[meal] || ''}</button>
@@ -192,7 +206,7 @@ function App() {
                 onClose={closeModal}
                 onSave={handleSaveFood}
                 savedFoods={savedFoods}
-                onDeleteFood={handleDeleteFood} // Pass the handleDeleteFood function
+                onDeleteFood={(food) => setSavedFoods(prevFoods => prevFoods.filter(f => f !== food))}
             />
         </div>
     );
