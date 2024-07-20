@@ -65,6 +65,25 @@ function App() {
         });
     };
 
+    const handleDeleteFood = (food) => {
+        setSavedFoods(prevFoods => prevFoods.filter(f => f !== food));
+        if (selectedCell.day && selectedCell.meal) {
+            const updatedMealPlan = { ...mealPlan };
+            const dayIndex = updatedMealPlan.mealDays.findIndex(d => d.name === selectedCell.day);
+            if (dayIndex !== -1) {
+                updatedMealPlan.mealDays[dayIndex][selectedCell.meal] = '';
+                setMealPlan(updatedMealPlan);
+                fetch('/api/meal-plan/update', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ day: selectedCell.day, meal: selectedCell.meal, food: '' })
+                }).catch(error => console.error('Error updating meal plan:', error));
+            }
+        }
+    };
+
     const handleAddMeal = () => {
         const newMealName = prompt('Enter the name of the new meal:');
         if (newMealName) {
@@ -173,6 +192,7 @@ function App() {
                 onClose={closeModal}
                 onSave={handleSaveFood}
                 savedFoods={savedFoods}
+                onDeleteFood={handleDeleteFood} // Pass the handleDeleteFood function
             />
         </div>
     );
