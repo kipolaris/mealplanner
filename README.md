@@ -30,6 +30,23 @@ Meal Planner is a website which allows you to plan your meals ahead for each day
 - Account page: A page where you can edit your display name, your username, your e-mail address and your profile picture.
 
 ## Technology
-| Framework: | Spring Boot |
-| ----------- | ----------- |
-| Language: | Kotlin |
+
+### Backend
+
+| Component         | Technology |
+|------------------|------------|
+| Framework        | Spring Boot |
+| Language         | Kotlin |
+| Database        | H2 (in-memory) |
+| Build Tool       | Gradle |
+| Reactive Programming | Spring WebFlux, Reactor |
+| Template Engine | Thymeleaf |
+
+### Frontend
+
+| Component        | Technology |
+|-----------------|------------|
+| Library         | React |
+| Language        | JavaScript |
+| Styling        | CSS |
+
