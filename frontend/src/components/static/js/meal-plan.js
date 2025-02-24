@@ -1,22 +1,39 @@
 let currentDay = '';
 let currentMeal = '';
 
+/**
+ * Show the modal for adding or selecting food.
+ * @param {string} day - The selected day.
+ * @param {string} meal - The selected meal.
+ */
 function showModal(day, meal) {
     currentDay = day;
     currentMeal = meal;
-    document.getElementById('addFoodModal').style.display = 'block';
+
+    const modal = document.getElementById('addFoodModal');
+    modal.style.display = 'block';
+
     fetchSavedFoods();
 }
 
+/**
+ * Close the modal.
+ */
 function closeModal() {
-    document.getElementById('addFoodModal').style.display = 'none';
+    const modal = document.getElementById('addFoodModal');
+    modal.style.display = 'none';
 }
 
+/**
+ * Fetch saved food options from the server and populate the dropdown.
+ */
 function fetchSavedFoods() {
+    const savedFoodsSelect = document.getElementById('savedFoodsSelect');
+    savedFoodsSelect.innerHTML = '<option>Loading...</option>';
+
     fetch('/api/saved-foods')
         .then(response => response.json())
         .then(data => {
-            const savedFoodsSelect = document.getElementById('savedFoodsSelect');
             savedFoodsSelect.innerHTML = '<option value="">Select a food</option>';
             data.forEach(food => {
                 const option = document.createElement('option');
@@ -25,50 +42,89 @@ function fetchSavedFoods() {
                 savedFoodsSelect.appendChild(option);
             });
         })
-        .catch(error => console.error('Error fetching saved foods:', error));
+        .catch(error => {
+            console.error('Error fetching saved foods:', error);
+            savedFoodsSelect.innerHTML = '<option>Error loading foods</option>';
+        });
 }
 
+/**
+ * Save the selected or new food to the meal plan.
+ */
 function saveFood() {
-    const selectedFoodId = document.getElementById('savedFoodsSelect').value;
-    const newFood = document.getElementById('newFoodInput').value;
+    const savedFoodsSelect = document.getElementById('savedFoodsSelect');
+    const selectedFoodId = savedFoodsSelect.value;
+    const newFood = document.getElementById('newFoodInput').value.trim();
 
     let foodName = '';
 
     if (selectedFoodId) {
-        const selectedOption = document.getElementById('savedFoodsSelect').selectedOptions[0];
-        foodName = selectedOption.textContent;
+        foodName = savedFoodsSelect.selectedOptions[0].textContent;
     } else if (newFood) {
         foodName = newFood;
     }
 
-    if (foodName) {
-        const cell = document.querySelector(`td[onclick="showModal('${currentDay}', '${currentMeal}')"]`);
+    if (!foodName) {
+        alert('Please select or enter a food.');
+        return;
+    }
+
+    const cell = getCell(currentDay, currentMeal);
+    if (cell) {
         cell.textContent = foodName;
-        cell.classList.add('food-item'); // Add this line to apply the CSS class
+        cell.classList.add('food-item');
 
         fetch('/api/meal-plan/update', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ day: currentDay, meal: currentMeal, food: foodName })
+            body: JSON.stringify({ day: currentDay, meal: currentMeal, food: foodName }),
         }).catch(error => console.error('Error saving food:', error));
-
-        closeModal();
     }
+
+    closeModal();
 }
 
-
+/**
+ * Reset the meal plan, clearing all cells and notifying the server.
+ */
 function resetMealPlan() {
+    if (!confirm('Are you sure you want to reset the entire meal plan?')) {
+        return;
+    }
+
     fetch('/api/meal-plan/reset', { method: 'POST' })
         .then(() => {
             document.querySelectorAll('.meal-plan-table td').forEach(cell => {
                 cell.textContent = '';
+                cell.classList.remove('food-item');
             });
         })
         .catch(error => console.error('Error resetting meal plan:', error));
 }
 
+/**
+ * Redirect to the meal view page for a specific meal.
+ * @param {string} meal - The meal type to view (e.g., breakfast, lunch, dinner).
+ */
 function viewMeal(meal) {
     window.location.href = `/meal-view/${meal}`;
 }
+
+/**
+ * Helper function to get the table cell for a specific day and meal.
+ * @param {string} day - The day of the week.
+ * @param {string} meal - The meal type.
+ * @returns {HTMLElement|null} The corresponding table cell, or null if not found.
+ */
+function getCell(day, meal) {
+    return document.querySelector(`td[data-day="${day}"][data-meal="${meal}"]`);
+}
+
+// Event listener for keyboard accessibility (Escape key closes the modal)
+document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && document.getElementById('addFoodModal').style.display === 'block') {
+        closeModal();
+    }
+});

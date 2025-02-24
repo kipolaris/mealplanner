@@ -6,67 +6,69 @@
   <script src="/frontend/src/components/static/js/meal-plan.js"></script>
 </head>
 <body>
-  <div class="meal-plan-container">
-    <h1>Meal Plan</h1>
-    <table class="meal-plan-table">
-      <thead>
-      <tr>
-        <th></th>
-        <th>Monday</th>
-        <th>Tuesday</th>
-        <th>Wednesday</th>
-        <th>Thursday</th>
-        <th>Friday</th>
-        <th>Saturday</th>
-        <th>Sunday</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>Breakfast <button onclick="viewMeal('breakfast')">View</button></td>
-        <td onclick="showModal('Monday', 'Breakfast')"></td>
-        <td onclick="showModal('Tuesday', 'Breakfast')"></td>
-        <td onclick="showModal('Wednesday', 'Breakfast')"></td>
-        <td onclick="showModal('Thursday', 'Breakfast')"></td>
-        <td onclick="showModal('Friday', 'Breakfast')"></td>
-        <td onclick="showModal('Saturday', 'Breakfast')"></td>
-        <td onclick="showModal('Sunday', 'Breakfast')"></td>
-      </tr>
-      <tr>
-        <td>Lunch <button onclick="viewMeal('lunch')">View</button></td>
-        <td onclick="showModal('Monday', 'Lunch')"></td>
-        <td onclick="showModal('Tuesday', 'Lunch')"></td>
-        <td onclick="showModal('Wednesday', 'Lunch')"></td>
-        <td onclick="showModal('Thursday', 'Lunch')"></td>
-        <td onclick="showModal('Friday', 'Lunch')"></td>
-        <td onclick="showModal('Saturday', 'Lunch')"></td>
-        <td onclick="showModal('Sunday', 'Lunch')"></td>
-      </tr>
-      <tr>
-        <td>Dinner <button onclick="viewMeal('dinner')">View</button></td>
-        <td onclick="showModal('Monday', 'Dinner')"></td>
-        <td onclick="showModal('Tuesday', 'Dinner')"></td>
-        <td onclick="showModal('Wednesday', 'Dinner')"></td>
-        <td onclick="showModal('Thursday', 'Dinner')"></td>
-        <td onclick="showModal('Friday', 'Dinner')"></td>
-        <td onclick="showModal('Saturday', 'Dinner')"></td>
-        <td onclick="showModal('Sunday', 'Dinner')"></td>
-      </tr>
-      </tbody>
-    </table>
-    <button onclick="resetMealPlan()">Reset</button>
-  </div>
-  <div id="addFoodModal" class="modal-overlay">
-    <div class="modal-content">
-      <h2>Select or Add Food</h2>
-      <select id="savedFoodsSelect">
-        <option value="">Select a food</option>
-        <!-- Options will be dynamically populated -->
-      </select>
-      <input type="text" id="newFoodInput" placeholder="Or add a new food" />
-      <button onclick="saveFood()">Save</button>
-      <button onclick="closeModal()">Cancel</button>
+<div class="meal-plan-container">
+  <h1>Meal Plan</h1>
+  <table class="meal-plan-table">
+    <thead>
+    <tr>
+      <th></th>
+      <th>Monday</th>
+      <th>Tuesday</th>
+      <th>Wednesday</th>
+      <th>Thursday</th>
+      <th>Friday</th>
+      <th>Saturday</th>
+      <th>Sunday</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>Breakfast <button onclick="viewMeal('breakfast')">View</button></td>
+      <td data-day="Monday" data-meal="Breakfast" onclick="showModal('Monday', 'Breakfast')"></td>
+      <td data-day="Tuesday" data-meal="Breakfast" onclick="showModal('Tuesday', 'Breakfast')"></td>
+      <td data-day="Wednesday" data-meal="Breakfast" onclick="showModal('Wednesday', 'Breakfast')"></td>
+      <td data-day="Thursday" data-meal="Breakfast" onclick="showModal('Thursday', 'Breakfast')"></td>
+      <td data-day="Friday" data-meal="Breakfast" onclick="showModal('Friday', 'Breakfast')"></td>
+      <td data-day="Saturday" data-meal="Breakfast" onclick="showModal('Saturday', 'Breakfast')"></td>
+      <td data-day="Sunday" data-meal="Breakfast" onclick="showModal('Sunday', 'Breakfast')"></td>
+    </tr>
+    <tr>
+      <td>Lunch <button onclick="viewMeal('lunch')">View</button></td>
+      <td data-day="Monday" data-meal="Lunch" onclick="showModal('Monday', 'Lunch')"></td>
+      <td data-day="Tuesday" data-meal="Lunch" onclick="showModal('Tuesday', 'Lunch')"></td>
+      <td data-day="Wednesday" data-meal="Lunch" onclick="showModal('Wednesday', 'Lunch')"></td>
+      <td data-day="Thursday" data-meal="Lunch" onclick="showModal('Thursday', 'Lunch')"></td>
+      <td data-day="Friday" data-meal="Lunch" onclick="showModal('Friday', 'Lunch')"></td>
+      <td data-day="Saturday" data-meal="Lunch" onclick="showModal('Saturday', 'Lunch')"></td>
+      <td data-day="Sunday" data-meal="Lunch" onclick="showModal('Sunday', 'Lunch')"></td>
+    </tr>
+    <tr>
+      <td>Dinner <button onclick="viewMeal('dinner')">View</button></td>
+      <td data-day="Monday" data-meal="Dinner" onclick="showModal('Monday', 'Dinner')"></td>
+      <td data-day="Tuesday" data-meal="Dinner" onclick="showModal('Tuesday', 'Dinner')"></td>
+      <td data-day="Wednesday" data-meal="Dinner" onclick="showModal('Wednesday', 'Dinner')"></td>
+      <td data-day="Thursday" data-meal="Dinner" onclick="showModal('Thursday', 'Dinner')"></td>
+      <td data-day="Friday" data-meal="Dinner" onclick="showModal('Friday', 'Dinner')"></td>
+      <td data-day="Saturday" data-meal="Dinner" onclick="showModal('Saturday', 'Dinner')"></td>
+      <td data-day="Sunday" data-meal="Dinner" onclick="showModal('Sunday', 'Dinner')"></td>
+    </tr>
+    </tbody>
+  </table>
+  <button onclick="resetMealPlan()">Reset</button>
+</div>
+<div id="addFoodModal" class="modal-overlay">
+  <div class="modal-content">
+    <h2>Select or Add Food</h2>
+    <select id="savedFoodsSelect">
+      <option value="">Select a food</option>
+      <!-- Options will be dynamically populated -->
+    </select>
+    <input type="text" id="newFoodInput" placeholder="Or add a new food" />
+    <div class="modal-buttons">
+      <button class="save-button" onclick="saveFood()">Save</button>
+      <button class="cancel-button" onclick="closeModal()">Cancel</button>
     </div>
   </div>
-  </body>
+</div>
+</body>
 </html>

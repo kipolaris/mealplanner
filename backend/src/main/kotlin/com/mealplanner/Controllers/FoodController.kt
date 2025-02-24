@@ -10,12 +10,15 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api/foods")
 @CrossOrigin
-class FoodController(private val foodService: FoodService) {
+class FoodController(val foodService: FoodService) {
 
     @GetMapping
-    fun getAllFoods(): List<Food> {
-        return foodService.getAllFoods()
+    fun getAllFoods(): List<Map<String, Any>> {
+        return foodService.getAllFoods().map { food ->
+            mapOf("id" to food.id, "name" to food.name)
+        }
     }
+
 
     @GetMapping("/{id}")
     fun getFoodById(@PathVariable id: Long): ResponseEntity<Food> {
@@ -38,7 +41,7 @@ class FoodController(private val foodService: FoodService) {
     }
 
     @DeleteMapping("/{id}")
-    fun deleteFood(@PathVariable id: Long): ResponseEntity<Void> {
+    fun deleteFood(@PathVariable id: Long): ResponseEntity<Unit> {
         return if (foodService.deleteFood(id)) {
             ResponseEntity.noContent().build()
         } else {

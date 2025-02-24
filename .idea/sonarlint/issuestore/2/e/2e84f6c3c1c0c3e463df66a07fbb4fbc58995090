@@ -1,0 +1,9 @@
+
+hjavascript:S1481%"@Remove the declaration of the unused 'handleCellClick' variable.(Σο¨¨όÿÿÿÿ8ήσί»2
+ejavascript:S1854%"=Remove this useless assignment to variable "handleCellClick".(Σο¨¨όÿÿÿÿ8ήσί»2
+\javascript:S1481x"9Remove the declaration of the unused 'viewMeal' variable.(ΈÒ€¬8ήσί»2
+Yjavascript:S1854x"6Remove this useless assignment to variable "viewMeal".(ΈÒ€¬8ίσί»2
+javascript:S6582£"[Prefer using an optional chain expression instead, as it's more concise and easier to read.(ΪχΟ8ίσί»2
+Gjavascript:S6479³"Do not use Array index in keys(Ρσ¨όÿÿÿÿ8ίσί»2
+Bjavascript:S6479Ή"Do not use Array index in keys(•Α»ξ8ίσί»2
+Gjavascript:S6479Ξ"Do not use Array index in keys(ΐ¨ªΑÿÿÿÿÿ8ίσί»2
