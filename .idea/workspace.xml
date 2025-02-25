@@ -5,25 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="394f1832-2bd8-4dcd-b968-3262c9a548d2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/7/a/7a2f486498e379c2a0eb5e650b8ea33f9d668521" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/7/a/7a2f486498e379c2a0eb5e650b8ea33f9d668521" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Config/CrossConfig.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/2/e/2e84f6c3c1c0c3e463df66a07fbb4fbc58995090" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/2/e/2e84f6c3c1c0c3e463df66a07fbb4fbc58995090" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/3/f/3fa596864e7648118ccb8426e4975ca2183e3361" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/3/f/3fa596864e7648118ccb8426e4975ca2183e3361" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/settings.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Controllers/FoodController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Controllers/FoodController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/LandingPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/LandingPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Controllers/MealPlanController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Controllers/MealPlanController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Data/Food.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Data/Food.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Service/FoodService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Service/FoodService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/AddFoodModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AddFoodModal.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/MealPlan.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/MealPlan.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/static/css/landing-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/static/css/landing-page.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/static/css/meal-plan.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/static/css/meal-plan.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/static/images/background.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/static/images/background.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/static/js/meal-plan.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/static/js/meal-plan.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/templates/meal-plan.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/templates/meal-plan.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +30,9 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$/backend">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand />
@@ -52,6 +47,7 @@
       <list>
         <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -89,6 +85,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;84e29e708c80bf3a3fe53a0bffc34007&quot;,
     &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2022.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
@@ -187,6 +184,8 @@
       <workItem from="1740134822106" duration="590000" />
       <workItem from="1740176629118" duration="283000" />
       <workItem from="1740176915935" duration="4829000" />
+      <workItem from="1740421806246" duration="123000" />
+      <workItem from="1740421966473" duration="7216000" />
     </task>
     <servers />
   </component>

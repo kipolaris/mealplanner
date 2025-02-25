@@ -75,3 +75,5 @@ c
 0frontend/src/components/static/css/meal-view.css,f\1\f1eb0efebda2e6af700a6e02a42ed1b9f25a5256
 _
 /frontend/src/components/static/css/day-view.css,2\f\2fc3e4526a56b9a4f538d5b4edb1ab0f70cf2e8d
+K
+backend/settings.gradle.kts,d\1\d13c60628f1f68d027251cc19dc74bd92a7cc9ed
