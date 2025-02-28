@@ -35,4 +35,10 @@ class MealPlanController(private val mealPlanService: MealPlanService) {
             ResponseEntity.ok(it)
         } ?: ResponseEntity.notFound().build()
     }
+
+    @PostMapping("/update")
+    fun updateMealPlan(@RequestBody updateRequest: Map<String, String>): ResponseEntity<String> {
+        println("Received meal plan update: $updateRequest")
+        return ResponseEntity.ok("Meal plan updated successfully")
+    }
 }

@@ -42,7 +42,7 @@ class FoodService(private val foodRepository: FoodRepository, private val ingred
         val food = foodRepository.findById(foodId).orElse(null) ?: return null
         ingredient.food = food
         ingredientRepository.save(ingredient)
-        food.ingredients.add(ingredient)
+        food.ingredients?.add(ingredient)
         return foodRepository.save(food)
     }
 }

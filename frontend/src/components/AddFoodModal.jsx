@@ -18,21 +18,22 @@ const AddFoodModal = ({ isOpen, onClose, onSave, savedFoods = [], onDeleteFood }
         const food = newFood || selectedFood;
         if (food) {
             onSave(food);
-            if (newFood && !savedFoods.includes(newFood)) {
-                // Optionally: Add the new food to savedFoods if needed
-                // onSave(newFood); // Uncomment if you want to save new food items
-            }
             onClose();
         }
     };
 
     const handleDelete = (food) => {
-        onDeleteFood(food);
-        setSelectedFood(prev => prev === food ? '' : prev);
+        if (!food || !food.id) {
+            console.error("Food object does not have an ID:", food);
+            return;
+        }
+        onDeleteFood(food.id);
+        setSelectedFood(prev => (prev === food.name ? '' : prev));
     };
 
+
     const handleSelectFood = (food) => {
-        setSelectedFood(food);
+        setSelectedFood(food.name);
         setIsDropdownOpen(false);
     };
 
@@ -58,8 +59,8 @@ const AddFoodModal = ({ isOpen, onClose, onSave, savedFoods = [], onDeleteFood }
                         <div className="dropdown-menu">
                             {savedFoods.length === 0 && <div className="dropdown-item">No saved foods</div>}
                             {savedFoods.map(food => (
-                                <div key={food} className="dropdown-item" onClick={() => handleSelectFood(food)}>
-                                    <span>{food}</span>
+                                <div key={food.id} className="dropdown-item" onClick={() => handleSelectFood(food)}>
+                                    <span>{food.name}</span>
                                     <img
                                         src={trashIcon}
                                         alt="Delete"

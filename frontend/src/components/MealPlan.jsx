@@ -10,7 +10,7 @@ const MealPlan = () => {
     const [mealPlan, setMealPlan] = useState(null);
     const [selectedCell, setSelectedCell] = useState({});
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [savedFoods, setSavedFoods] = useState(["Pizza", "Salad", "Pasta", "Hamburger", "Croissant"].sort());
+    const [savedFoods, setSavedFoods] = useState([]);
 
     useEffect(() => {
         fetch(`${BackendUrl}/api/meal-plan`)
@@ -32,6 +32,13 @@ const MealPlan = () => {
                 setMealPlan(initialMealPlan);
             })
             .catch(error => console.error('Error fetching meal plan:', error));
+        fetch(`${BackendUrl}/api/foods`)
+            .then((response) => response.json())
+            .then((data) => {
+                setSavedFoods(data);
+                console.log(data);
+            })
+            .catch((error) => console.error('Error fetching foods:', error));
     }, []);
 
     const handleCellClick = (day, meal) => {
@@ -39,37 +46,49 @@ const MealPlan = () => {
         setIsModalOpen(true);
     };
 
-    const handleSaveFood = (food) => {
+    const handleSaveFood = (foodName) => {
         if (!selectedCell.day || !selectedCell.meal) {
             console.error('Selected cell information missing');
             return;
         }
 
+        const existingFood = savedFoods.find(food => food.name.toLowerCase() === foodName.toLowerCase());
+
         const updatedMealPlan = { ...mealPlan };
         const dayIndex = updatedMealPlan.mealDays.findIndex(d => d.name === selectedCell.day);
-        updatedMealPlan.mealDays[dayIndex][selectedCell.meal] = food;
+        updatedMealPlan.mealDays[dayIndex][selectedCell.meal] = foodName;
         setMealPlan(updatedMealPlan);
         setIsModalOpen(false);
 
-        fetch('/api/meal-plan/update', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ day: selectedCell.day, meal: selectedCell.meal, food })
-        }).catch(error => console.error('Error saving food:', error));
+        if (existingFood) {
+            console.log(`Food "${foodName}" already exists. Not adding to backend.`);
+            return;
+        }
 
-        setSavedFoods(prevFoods => {
-            const updatedFoods = [...prevFoods];
-            if (!updatedFoods.includes(food)) {
-                updatedFoods.push(food);
-            }
-            return updatedFoods.sort();
-        });
+        const foodData = {
+            name: foodName,
+            id: undefined,
+            description: undefined,
+            ingredients: []
+        };
+
+        fetch(`${BackendUrl}/api/foods`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(foodData)
+        })
+            .then(response => response.json())
+            .then(savedFood => {
+                setSavedFoods(prevFoods => [...prevFoods, savedFood].sort((a, b) => a.name.localeCompare(b.name)));
+            })
+            .catch(error => console.error('Error saving food:', error));
     };
 
+
+
+
     const handleDeleteFood = (foodId) => {
-        fetch(`/api/foods/${foodId}`, { method: 'DELETE' })
+        fetch(`${BackendUrl}/api/foods/${foodId}`, { method: 'DELETE' })
             .then(response => {
                 if (response.ok) {
                     console.log(`Food with id ${foodId} deleted successfully`);
@@ -80,7 +99,6 @@ const MealPlan = () => {
             })
             .catch(error => console.error(`Error deleting food with id ${foodId}:`, error));
     };
-
 
     const handleAddMeal = () => {
         const newMealName = prompt('Enter the name of the new meal:');
@@ -98,19 +116,17 @@ const MealPlan = () => {
     };
 
     const fetchSavedFoods = () => {
-        fetch('/api/foods')
+        fetch(`${BackendUrl}/api/foods`)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    return response.text().then(text => { throw new Error(`HTTP ${response.status}: ${text}`); });
                 }
                 return response.json();
             })
-            .then(data => {
-                // Update state with both id and name
-                setSavedFoods(data.map(food => ({ id: food.id, name: food.name })).sort((a, b) => a.name.localeCompare(b.name)));
-            })
-            .catch(error => console.error('Error fetching saved foods:', error));
+            .then(data => setSavedFoods(data))
+            .catch(error => console.error('Error fetching foods:', error));
     };
+
 
 
     useEffect(() => {
@@ -132,7 +148,7 @@ const MealPlan = () => {
     };
 
     const resetMealPlan = () => {
-        fetch('/api/meal-plan/reset', { method: 'POST' })
+        fetch(`${BackendUrl}/api/meal-plan/reset`, { method: 'POST' })
             .then(() => {
                 const updatedMealPlan = { ...mealPlan };
                 updatedMealPlan.mealDays = updatedMealPlan.mealDays.map(day => {
