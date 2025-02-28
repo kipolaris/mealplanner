@@ -13,7 +13,7 @@ class CorsConfig {
         val source = UrlBasedCorsConfigurationSource()
         val config = CorsConfiguration()
         config.allowCredentials = true
-        config.allowedOrigins = listOf("http://localhost:3000") // Allow frontend requests
+        config.allowedOrigins = listOf("http://localhost:3000") // Frontend requests
         config.allowedMethods = listOf("GET", "POST", "PUT", "DELETE", "OPTIONS")
         config.allowedHeaders = listOf("Authorization", "Content-Type")
         source.registerCorsConfiguration("/**", config)

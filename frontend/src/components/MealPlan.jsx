@@ -52,17 +52,23 @@ const MealPlan = () => {
             return;
         }
 
-        // Update meal plan state
+        const existingFood = savedFoods.find(food => food.name.toLowerCase() === foodName.toLowerCase());
+
         const updatedMealPlan = { ...mealPlan };
         const dayIndex = updatedMealPlan.mealDays.findIndex(d => d.name === selectedCell.day);
         updatedMealPlan.mealDays[dayIndex][selectedCell.meal] = foodName;
         setMealPlan(updatedMealPlan);
         setIsModalOpen(false);
 
+        if (existingFood) {
+            console.log(`Food "${foodName}" already exists. Not adding to backend.`);
+            return;
+        }
+
         const foodData = {
             name: foodName,
             id: undefined,
-            description: undefined, //food.description || null,
+            description: undefined,
             ingredients: []
         };
 
@@ -73,16 +79,11 @@ const MealPlan = () => {
         })
             .then(response => response.json())
             .then(savedFood => {
-                setSavedFoods(prevFoods => {
-                    const updatedFoods = [...prevFoods];
-                    if (!updatedFoods.some(f => f.name === savedFood.name)) {
-                        updatedFoods.push(savedFood);
-                    }
-                    return updatedFoods.sort();
-                });
+                setSavedFoods(prevFoods => [...prevFoods, savedFood].sort((a, b) => a.name.localeCompare(b.name)));
             })
             .catch(error => console.error('Error saving food:', error));
     };
+
 
 
 
