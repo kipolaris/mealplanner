@@ -4,10 +4,10 @@ import './static/css/meal-plan.css';
 import arrowUpIcon from './static/images/arrowpointingup.png';
 import arrowDownIcon from './static/images/arrowpointingdown.png';
 
-import { BackendUrl} from "../constants";
+import { BackendUrl } from "../constants";
 
 const MealPlan = () => {
-    const [mealPlan, setMealPlan] = useState(null);
+    const [mealPlan, setMealPlan] = useState({ mealDays: [] });
     const [selectedCell, setSelectedCell] = useState({});
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [savedFoods, setSavedFoods] = useState([]);
@@ -16,27 +16,14 @@ const MealPlan = () => {
         fetch(`${BackendUrl}/api/meal-plan`)
             .then(response => response.json())
             .then(data => {
-                const defaultMeals = ['breakfast', 'lunch', 'dinner'];
-                const initialMealPlan = {
-                    mealDays: [],
-                    meals: defaultMeals,
-                    ...data
-                };
-                initialMealPlan.mealDays = initialMealPlan.mealDays.map(day => ({
-                    ...day,
-                    ...defaultMeals.reduce((acc, meal) => {
-                        acc[meal] = '';
-                        return acc;
-                    }, {})
-                }));
-                setMealPlan(initialMealPlan);
+                console.log("Fetched meal plan data:", data);
+                setMealPlan(data || { mealDays: [] });
             })
             .catch(error => console.error('Error fetching meal plan:', error));
         fetch(`${BackendUrl}/api/foods`)
             .then((response) => response.json())
             .then((data) => {
                 setSavedFoods(data);
-                console.log(data);
             })
             .catch((error) => console.error('Error fetching foods:', error));
     }, []);
@@ -55,8 +42,9 @@ const MealPlan = () => {
         const existingFood = savedFoods.find(food => food.name.toLowerCase() === foodName.toLowerCase());
 
         const updatedMealPlan = { ...mealPlan };
-        const dayIndex = updatedMealPlan.mealDays.findIndex(d => d.name === selectedCell.day);
-        updatedMealPlan.mealDays[dayIndex][selectedCell.meal] = foodName;
+        const day = updatedMealPlan.mealDays.find(d => d.name === selectedCell.day.name);
+        const meal = day.meals.find(m => m.name === selectedCell.meal.name);
+        meal.food = foodName;
         setMealPlan(updatedMealPlan);
         setIsModalOpen(false);
 
@@ -84,14 +72,10 @@ const MealPlan = () => {
             .catch(error => console.error('Error saving food:', error));
     };
 
-
-
-
     const handleDeleteFood = (foodId) => {
         fetch(`${BackendUrl}/api/foods/${foodId}`, { method: 'DELETE' })
             .then(response => {
                 if (response.ok) {
-                    console.log(`Food with id ${foodId} deleted successfully`);
                     setSavedFoods(prevFoods => prevFoods.filter(f => f.id !== foodId));
                 } else {
                     console.error(`Failed to delete food with id ${foodId}`);
@@ -105,79 +89,28 @@ const MealPlan = () => {
         if (newMealName) {
             setMealPlan(prevMealPlan => {
                 const updatedMealPlan = { ...prevMealPlan };
-                updatedMealPlan.meals = [...prevMealPlan.meals, newMealName.toLowerCase()];
-                updatedMealPlan.mealDays = updatedMealPlan.mealDays.map(day => ({
-                    ...day,
-                    [newMealName.toLowerCase()]: ''
-                }));
+                updatedMealPlan.meals.push({ id: undefined, name: newMealName, foods: undefined });
                 return updatedMealPlan;
             });
         }
     };
 
-    const fetchSavedFoods = () => {
-        fetch(`${BackendUrl}/api/foods`)
-            .then(response => {
-                if (!response.ok) {
-                    return response.text().then(text => { throw new Error(`HTTP ${response.status}: ${text}`); });
-                }
-                return response.json();
-            })
-            .then(data => setSavedFoods(data))
-            .catch(error => console.error('Error fetching foods:', error));
-    };
-
-
-
-    useEffect(() => {
-        fetchSavedFoods();
-    }, []);
-
-    const viewMeal = (meal) => {
-        window.location.href = `/meal-view/${meal}`;
-    };
-
-    const showModal = (day, meal) => {
-        setSelectedCell({ day, meal });
-        setIsModalOpen(true);
-        fetchSavedFoods();
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
-
     const resetMealPlan = () => {
         fetch(`${BackendUrl}/api/meal-plan/reset`, { method: 'POST' })
             .then(() => {
-                const updatedMealPlan = { ...mealPlan };
-                updatedMealPlan.mealDays = updatedMealPlan.mealDays.map(day => {
-                    const newDay = { ...day };
-                    mealPlan.meals.forEach(meal => {
-                        newDay[meal] = '';
-                    });
-                    return newDay;
-                });
-                setMealPlan(updatedMealPlan);
+                setMealPlan(prevMealPlan => ({
+                    ...prevMealPlan,
+                    mealDays: prevMealPlan.mealDays.map(day => ({
+                        ...day,
+                        meals: day.meals.map(meal => ({ ...meal, food: '' }))
+                    }))
+                }));
             })
             .catch(error => console.error('Error resetting meal plan:', error));
     };
 
-    const moveMeal = (index, direction) => {
-        const updatedMeals = [...mealPlan.meals];
-        if (direction === 'up' && index > 0) {
-            [updatedMeals[index - 1], updatedMeals[index]] = [updatedMeals[index], updatedMeals[index - 1]];
-        } else if (direction === 'down' && index < updatedMeals.length - 1) {
-            [updatedMeals[index + 1], updatedMeals[index]] = [updatedMeals[index], updatedMeals[index + 1]];
-        }
-        setMealPlan(prevMealPlan => ({
-            ...prevMealPlan,
-            meals: updatedMeals
-        }));
-    };
-
-    if (!mealPlan || !mealPlan.mealDays || !mealPlan.meals) {
-        return <div>Loading...</div>;
+    if (!mealPlan?.mealDays || mealPlan.mealDays.length === 0) {
+        return <div>Loading meal plan...</div>;
     }
 
     return (
@@ -191,36 +124,18 @@ const MealPlan = () => {
                             <th>
                                 <button className="orange-button" onClick={resetMealPlan}>Reset</button>
                             </th>
-                            {mealPlan.mealDays.map((day, index) => (
+                            {mealPlan.mealDays?.map((day, index) => (
                                 <th key={index}>{day.name}</th>
                             ))}
                         </tr>
                         </thead>
                         <tbody>
-                        {mealPlan.meals.map((meal, index) => (
+                        {mealPlan.mealDays?.length > 0 && mealPlan.mealDays[0]?.meals?.map((meal, index) => (
                             <tr key={index}>
-                                <td className="meal-name-cell">
-                                    <div className="meal-name-container">
-                                        <span className="meal-name">{meal.charAt(0).toUpperCase() + meal.slice(1)}</span>
-                                        <div className="arrow-buttons">
-                                            <img
-                                                src={arrowUpIcon}
-                                                alt="Move Up"
-                                                className="arrow-button"
-                                                onClick={() => moveMeal(index, 'up')}
-                                            />
-                                            <img
-                                                src={arrowDownIcon}
-                                                alt="Move Down"
-                                                className="arrow-button"
-                                                onClick={() => moveMeal(index, 'down')}
-                                            />
-                                        </div>
-                                    </div>
-                                </td>
+                                <td className="meal-name-cell">{meal.name}</td>
                                 {mealPlan.mealDays.map((day, idx) => (
-                                    <td key={idx} className="food-item" onClick={() => showModal(day.name, meal)}>
-                                        <button>{day[meal] || ''}</button>
+                                    <td key={idx} className="food-item" onClick={() => handleCellClick(day, meal)}>
+                                        <button>{meal.food || ''}</button>
                                     </td>
                                 ))}
                             </tr>
@@ -236,12 +151,11 @@ const MealPlan = () => {
             </div>
             <AddFoodModal
                 isOpen={isModalOpen}
-                onClose={closeModal}
+                onClose={() => setIsModalOpen(false)}
                 onSave={handleSaveFood}
                 savedFoods={savedFoods}
                 onDeleteFood={handleDeleteFood}
             />
-
         </div>
     );
 };
