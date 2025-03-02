@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="394f1832-2bd8-4dcd-b968-3262c9a548d2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Controllers/MealDayController.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Service/MealDayService.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Config/CrossConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Config/CorsConfig.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/MealPlan.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/MealPlan.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,6 +179,7 @@
       <workItem from="1740421806246" duration="123000" />
       <workItem from="1740421966473" duration="8035000" />
       <workItem from="1740729689675" duration="1181000" />
+      <workItem from="1740853202121" duration="1188000" />
     </task>
     <servers />
   </component>
