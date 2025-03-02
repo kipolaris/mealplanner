@@ -89,7 +89,12 @@ const MealPlan = () => {
         if (newMealName) {
             setMealPlan(prevMealPlan => {
                 const updatedMealPlan = { ...prevMealPlan };
+                if (!updatedMealPlan.meals) {
+                    updatedMealPlan.meals = []; // Ensure it's an array
+                }
                 updatedMealPlan.meals.push({ id: undefined, name: newMealName, foods: undefined });
+                console.log('Updated meals:', updatedMealPlan.meals)
+                console.log('Updated meal plan:', updatedMealPlan)
                 return updatedMealPlan;
             });
         }

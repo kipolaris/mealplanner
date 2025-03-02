@@ -1,5 +1,5 @@
-let currentDay = undefined;
-let currentMeal = undefined;
+let currentDay;
+let currentMeal;
 
 /**
  * Show the modal for adding or selecting food.
