@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import AddFoodModal from './AddFoodModal';
 import './static/css/meal-plan.css';
-import arrowUpIcon from './static/images/arrowpointingup.png';
-import arrowDownIcon from './static/images/arrowpointingdown.png';
 
-import { BackendUrl } from "../constants";
+import {BackendUrl} from "../constants";
 
 const MealPlan = () => {
     const [mealPlan, setMealPlan] = useState({ mealDays: [] });
@@ -41,24 +39,30 @@ const MealPlan = () => {
 
         const existingFood = savedFoods.find(food => food.name.toLowerCase() === foodName.toLowerCase());
 
-        const updatedMealPlan = { ...mealPlan };
-        const day = updatedMealPlan.mealDays.find(d => d.name === selectedCell.day.name);
-        const meal = day.meals.find(m => m.name === selectedCell.meal.name);
-        meal.food = foodName;
-        setMealPlan(updatedMealPlan);
-        setIsModalOpen(false);
-
-        if (existingFood) {
-            console.log(`Food "${foodName}" already exists. Not adding to backend.`);
-            return;
-        }
-
         const foodData = {
             name: foodName,
             id: undefined,
             description: undefined,
             ingredients: []
         };
+
+        const updatedMealPlan = { ...mealPlan };
+        const day = updatedMealPlan.mealDays.find(d => d.name === selectedCell.day.name);
+        console.log('Day:', day.name);
+        const mealToUpdate = day.meals.find(m => m.name === selectedCell.meal.name);
+        if (mealToUpdate.foods.find(food => food.name.toLowerCase() === foodName.toLowerCase())) {
+            mealToUpdate.foods = [...mealToUpdate.foods.filter(food => food.name.toLowerCase() !== foodName.toLowerCase()), existingFood];
+        } else {
+            mealToUpdate.foods = [...mealToUpdate.foods, existingFood || foodData ];
+        }
+        setMealPlan(updatedMealPlan);
+        console.log('Updated meal plan:', updatedMealPlan)
+        setIsModalOpen(false);
+
+        if (existingFood) {
+            console.log(`Food ${foodName} already exists. Not adding to backend.`);
+            return;
+        }
 
         fetch(`${BackendUrl}/api/foods`, {
             method: 'POST',
@@ -77,6 +81,15 @@ const MealPlan = () => {
             .then(response => {
                 if (response.ok) {
                     setSavedFoods(prevFoods => prevFoods.filter(f => f.id !== foodId));
+                    const updatedMealPlan = { ...mealPlan };
+                    updatedMealPlan.mealDays.forEach(day => {
+                        day.meals.forEach(meal => {
+                            meal.foods = meal.foods.filter(f => f.id !== foodId);
+                        });
+                    });
+                    setMealPlan(updatedMealPlan);
+
+                    console.log('Food deleted successfully');
                 } else {
                     console.error(`Failed to delete food with id ${foodId}`);
                 }
@@ -88,28 +101,31 @@ const MealPlan = () => {
         const newMealName = prompt('Enter the name of the new meal:');
         if (newMealName) {
             setMealPlan(prevMealPlan => {
-                const updatedMealPlan = { ...prevMealPlan };
-                if (!updatedMealPlan.meals) {
-                    updatedMealPlan.meals = []; // Ensure it's an array
-                }
-                updatedMealPlan.meals.push({ id: undefined, name: newMealName, foods: undefined });
-                console.log('Updated meals:', updatedMealPlan.meals)
-                console.log('Updated meal plan:', updatedMealPlan)
-                return updatedMealPlan;
+                return {
+                    ...prevMealPlan,
+                    mealDays: prevMealPlan.mealDays.map(day => ({
+                        ...day,
+                        meals: [...(day.meals || []), { id: undefined, name: newMealName, foods: [] }]
+                    })),
+                };
             });
         }
+
     };
 
     const resetMealPlan = () => {
         fetch(`${BackendUrl}/api/meal-plan/reset`, { method: 'POST' })
-            .then(() => {
-                setMealPlan(prevMealPlan => ({
-                    ...prevMealPlan,
-                    mealDays: prevMealPlan.mealDays.map(day => ({
-                        ...day,
-                        meals: day.meals.map(meal => ({ ...meal, food: '' }))
-                    }))
-                }));
+            .then(response => {
+                if (response.ok) {
+                    setMealPlan(prevMealPlan => ({
+                        ...prevMealPlan,
+                        mealDays: prevMealPlan.mealDays.map(day => ({
+                            ...day,
+                            meals: day.meals.map(meal => ({ ...meal, foods: [] })) // Clear all foods in each meal
+                        }))
+                    }));
+                    console.log('Meal plan reset successfully', mealPlan);
+                }
             })
             .catch(error => console.error('Error resetting meal plan:', error));
     };
@@ -140,8 +156,11 @@ const MealPlan = () => {
                                 <td className="meal-name-cell">{meal.name}</td>
                                 {mealPlan.mealDays.map((day, idx) => (
                                     <td key={idx} className="food-item" onClick={() => handleCellClick(day, meal)}>
-                                        <button>{meal.food || ''}</button>
+                                        <button>
+                                            {meal.foods.length > 0 ? meal.foods[meal.foods.length - 1].name : ''}
+                                        </button>
                                     </td>
+
                                 ))}
                             </tr>
                         ))}
