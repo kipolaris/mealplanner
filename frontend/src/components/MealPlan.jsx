@@ -62,11 +62,7 @@ const MealPlan = () => {
             ingredients: []
         };
 
-        mealToUpdate.foods = [
-            ...mealToUpdate.foods.filter(food => food.name.toLowerCase() !== foodName.toLowerCase()),
-            { name: foodName }
-        ];
-
+        mealToUpdate.foods[selectedCell.day.name] = { name: foodName };
 
         setMealPlan(updatedMealPlan);
         console.log('Updated meal plan:', updatedMealPlan)
@@ -98,11 +94,14 @@ const MealPlan = () => {
                     const updatedMealPlan = { ...mealPlan };
                     updatedMealPlan.mealDays.forEach(day => {
                         day.meals.forEach(meal => {
-                            meal.foods = meal.foods.filter(f => f.id !== foodId);
+                            Object.keys(meal.foods).forEach(mealDayKey => {
+                                if (meal.foods[mealDayKey].id === foodId) {
+                                    delete meal.foods[mealDayKey];
+                                }
+                            });
                         });
                     });
                     setMealPlan(updatedMealPlan);
-
                     console.log('Food deleted successfully');
                 } else {
                     console.error(`Failed to delete food with id ${foodId}`);
@@ -169,11 +168,11 @@ const MealPlan = () => {
                                 <tr key={index}>
                                     <td className="meal-name-cell">{meal.name}</td>
                                     {mealPlan.mealDays.map((day, idx) => {
-                                        const mealInDay = day.meals.find(m => m.id === meal.id);
+                                        const foodForDay = meal.foods[day.name];
                                         return (
                                             <td key={idx} className="food-item" onClick={() => handleCellClick(day, meal)}>
                                                 <button>
-                                                    {mealInDay?.foods.length > 0 ? mealInDay.foods[mealInDay.foods.length - 1].name : ''}
+                                                    {foodForDay ? foodForDay.name : ''}
                                                 </button>
                                             </td>
                                         );

@@ -5,16 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="394f1832-2bd8-4dcd-b968-3262c9a548d2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/2/e/2e84f6c3c1c0c3e463df66a07fbb4fbc58995090" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/2/e/2e84f6c3c1c0c3e463df66a07fbb4fbc58995090" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/9/b/9bf751a5704631c2b063176b3642e1e0999e6325" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/9/b/9bf751a5704631c2b063176b3642e1e0999e6325" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/e/4/e45390c91d31421338f79cebc08e3b08e4510257" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/e/4/e45390c91d31421338f79cebc08e3b08e4510257" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Controllers/MealController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Controllers/MealController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Data/Meal.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Data/Meal.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Service/MealPlanService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Service/MealPlanService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Service/MealService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Service/MealService.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/MealPlan.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/MealPlan.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -123,7 +114,7 @@
       <command value="gradle :clean" />
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.MealplannerApplication">
+  <component name="RunManager" selected="Compound.MealPlanner fullstack">
     <configuration name="MealPlanner fullstack" type="CompoundRunConfigurationType">
       <toRun name="run_frontend" type="js.build_tools.npm" />
       <toRun name="MealplannerApplication" type="SpringBootApplicationConfigurationType" />
@@ -280,7 +271,7 @@
       <workItem from="1741094607179" duration="2251000" />
       <workItem from="1741705337297" duration="521000" />
       <workItem from="1741705885901" duration="276000" />
-      <workItem from="1741706347734" duration="2683000" />
+      <workItem from="1741706347734" duration="3291000" />
     </task>
     <servers />
   </component>
