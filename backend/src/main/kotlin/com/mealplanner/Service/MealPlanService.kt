@@ -3,11 +3,11 @@ package com.mealplanner.Service
 import com.mealplanner.Data.MealDay
 import com.mealplanner.Data.Meal
 import com.mealplanner.Data.MealPlan
+import com.mealplanner.Data.Food
 import com.mealplanner.Repositories.MealDayRepository
 import com.mealplanner.Repositories.MealPlanRepository
 import com.mealplanner.Repositories.MealRepository
 import org.springframework.stereotype.Service
-import java.util.*
 
 @Service
 class MealPlanService(
@@ -39,12 +39,10 @@ class MealPlanService(
         }.toMutableList().also { mealDayRepository.saveAll(it) }
     }
 
-
-
     fun resetMealPlan(): MealPlan {
         val mealPlan = getMealPlan()
         mealPlan.mealDays.forEach { day ->
-            day.meals.clear()
+            day.meals.forEach { it.foods.clear() }
         }
         mealDayRepository.saveAll(mealPlan.mealDays)
         return mealPlanRepository.save(mealPlan)
@@ -52,7 +50,7 @@ class MealPlanService(
 
     fun resetMealDay(dayId: Long): MealDay? {
         val day = mealDayRepository.findById(dayId).orElse(null) ?: return null
-        day.meals.clear()
+        day.meals.forEach { it.foods.clear() }
         return mealDayRepository.save(day)
     }
 
@@ -62,7 +60,7 @@ class MealPlanService(
 
         val existingMeal = day.meals.find { it.name.equals(mealType, ignoreCase = true) }
         if (existingMeal != null) {
-            existingMeal.foods = savedMeal.foods
+            existingMeal.foods.putAll(savedMeal.foods)
         } else {
             day.meals.add(savedMeal)
         }
@@ -74,9 +72,8 @@ class MealPlanService(
         val day = mealDayRepository.findById(dayId).orElse(null) ?: return null
         val meal = day.meals.find { it.name.equals(mealType, ignoreCase = true) } ?: return null
 
-        meal.foods.removeIf { it.id == foodId }
+        meal.foods.entries.removeIf { it.value.id == foodId }
         mealRepository.save(meal)
         return mealDayRepository.save(day)
     }
 }
-

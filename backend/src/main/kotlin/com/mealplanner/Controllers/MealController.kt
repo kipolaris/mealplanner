@@ -46,9 +46,24 @@ class MealController(private val mealService: MealService) {
         }
     }
 
-    @PostMapping("/{id}/foods")
-    fun addFoodToMeal(@PathVariable id: Long, @RequestBody food: Food): ResponseEntity<Meal> {
-        return mealService.addFoodToMeal(id, food)?.let {
+    @PostMapping("/{mealId}/foods/{mealDayId}")
+    fun addFoodToMeal(
+        @PathVariable mealId: Long,
+        @PathVariable mealDayId: Long,
+        @RequestBody food: Food
+    ): ResponseEntity<Meal> {
+        return mealService.addFoodToMeal(mealId, mealDayId, food)?.let {
+            ResponseEntity.ok(it)
+        } ?: ResponseEntity.notFound().build()
+    }
+
+    @DeleteMapping("/{mealId}/foods/{mealDayId}/{foodId}")
+    fun removeFoodFromMeal(
+        @PathVariable mealId: Long,
+        @PathVariable mealDayId: Long,
+        @PathVariable foodId: Long
+    ): ResponseEntity<Meal> {
+        return mealService.removeFoodFromMeal(mealId, mealDayId, foodId)?.let {
             ResponseEntity.ok(it)
         } ?: ResponseEntity.notFound().build()
     }

@@ -5,12 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="394f1832-2bd8-4dcd-b968-3262c9a548d2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/2/e/2e84f6c3c1c0c3e463df66a07fbb4fbc58995090" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/2/e/2e84f6c3c1c0c3e463df66a07fbb4fbc58995090" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/9/b/9bf751a5704631c2b063176b3642e1e0999e6325" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/9/b/9bf751a5704631c2b063176b3642e1e0999e6325" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/e/4/e45390c91d31421338f79cebc08e3b08e4510257" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/e/4/e45390c91d31421338f79cebc08e3b08e4510257" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Controllers/MealController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Controllers/MealController.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Data/Meal.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Data/Meal.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Data/MealDay.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Data/MealDay.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Service/MealPlanService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Service/MealPlanService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Service/MealService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Service/MealService.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/MealPlan.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/MealPlan.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/templates/meal-plan.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/templates/meal-plan.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,9 +33,28 @@
         <task path="$PROJECT_DIR$/backend">
           <activation />
         </task>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="mealplanner" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="mealplanner" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="mealplanner" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -99,10 +123,31 @@
       <command value="gradle :clean" />
     </option>
   </component>
-  <component name="RunManager" selected="Compound.MealPlanner fullstack">
+  <component name="RunManager" selected="Spring Boot.MealplannerApplication">
     <configuration name="MealPlanner fullstack" type="CompoundRunConfigurationType">
       <toRun name="run_frontend" type="js.build_tools.npm" />
       <toRun name="MealplannerApplication" type="SpringBootApplicationConfigurationType" />
+      <method v="2" />
+    </configuration>
+    <configuration name="C:/Users/csuto/programming/mealplanner [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
     <configuration name="backend [:clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -117,6 +162,48 @@
         <option name="taskNames">
           <list>
             <option value=":clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="backend [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/backend" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="backend [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/backend" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -142,12 +229,18 @@
     </configuration>
     <list>
       <item itemvalue="Compound.MealPlanner fullstack" />
+      <item itemvalue="Gradle.backend [build]" />
+      <item itemvalue="Gradle.C:/Users/csuto/programming/mealplanner [clean]" />
+      <item itemvalue="Gradle.backend [clean]" />
       <item itemvalue="Gradle.backend [:clean]" />
       <item itemvalue="npm.run_frontend" />
       <item itemvalue="Spring Boot.MealplannerApplication" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.backend [build]" />
+        <item itemvalue="Gradle.backend [clean]" />
+        <item itemvalue="Gradle.C:/Users/csuto/programming/mealplanner [clean]" />
         <item itemvalue="Gradle.backend [:clean]" />
       </list>
     </recent_temporary>
@@ -183,7 +276,11 @@
       <workItem from="1740421966473" duration="8035000" />
       <workItem from="1740729689675" duration="1181000" />
       <workItem from="1740853202121" duration="10359000" />
-      <workItem from="1740987666190" duration="12876000" />
+      <workItem from="1740987666190" duration="16862000" />
+      <workItem from="1741094607179" duration="2251000" />
+      <workItem from="1741705337297" duration="521000" />
+      <workItem from="1741705885901" duration="276000" />
+      <workItem from="1741706347734" duration="2683000" />
     </task>
     <servers />
   </component>

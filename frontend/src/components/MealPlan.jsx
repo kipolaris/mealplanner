@@ -37,6 +37,22 @@ const MealPlan = () => {
             return;
         }
 
+        const updatedMealPlan = { ...mealPlan };
+
+        const day = updatedMealPlan.mealDays.find(d => d.name === selectedCell.day.name);
+        if (!day) {
+            console.error(`Day ${selectedCell.day.name} not found in meal plan`);
+            return;
+        }
+        console.log('Day:', day.name);
+
+        const mealToUpdate = day.meals.find(m => m.name === selectedCell.meal.name);
+        if (!mealToUpdate) {
+            console.error(`Meal ${selectedCell.meal.name} not found in selected day`,day.meals);
+            return;
+        }
+        console.log('Meal to update:', mealToUpdate.name);
+
         const existingFood = savedFoods.find(food => food.name.toLowerCase() === foodName.toLowerCase());
 
         const foodData = {
@@ -46,17 +62,15 @@ const MealPlan = () => {
             ingredients: []
         };
 
-        const updatedMealPlan = { ...mealPlan };
-        const day = updatedMealPlan.mealDays.find(d => d.name === selectedCell.day.name);
-        console.log('Day:', day.name);
-        const mealToUpdate = day.meals.find(m => m.name === selectedCell.meal.name);
-        if (mealToUpdate.foods.find(food => food.name.toLowerCase() === foodName.toLowerCase())) {
-            mealToUpdate.foods = [...mealToUpdate.foods.filter(food => food.name.toLowerCase() !== foodName.toLowerCase()), existingFood];
-        } else {
-            mealToUpdate.foods = [...mealToUpdate.foods, existingFood || foodData ];
-        }
+        mealToUpdate.foods = [
+            ...mealToUpdate.foods.filter(food => food.name.toLowerCase() !== foodName.toLowerCase()),
+            { name: foodName }
+        ];
+
+
         setMealPlan(updatedMealPlan);
         console.log('Updated meal plan:', updatedMealPlan)
+
         setIsModalOpen(false);
 
         if (existingFood) {
@@ -117,18 +131,18 @@ const MealPlan = () => {
         fetch(`${BackendUrl}/api/meal-plan/reset`, { method: 'POST' })
             .then(response => {
                 if (response.ok) {
-                    setMealPlan(prevMealPlan => ({
-                        ...prevMealPlan,
-                        mealDays: prevMealPlan.mealDays.map(day => ({
-                            ...day,
-                            meals: day.meals.map(meal => ({ ...meal, foods: [] })) // Clear all foods in each meal
-                        }))
-                    }));
-                    console.log('Meal plan reset successfully', mealPlan);
+                    return fetch(`${BackendUrl}/api/meal-plan`);
                 }
+                throw new Error('Failed to reset meal plan');
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Reset meal plan successfully', data);
+                setMealPlan(data);
             })
             .catch(error => console.error('Error resetting meal plan:', error));
     };
+
 
     if (!mealPlan?.mealDays || mealPlan.mealDays.length === 0) {
         return <div>Loading meal plan...</div>;
@@ -151,24 +165,26 @@ const MealPlan = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        {mealPlan.mealDays?.length > 0 && mealPlan.mealDays[0]?.meals?.map((meal, index) => (
-                            <tr key={index}>
-                                <td className="meal-name-cell">{meal.name}</td>
-                                {mealPlan.mealDays.map((day, idx) => (
-                                    <td key={idx} className="food-item" onClick={() => handleCellClick(day, meal)}>
-                                        <button>
-                                            {meal.foods.length > 0 ? meal.foods[meal.foods.length - 1].name : ''}
-                                        </button>
+                            {mealPlan.mealDays?.[0]?.meals?.map((meal, index) => (
+                                <tr key={index}>
+                                    <td className="meal-name-cell">{meal.name}</td>
+                                    {mealPlan.mealDays.map((day, idx) => {
+                                        const mealInDay = day.meals.find(m => m.id === meal.id);
+                                        return (
+                                            <td key={idx} className="food-item" onClick={() => handleCellClick(day, meal)}>
+                                                <button>
+                                                    {mealInDay?.foods.length > 0 ? mealInDay.foods[mealInDay.foods.length - 1].name : ''}
+                                                </button>
+                                            </td>
+                                        );
+                                    })}
+                                </tr>
+                            ))}
+                                <tr>
+                                    <td colSpan={mealPlan.mealDays.length + 1}>
+                                        <button className="orange-button" onClick={handleAddMeal}>Add new meal</button>
                                     </td>
-
-                                ))}
-                            </tr>
-                        ))}
-                        <tr>
-                            <td colSpan={mealPlan.mealDays.length + 1}>
-                                <button className="orange-button" onClick={handleAddMeal}>Add new meal</button>
-                            </td>
-                        </tr>
+                                </tr>
                         </tbody>
                     </table>
                 </div>

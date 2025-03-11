@@ -13,6 +13,6 @@ data class Meal(
         joinColumns = [JoinColumn(name = "meal_id")],
         inverseJoinColumns = [JoinColumn(name = "food_id")]
     )
-    var foods: MutableList<Food> = mutableListOf()
+    var foods: MutableMap<MealDay,Food> = mutableMapOf()
 )
 
