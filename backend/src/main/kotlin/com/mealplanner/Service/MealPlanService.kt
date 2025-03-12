@@ -3,7 +3,6 @@ package com.mealplanner.Service
 import com.mealplanner.Data.MealDay
 import com.mealplanner.Data.Meal
 import com.mealplanner.Data.MealPlan
-import com.mealplanner.Data.Food
 import com.mealplanner.Repositories.MealDayRepository
 import com.mealplanner.Repositories.MealPlanRepository
 import com.mealplanner.Repositories.MealRepository
@@ -41,9 +40,13 @@ class MealPlanService(
 
     fun resetMealPlan(): MealPlan {
         val mealPlan = getMealPlan()
+
         mealPlan.mealDays.forEach { day ->
-            day.meals.forEach { it.foods.clear() }
+            day.meals.forEach { meal ->
+                meal.foods.clear()
+            }
         }
+
         mealDayRepository.saveAll(mealPlan.mealDays)
         return mealPlanRepository.save(mealPlan)
     }
@@ -68,11 +71,12 @@ class MealPlanService(
         return mealDayRepository.save(day)
     }
 
-    fun removeFoodFromMeal(dayId: Long, mealType: String, foodId: Long): MealDay? {
+    fun removeFoodFromMeal(dayId: Long, mealId: Long, foodId: Long): MealDay? {
         val day = mealDayRepository.findById(dayId).orElse(null) ?: return null
-        val meal = day.meals.find { it.name.equals(mealType, ignoreCase = true) } ?: return null
+        val meal = day.meals.find { it.id == mealId }?: return null
 
         meal.foods.entries.removeIf { it.value.id == foodId }
+
         mealRepository.save(meal)
         return mealDayRepository.save(day)
     }

@@ -2,6 +2,7 @@ package com.mealplanner.Controllers
 
 import com.mealplanner.Data.Food
 import com.mealplanner.Data.Meal
+import com.mealplanner.Data.MealDay
 import com.mealplanner.Service.MealService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -25,8 +26,9 @@ class MealController(private val mealService: MealService) {
     }
 
     @PostMapping
-    fun createMeal(@RequestBody meal: Meal): ResponseEntity<Meal> {
-        val createdMeal = mealService.createMeal(meal)
+    fun createMeal(@RequestBody meal: Map<String, Any>): ResponseEntity<Meal?> {
+        println("Received meal: $meal")
+        //TODO COOK
         return ResponseEntity.status(HttpStatus.CREATED).body(createdMeal)
     }
 
@@ -38,7 +40,7 @@ class MealController(private val mealService: MealService) {
     }
 
     @DeleteMapping("/{id}")
-    fun deleteMeal(@PathVariable id: Long): ResponseEntity<Void> {
+    fun deleteMeal(@PathVariable id: Long): ResponseEntity<Unit> {
         return if (mealService.deleteMeal(id)) {
             ResponseEntity.noContent().build()
         } else {

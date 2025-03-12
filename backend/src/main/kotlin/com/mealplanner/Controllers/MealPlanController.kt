@@ -29,9 +29,9 @@ class MealPlanController(private val mealPlanService: MealPlanService) {
         } ?: ResponseEntity.notFound().build()
     }
 
-    @DeleteMapping("/days/{dayId}/meals/{mealType}/foods/{foodId}")
-    fun removeFoodFromMeal(@PathVariable dayId: Long, @PathVariable mealType: String, @PathVariable foodId: Long): ResponseEntity<MealDay> {
-        return mealPlanService.removeFoodFromMeal(dayId, mealType, foodId)?.let {
+    @DeleteMapping("/days/{dayId}/meals/{mealId}/foods/{foodId}")
+    fun removeFoodFromMeal(@PathVariable dayId: Long, @PathVariable mealId: Long, @PathVariable foodId: Long): ResponseEntity<MealDay> {
+        return mealPlanService.removeFoodFromMeal(dayId, mealId, foodId)?.let {
             ResponseEntity.ok(it)
         } ?: ResponseEntity.notFound().build()
     }

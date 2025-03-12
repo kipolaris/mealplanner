@@ -112,18 +112,30 @@ const MealPlan = () => {
 
     const handleAddMeal = () => {
         const newMealName = prompt('Enter the name of the new meal:');
-        if (newMealName) {
-            setMealPlan(prevMealPlan => {
-                return {
-                    ...prevMealPlan,
-                    mealDays: prevMealPlan.mealDays.map(day => ({
-                        ...day,
-                        meals: [...(day.meals || []), { id: undefined, name: newMealName, foods: [] }]
-                    })),
-                };
-            });
+        const mealData = {
+            name: newMealName,
+            foods: {}
         }
 
+        fetch(`${BackendUrl}/api/meals`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(mealData)
+        })
+            .then(response => response.json())
+            .then(() =>
+                {
+                    setMealPlan(prevMealPlan => ({
+                       ...prevMealPlan,
+                        mealDays: prevMealPlan.mealDays.map(day => ({
+                            ...day,
+                            meals: [...(day.meals || []), mealData]
+                        })),
+                    }));
+                    console.log('Added new meal successfully:' + JSON.stringify(mealData));
+                    console.log('New meal plan:', mealPlan)
+                })
+               .catch(error => console.error('Error adding meal:', error))
     };
 
     const resetMealPlan = () => {
@@ -168,9 +180,10 @@ const MealPlan = () => {
                                 <tr key={index}>
                                     <td className="meal-name-cell">{meal.name}</td>
                                     {mealPlan.mealDays.map((day, idx) => {
-                                        const foodForDay = meal.foods[day.name];
+                                        const mealForDay = day.meals.find((m) => m.name === meal.name);
+                                        const foodForDay = mealForDay.foods[day.name];
                                         return (
-                                            <td key={idx} className="food-item" onClick={() => handleCellClick(day, meal)}>
+                                            <td key={idx} className="food-item" onClick={() => handleCellClick(day, mealForDay)}>
                                                 <button>
                                                     {foodForDay ? foodForDay.name : ''}
                                                 </button>

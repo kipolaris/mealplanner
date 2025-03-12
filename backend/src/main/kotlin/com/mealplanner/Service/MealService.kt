@@ -2,7 +2,6 @@ package com.mealplanner.Service
 
 import com.mealplanner.Data.Food
 import com.mealplanner.Data.Meal
-import com.mealplanner.Data.MealDay
 import com.mealplanner.Repositories.FoodRepository
 import com.mealplanner.Repositories.MealRepository
 import com.mealplanner.Repositories.MealDayRepository
