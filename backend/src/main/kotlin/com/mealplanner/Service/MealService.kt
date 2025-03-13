@@ -4,14 +4,14 @@ import com.mealplanner.Data.Food
 import com.mealplanner.Data.Meal
 import com.mealplanner.Repositories.FoodRepository
 import com.mealplanner.Repositories.MealRepository
-import com.mealplanner.Repositories.MealDayRepository
+import com.mealplanner.Repositories.DayRepository
 import org.springframework.stereotype.Service
 
 @Service
 class MealService(
     private val mealRepository: MealRepository,
     private val foodRepository: FoodRepository,
-    private val mealDayRepository: MealDayRepository
+    private val dayRepository: DayRepository
 ) {
 
     fun getAllMeals(): List<Meal> {
@@ -43,18 +43,15 @@ class MealService(
         }
     }
 
-    fun addFoodToMeal(mealId: Long, dayId: Long, food: Food): Meal? {
+    fun addFoodToMeal(mealId: Long, food: Food): Meal? {
         val meal = mealRepository.findById(mealId).orElse(null) ?: return null
-        val mealDay = mealDayRepository.findById(dayId).orElse(null) ?: return null
-        val existingFood = foodRepository.findByName(food.name) ?: foodRepository.save(food)
-        meal.foods[mealDay] = existingFood
+        meal.foods += food
         return mealRepository.save(meal)
     }
 
-    fun removeFoodFromMeal(mealId: Long, dayId: Long, foodId: Long): Meal? {
+    fun removeFoodFromMeal(mealId: Long, foodId: Long): Meal? {
         val meal = mealRepository.findById(mealId).orElse(null) ?: return null
-        val mealDay = mealDayRepository.findById(dayId).orElse(null) ?: return null
-        meal.foods.entries.removeIf { it.key == mealDay && it.value.id == foodId }
+        meal.foods.removeIf { it.id == foodId }
         return mealRepository.save(meal)
     }
 }

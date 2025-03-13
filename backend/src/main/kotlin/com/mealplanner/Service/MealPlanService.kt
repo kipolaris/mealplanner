@@ -1,83 +1,88 @@
 package com.mealplanner.Service
 
-import com.mealplanner.Data.MealDay
+import com.mealplanner.Data.Day
+import com.mealplanner.Data.MealTime
 import com.mealplanner.Data.Meal
 import com.mealplanner.Data.MealPlan
-import com.mealplanner.Repositories.MealDayRepository
+import com.mealplanner.Repositories.DayRepository
 import com.mealplanner.Repositories.MealPlanRepository
 import com.mealplanner.Repositories.MealRepository
+import com.mealplanner.Repositories.MealTimeRepository
 import org.springframework.stereotype.Service
 
 @Service
 class MealPlanService(
     private val mealPlanRepository: MealPlanRepository,
-    private val mealDayRepository: MealDayRepository,
-    private val mealRepository: MealRepository
+    private val dayRepository: DayRepository,
+    private val mealRepository: MealRepository,
+    private val mealTimeRepository: MealTimeRepository
 ) {
     private val mealPlanId = 1L // Singleton ID
 
     fun getMealPlan(): MealPlan {
         return mealPlanRepository.findById(mealPlanId).orElseGet {
-            val mealPlan = MealPlan(id = mealPlanId, mealDays = initializeDays())
+            val mealPlan = MealPlan(id = mealPlanId, days = initializeDays(), mealTimes = initializeMealTimes())
             mealPlanRepository.save(mealPlan)
         }
     }
 
-    private fun initializeDays(): MutableList<MealDay> {
+    private fun initializeMealTimes(): MutableList<MealTime> {
+        val basicMealTimes = listOf("Breakfast", "Lunch", "Dinner")
+        return basicMealTimes.map {
+            MealTime(name = it)
+        }.toMutableList()
+    }
+    private fun initializeDays(): MutableList<Day> {
         val daysOfWeek = listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
 
         return daysOfWeek.map { dayName ->
-            MealDay(
+            Day(
                 name = dayName,
-                meals = mutableListOf(
-                    mealRepository.save(Meal(name = "Breakfast")),
-                    mealRepository.save(Meal(name = "Lunch")),
-                    mealRepository.save(Meal(name = "Dinner"))
-                )
+                id = 0
             )
-        }.toMutableList().also { mealDayRepository.saveAll(it) }
+        }.let { dayRepository.saveAll(it) }
     }
 
     fun resetMealPlan(): MealPlan {
         val mealPlan = getMealPlan()
 
-        mealPlan.mealDays.forEach { day ->
+        mealPlan.days.forEach { day ->
             day.meals.forEach { meal ->
                 meal.foods.clear()
             }
         }
 
-        mealDayRepository.saveAll(mealPlan.mealDays)
+        dayRepository.saveAll(mealPlan.days)
         return mealPlanRepository.save(mealPlan)
     }
 
-    fun resetMealDay(dayId: Long): MealDay? {
-        val day = mealDayRepository.findById(dayId).orElse(null) ?: return null
+    fun resetMealDay(dayId: Long): Day? {
+        val day = dayRepository.findById(dayId).orElse(null) ?: return null
         day.meals.forEach { it.foods.clear() }
-        return mealDayRepository.save(day)
+        return dayRepository.save(day)
     }
 
-    fun updateMealInDay(dayId: Long, mealType: String, meal: Meal): MealDay? {
-        val day = mealDayRepository.findById(dayId).orElse(null) ?: return null
+    fun updateMealInDay(dayId: Long, mealType: String, meal: Meal): Day? {
+        val day = dayRepository.findById(dayId).orElse(null) ?: return null
         val savedMeal = mealRepository.save(meal)
 
-        val existingMeal = day.meals.find { it.name.equals(mealType, ignoreCase = true) }
-        if (existingMeal != null) {
-            existingMeal.foods.putAll(savedMeal.foods)
+       val existingMeal = day.meals.find { it.mealTime.name.equals(mealType, ignoreCase = true) }
+       if (existingMeal != null) {
+            existingMeal.foods += savedMeal.foods
         } else {
-            day.meals.add(savedMeal)
+            day.meals += savedMeal
         }
 
-        return mealDayRepository.save(day)
+        return dayRepository.save(day)
     }
 
-    fun removeFoodFromMeal(dayId: Long, mealId: Long, foodId: Long): MealDay? {
-        val day = mealDayRepository.findById(dayId).orElse(null) ?: return null
+    fun removeFoodFromMeal(dayId: Long, mealId: Long, foodId: Long): Day? {
+        val day = dayRepository.findById(dayId).orElse(null) ?: return null
         val meal = day.meals.find { it.id == mealId }?: return null
 
-        meal.foods.entries.removeIf { it.value.id == foodId }
+        meal.foods.removeIf { it.id == foodId }
 
         mealRepository.save(meal)
-        return mealDayRepository.save(day)
+        return dayRepository.save(day)
     }
 }

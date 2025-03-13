@@ -5,8 +5,8 @@ import './static/css/meal-plan.css';
 import {BackendUrl} from "../constants";
 
 const MealPlan = () => {
-    const [mealPlan, setMealPlan] = useState({ mealDays: [] });
-    const [selectedCell, setSelectedCell] = useState({});
+    const [mealPlan, setMealPlan] = useState({ days: [], mealTimes: [] });
+    const [selectedCell, setSelectedCell] = useState({day: {}, meal: {}, mealtime: {}});
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [savedFoods, setSavedFoods] = useState([]);
 
@@ -15,7 +15,7 @@ const MealPlan = () => {
             .then(response => response.json())
             .then(data => {
                 console.log("Fetched meal plan data:", data);
-                setMealPlan(data || { mealDays: [] });
+                setMealPlan(data || { days: [], mealTimes: [] });
             })
             .catch(error => console.error('Error fetching meal plan:', error));
         fetch(`${BackendUrl}/api/foods`)
@@ -26,30 +26,35 @@ const MealPlan = () => {
             .catch((error) => console.error('Error fetching foods:', error));
     }, []);
 
-    const handleCellClick = (day, meal) => {
-        setSelectedCell({ day, meal });
+    const handleCellClick = (day, meal, mealtime) => {
+        setSelectedCell({ day: day, meal: meal, mealtime: mealtime });
         setIsModalOpen(true);
     };
 
     const handleSaveFood = (foodName) => {
-        if (!selectedCell.day || !selectedCell.meal) {
+        if (!selectedCell.day) {
             console.error('Selected cell information missing');
             return;
         }
 
         const updatedMealPlan = { ...mealPlan };
+        console.log(mealPlan);
 
-        const day = updatedMealPlan.mealDays.find(d => d.name === selectedCell.day.name);
+        const day = updatedMealPlan.days.find(d => d.name === selectedCell.day.name);
         if (!day) {
             console.error(`Day ${selectedCell.day.name} not found in meal plan`);
             return;
         }
         console.log('Day:', day.name);
+        console.log('Meal time:', selectedCell.mealtime);
 
-        const mealToUpdate = day.meals.find(m => m.name === selectedCell.meal.name);
+        let mealToUpdate = day.meals.find(m => m.name === selectedCell.mealtime);
         if (!mealToUpdate) {
-            console.error(`Meal ${selectedCell.meal.name} not found in selected day`,day.meals);
-            return;
+            mealToUpdate = {
+                name: selectedCell.mealtime,
+                foods: []
+            }
+            day.meals.push(mealToUpdate)
         }
         console.log('Meal to update:', mealToUpdate.name);
 
@@ -62,7 +67,7 @@ const MealPlan = () => {
             ingredients: []
         };
 
-        mealToUpdate.foods[selectedCell.day.name] = { name: foodName };
+        mealToUpdate.foods.push({ name: foodName });
 
         setMealPlan(updatedMealPlan);
         console.log('Updated meal plan:', updatedMealPlan)
@@ -92,7 +97,7 @@ const MealPlan = () => {
                 if (response.ok) {
                     setSavedFoods(prevFoods => prevFoods.filter(f => f.id !== foodId));
                     const updatedMealPlan = { ...mealPlan };
-                    updatedMealPlan.mealDays.forEach(day => {
+                    updatedMealPlan.days.forEach(day => {
                         day.meals.forEach(meal => {
                             Object.keys(meal.foods).forEach(mealDayKey => {
                                 if (meal.foods[mealDayKey].id === foodId) {
@@ -110,29 +115,26 @@ const MealPlan = () => {
             .catch(error => console.error(`Error deleting food with id ${foodId}:`, error));
     };
 
-    const handleAddMeal = () => {
-        const newMealName = prompt('Enter the name of the new meal:');
-        const mealData = {
-            name: newMealName,
-            foods: {}
+    const handleAddMealTime = () => {
+        const newName = prompt('Enter the name of the new meal:');
+        const mealTimeData = {
+            name: newName
         }
 
-        fetch(`${BackendUrl}/api/meals`, {
+        fetch(`${BackendUrl}/api/mealtimes`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(mealData)
+            body: JSON.stringify(mealTimeData)
         })
             .then(response => response.json())
             .then(() =>
                 {
-                    setMealPlan(prevMealPlan => ({
-                       ...prevMealPlan,
-                        mealDays: prevMealPlan.mealDays.map(day => ({
-                            ...day,
-                            meals: [...(day.meals || []), mealData]
-                        })),
+                    setMealPlan((prevMealPlan) => ({
+                        ...prevMealPlan,
+                        mealTimes: [...prevMealPlan.mealTimes, mealTimeData],
+                        days: prevMealPlan.days,
                     }));
-                    console.log('Added new meal successfully:' + JSON.stringify(mealData));
+                    console.log('Added new meal successfully:' + JSON.stringify(mealTimeData));
                     console.log('New meal plan:', mealPlan)
                 })
                .catch(error => console.error('Error adding meal:', error))
@@ -155,7 +157,7 @@ const MealPlan = () => {
     };
 
 
-    if (!mealPlan?.mealDays || mealPlan.mealDays.length === 0) {
+    if (!mealPlan?.days || mealPlan.days.length === 0) {
         return <div>Loading meal plan...</div>;
     }
 
@@ -170,22 +172,21 @@ const MealPlan = () => {
                             <th>
                                 <button className="orange-button" onClick={resetMealPlan}>Reset</button>
                             </th>
-                            {mealPlan.mealDays?.map((day, index) => (
+                            {mealPlan.days?.map((day, index) => (
                                 <th key={index}>{day.name}</th>
                             ))}
                         </tr>
                         </thead>
                         <tbody>
-                            {mealPlan.mealDays?.[0]?.meals?.map((meal, index) => (
+                            {mealPlan.mealTimes?.map((mt, index) => (
                                 <tr key={index}>
-                                    <td className="meal-name-cell">{meal.name}</td>
-                                    {mealPlan.mealDays.map((day, idx) => {
-                                        const mealForDay = day.meals.find((m) => m.name === meal.name);
-                                        const foodForDay = mealForDay.foods[day.name];
+                                    <td className="meal-name-cell">{mt.name}</td>
+                                    {mealPlan.days.map((day, idx) => {
+                                        const mealForDay = day.meals.find((m) => m.name === mt.name);
                                         return (
-                                            <td key={idx} className="food-item" onClick={() => handleCellClick(day, mealForDay)}>
+                                            <td key={idx} className="food-item" onClick={() => handleCellClick(day, mealForDay, mt.name)}>
                                                 <button>
-                                                    {foodForDay ? foodForDay.name : ''}
+                                                    { mealForDay?.foods[0].name || "" }
                                                 </button>
                                             </td>
                                         );
@@ -193,8 +194,8 @@ const MealPlan = () => {
                                 </tr>
                             ))}
                                 <tr>
-                                    <td colSpan={mealPlan.mealDays.length + 1}>
-                                        <button className="orange-button" onClick={handleAddMeal}>Add new meal</button>
+                                    <td colSpan={mealPlan.days.length + 1}>
+                                        <button className="orange-button" onClick={handleAddMealTime}>Add new meal time</button>
                                     </td>
                                 </tr>
                         </tbody>
