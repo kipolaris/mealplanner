@@ -94,6 +94,35 @@ body {
     outline-offset: -2px;      /* Offset to ensure the outline stays within the cell */
 }
 
+.meal-time-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Aligns meal name and arrows vertically */
+}
+
+.meal-time-name {
+    margin-right: 10px; /* Adds spacing between meal name and arrows */
+}
+
+.arrow-buttons {
+    display: flex;
+    flex-direction: column; /* Stack arrows vertically */
+    align-items: center;
+    justify-content: flex-end;
+    gap: 5px; /* Space between arrows */
+}
+
+.arrow-button {
+    cursor: pointer;
+    width: 12px; /* Smaller width */
+    height: 12px; /* Smaller height */
+    display: block;
+}
+
+.arrow-button:hover {
+    opacity: 0.7;
+}
+
 
 .meal-name-cell {
     text-align: left;
@@ -108,24 +137,6 @@ body {
 
 .meal-name {
     font-weight: bold;
-}
-
-.arrow-buttons {
-    display: flex;
-    flex-direction: column; /* Stack arrows vertically */
-    align-items: center;
-    gap: 5px; /* Space between arrows */
-}
-
-.arrow-button {
-    cursor: pointer;
-    width: 12px; /* Smaller width */
-    height: 12px; /* Smaller height */
-    display: block;
-}
-
-.arrow-button:hover {
-    opacity: 0.7;
 }
 
 .meal-plan-table button {

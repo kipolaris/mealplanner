@@ -35,4 +35,20 @@ class MealTimeService(private val mealTimeRepository: MealTimeRepository) {
             false
         }
     }
+
+    fun reorderMealTimes(mealTimeId1: Long, mealTimeId2: Long) {
+        val mealTime1 = mealTimeRepository.findById(mealTimeId1).orElseThrow()
+        val mealTime2 = mealTimeRepository.findById(mealTimeId2).orElseThrow()
+
+        val tempOrder = mealTime1.order
+        mealTime1.order = mealTime2.order
+        mealTime2.order = tempOrder
+
+        mealTimeRepository.save(mealTime1)
+        mealTimeRepository.save(mealTime2)
+    }
+
+    fun getNextOrderValue(): Int {
+        return (mealTimeRepository.findMaxOrder() ?: 0) + 1
+    }
 }

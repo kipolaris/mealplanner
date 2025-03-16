@@ -1,9 +1,7 @@
 package com.mealplanner.Controllers
 
-import com.mealplanner.Data.Food
-import com.mealplanner.Data.Meal
 import com.mealplanner.Data.MealTime
-import com.mealplanner.Service.MealService
+import com.mealplanner.Data.ReorderRequest
 import com.mealplanner.Service.MealTimeService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -29,9 +27,14 @@ class MealTimeController(private val mealTimeService: MealTimeService) {
     @PostMapping
     fun create(@RequestBody mealTime: Map<String, Any>): ResponseEntity<MealTime?> {
         println("Received mealTime: $mealTime")
-        val name = mealTime["name"] as String? ?: ""
-        return ResponseEntity.status(HttpStatus.CREATED).body(mealTimeService.createMealTime(MealTime(null, name)))
+        val name = mealTime["name"] as? String ?: ""
+
+        val nextOrder = mealTimeService.getNextOrderValue()
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+            .body(mealTimeService.createMealTime(MealTime(id = null, name = name, order = nextOrder)))
     }
+
 
     @PutMapping("/{id}")
     fun update(@PathVariable id: Long, @RequestBody mealTime: MealTime): ResponseEntity<MealTime> {
@@ -48,4 +51,11 @@ class MealTimeController(private val mealTimeService: MealTimeService) {
             ResponseEntity.notFound().build()
         }
     }
+
+    @PutMapping("/reorder")
+    fun reorderMealTimes(@RequestBody request: ReorderRequest): ResponseEntity<Void> {
+        mealTimeService.reorderMealTimes(request.mealTimeId1, request.mealTimeId2)
+        return ResponseEntity.ok().build()
+    }
+
 }

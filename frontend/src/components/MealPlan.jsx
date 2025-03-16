@@ -2,6 +2,9 @@ import React, {useEffect, useState} from 'react';
 import AddFoodModal from './AddFoodModal';
 import './static/css/meal-plan.css';
 
+import upArrow from "./static/images/arrowpointingup.png";
+import downArrow from "./static/images/arrowpointingdown.png";
+
 import {BackendUrl} from "../constants";
 
 const MealPlan = () => {
@@ -118,8 +121,8 @@ const MealPlan = () => {
     const handleAddMealTime = () => {
         const newName = prompt('Enter the name of the new meal:');
         const mealTimeData = {
-            name: newName
-        }
+            name: newName,
+        };
 
         fetch(`${BackendUrl}/api/mealtimes`, {
             method: 'POST',
@@ -127,17 +130,44 @@ const MealPlan = () => {
             body: JSON.stringify(mealTimeData)
         })
             .then(response => response.json())
-            .then(() =>
-                {
-                    setMealPlan((prevMealPlan) => ({
+            .then((newMealTime) => {
+                setMealPlan((prevMealPlan) => {
+                    return {
                         ...prevMealPlan,
-                        mealTimes: [...prevMealPlan.mealTimes, mealTimeData],
+                        mealTimes: [...prevMealPlan.mealTimes, newMealTime],
                         days: prevMealPlan.days,
-                    }));
-                    console.log('Added new meal successfully:' + JSON.stringify(mealTimeData));
-                    console.log('New meal plan:', mealPlan)
-                })
-               .catch(error => console.error('Error adding meal:', error))
+                    };
+                });
+                console.log('Added new meal successfully:', JSON.stringify(mealTimeData));
+                console.log('New meal plan:', mealPlan);
+            })
+            .catch(error => console.error('Error adding meal:', error));
+    };
+
+
+    const handleReorder = (index1, index2) => {
+        if (index1 < 0 || index2 < 0 || index1 >= mealPlan.mealTimes.length || index2 >= mealPlan.mealTimes.length) {
+            return;
+        }
+
+        const mealTime1 = mealPlan.mealTimes[index1];
+        const mealTime2 = mealPlan.mealTimes[index2];
+
+        fetch(`${BackendUrl}/api/mealtimes/reorder`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ mealTimeId1: mealTime1.id, mealTimeId2: mealTime2.id })
+        })
+            .then(response => {
+                if (response.ok) {
+                    const updatedMealTimes = [...mealPlan.mealTimes];
+                    [updatedMealTimes[index1], updatedMealTimes[index2]] = [updatedMealTimes[index2], updatedMealTimes[index1]];
+                    console.log('Updated meal times:',updatedMealTimes)
+                    setMealPlan({ ...mealPlan, mealTimes: updatedMealTimes });
+                    console.log('New meal plan:',mealPlan)
+                }
+            })
+            .catch(error => console.error("Error reordering meal times:", error));
     };
 
     const resetMealPlan = () => {
@@ -186,8 +216,30 @@ const MealPlan = () => {
                         </thead>
                         <tbody>
                             {mealPlan.mealTimes?.map((mt, index) => (
-                                <tr key={index}>
-                                    <td className="meal-name-cell">{mt.name}</td>
+                                <tr key={mt.id}>
+                                    <td className="meal-name-cell">
+                                        <div className="meal-time-container">
+                                            <span className="meal-time-name">{mt.name}</span>
+                                            <div className="arrow-buttons">
+                                                {index > 0 && (
+                                                    <img
+                                                        src={upArrow}
+                                                        alt="Move up"
+                                                        className="arrow-button up-arrow"
+                                                        onClick={() => handleReorder(index, index - 1)}
+                                                    />
+                                                )}
+                                                {index < mealPlan.mealTimes.length - 1 && (
+                                                    <img
+                                                        src={downArrow}
+                                                        alt="Move down"
+                                                        className="arrow-button down-arrow"
+                                                        onClick={() => handleReorder(index, index + 1)}
+                                                    />
+                                                )}
+                                            </div>
+                                        </div>
+                                    </td>
                                     {mealPlan.days.map((day, idx) => {
                                         const mealForDay = day.meals.find((m) => m.name === mt.name);
                                         return (
