@@ -18,9 +18,10 @@ class MealPlanController(private val mealPlanService: MealPlanService) {
     }
 
     @PostMapping("/reset")
-    fun resetMealPlan(): ResponseEntity<MealPlan> {
-        return ResponseEntity.ok(mealPlanService.resetMealPlan())
+    fun resetMealPlan(@RequestBody mealTimesRequest: Map<String, List<Map<String, String>>>): ResponseEntity<MealPlan> {
+        return ResponseEntity.ok(mealPlanService.resetMealPlan(mealTimesRequest))
     }
+
 
     @PutMapping("/days/{dayId}/meals/{mealType}")
     fun updateMealInDay(@PathVariable dayId: Long, @PathVariable mealType: String, @RequestBody meal: Meal): ResponseEntity<Day> {

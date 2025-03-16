@@ -43,7 +43,7 @@ class MealPlanService(
         }.let { dayRepository.saveAll(it) }
     }
 
-    fun resetMealPlan(): MealPlan {
+    fun resetMealPlan(mealTimesRequest: Map<String, List<Map<String, String>>>): MealPlan {
         val mealPlan = getMealPlan()
 
         mealPlan.days.forEach { day ->
@@ -52,15 +52,13 @@ class MealPlanService(
             }
         }
 
-        dayRepository.saveAll(mealPlan.days)
-        return mealPlanRepository.save(mealPlan)
+        val mealTimes = mealTimesRequest["mealTimes"]?.map { it["name"] ?: "" }?.filter { it.isNotBlank() } ?: emptyList()
+        mealPlan.mealTimes = mealTimes.map { MealTime(name = it) }.toMutableList()
+
+        mealPlanRepository.save(mealPlan)
+        return mealPlan
     }
 
-    fun resetMealDay(dayId: Long): Day? {
-        val day = dayRepository.findById(dayId).orElse(null) ?: return null
-        day.meals.forEach { it.foods.clear() }
-        return dayRepository.save(day)
-    }
 
     fun updateMealInDay(dayId: Long, mealType: String, meal: Meal): Day? {
         val day = dayRepository.findById(dayId).orElse(null) ?: return null

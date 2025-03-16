@@ -141,7 +141,13 @@ const MealPlan = () => {
     };
 
     const resetMealPlan = () => {
-        fetch(`${BackendUrl}/api/meal-plan/reset`, { method: 'POST' })
+        const mealTimesToPreserve = mealPlan.mealTimes.map(mt => ({ name: mt.name }));
+
+        fetch(`${BackendUrl}/api/meal-plan/reset`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ mealTimes: mealTimesToPreserve })
+        })
             .then(response => {
                 if (response.ok) {
                     return fetch(`${BackendUrl}/api/meal-plan`);
@@ -155,6 +161,7 @@ const MealPlan = () => {
             })
             .catch(error => console.error('Error resetting meal plan:', error));
     };
+
 
 
     if (!mealPlan?.days || mealPlan.days.length === 0) {

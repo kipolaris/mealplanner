@@ -11,5 +11,5 @@ data class MealPlan(
     val days: MutableList<Day> = mutableListOf(),
     @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     @JoinColumn(name = "meal_plan_id")
-    val mealTimes : MutableList<MealTime> = mutableListOf()
+    var mealTimes : MutableList<MealTime> = mutableListOf()
 )
