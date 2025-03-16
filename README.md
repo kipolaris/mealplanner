@@ -43,7 +43,7 @@ Meal Planner is a website which  gives you the ability to plan your meals ahead 
 - Foods page: A list of the existing food items where you can edit their names, add a description, delete them, and assign ingredients to them with quantities, prices and expiration dates.
 - Ingredients page: A list of the ingredients you have at home where you can edit their names, quantities, prices and expiration dates, as well as delete them.
 - Calendar page: A calendar which gives you the ability to navigate between past, current and future meal plans.
-- Account page: A page where you can edit your display name, your username, your e-mail address, your password and your profile picture. You can also change the language of the website.
+- Account page: A page where you can edit your display name, your username, your e-mail address, your password and your profile picture. You can also change the language and the theme of the website, as well as the font and size of the text.
 
 ## Technology
 
