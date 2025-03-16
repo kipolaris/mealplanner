@@ -35,6 +35,7 @@ dependencies {
     implementation("com.h2database:h2")
     testImplementation("io.projectreactor:reactor-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
 }
 
 kotlin {

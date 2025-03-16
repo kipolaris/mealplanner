@@ -1,10 +1,10 @@
-let currentDay = '';
-let currentMeal = '';
+let currentDay;
+let currentMeal;
 
 /**
  * Show the modal for adding or selecting food.
- * @param {string} day - The selected day.
- * @param {string} meal - The selected meal.
+ * @param {Object} day - The selected day.
+ * @param {Object} meal - The selected meal.
  */
 function showModal(day, meal) {
     currentDay = day;
@@ -69,7 +69,7 @@ function saveFood() {
         return;
     }
 
-    const cell = getCell(currentDay, currentMeal);
+    const cell = getCell(currentDay.name, currentMeal.name);
     if (cell) {
         cell.textContent = foodName;
         cell.classList.add('food-item');
@@ -106,21 +106,22 @@ function resetMealPlan() {
 
 /**
  * Redirect to the meal view page for a specific meal.
- * @param {string} meal - The meal type to view (e.g., breakfast, lunch, dinner).
+ * @param {Object} meal - The meal type to view (e.g., breakfast, lunch, dinner).
  */
 function viewMeal(meal) {
-    window.location.href = `/meal-view/${meal}`;
+    window.location.href = `/meal-view/${meal.name}`;
 }
 
 /**
  * Helper function to get the table cell for a specific day and meal.
- * @param {string} day - The day of the week.
- * @param {string} meal - The meal type.
+ * @param {Object} day - The MealDay object.
+ * @param {Object} meal - The Meal object.
  * @returns {HTMLElement|null} The corresponding table cell, or null if not found.
  */
 function getCell(day, meal) {
-    return document.querySelector(`td[data-day="${day}"][data-meal="${meal}"]`);
+    return document.querySelector(`td[data-day-id="${day.id}"][data-meal-id="${meal.id}"]`);
 }
+
 
 // Event listener for keyboard accessibility (Escape key closes the modal)
 document.addEventListener('keydown', event => {

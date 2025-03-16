@@ -1,6 +1,6 @@
 package com.mealplanner.Controllers
 
-import com.mealplanner.Data.MealDay
+import com.mealplanner.Data.Day
 import com.mealplanner.Data.Meal
 import com.mealplanner.Data.MealPlan
 import com.mealplanner.Service.MealPlanService
@@ -18,20 +18,21 @@ class MealPlanController(private val mealPlanService: MealPlanService) {
     }
 
     @PostMapping("/reset")
-    fun resetMealPlan(): ResponseEntity<MealPlan> {
-        return ResponseEntity.ok(mealPlanService.resetMealPlan())
+    fun resetMealPlan(@RequestBody mealTimesRequest: Map<String, List<Map<String, String>>>): ResponseEntity<MealPlan> {
+        return ResponseEntity.ok(mealPlanService.resetMealPlan(mealTimesRequest))
     }
 
+
     @PutMapping("/days/{dayId}/meals/{mealType}")
-    fun updateMealInDay(@PathVariable dayId: Long, @PathVariable mealType: String, @RequestBody meal: Meal): ResponseEntity<MealDay> {
+    fun updateMealInDay(@PathVariable dayId: Long, @PathVariable mealType: String, @RequestBody meal: Meal): ResponseEntity<Day> {
         return mealPlanService.updateMealInDay(dayId, mealType, meal)?.let {
             ResponseEntity.ok(it)
         } ?: ResponseEntity.notFound().build()
     }
 
-    @DeleteMapping("/days/{dayId}/meals/{mealType}/foods/{foodId}")
-    fun removeFoodFromMeal(@PathVariable dayId: Long, @PathVariable mealType: String, @PathVariable foodId: Long): ResponseEntity<MealDay> {
-        return mealPlanService.removeFoodFromMeal(dayId, mealType, foodId)?.let {
+    @DeleteMapping("/days/{dayId}/meals/{mealId}/foods/{foodId}")
+    fun removeFoodFromMeal(@PathVariable dayId: Long, @PathVariable mealId: Long, @PathVariable foodId: Long): ResponseEntity<Day> {
+        return mealPlanService.removeFoodFromMeal(dayId, mealId, foodId)?.let {
             ResponseEntity.ok(it)
         } ?: ResponseEntity.notFound().build()
     }

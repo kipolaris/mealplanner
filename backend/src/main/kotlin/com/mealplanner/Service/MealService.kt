@@ -4,10 +4,15 @@ import com.mealplanner.Data.Food
 import com.mealplanner.Data.Meal
 import com.mealplanner.Repositories.FoodRepository
 import com.mealplanner.Repositories.MealRepository
+import com.mealplanner.Repositories.DayRepository
 import org.springframework.stereotype.Service
 
 @Service
-class MealService(private val mealRepository: MealRepository, private val foodRepository: FoodRepository) {
+class MealService(
+    private val mealRepository: MealRepository,
+    private val foodRepository: FoodRepository,
+    private val dayRepository: DayRepository
+) {
 
     fun getAllMeals(): List<Meal> {
         return mealRepository.findAll()
@@ -40,8 +45,13 @@ class MealService(private val mealRepository: MealRepository, private val foodRe
 
     fun addFoodToMeal(mealId: Long, food: Food): Meal? {
         val meal = mealRepository.findById(mealId).orElse(null) ?: return null
-        val existingFood = foodRepository.findByName(food.name) ?: foodRepository.save(food)
-        meal.foods.add(existingFood)
+        meal.foods += food
+        return mealRepository.save(meal)
+    }
+
+    fun removeFoodFromMeal(mealId: Long, foodId: Long): Meal? {
+        val meal = mealRepository.findById(mealId).orElse(null) ?: return null
+        meal.foods.removeIf { it.id == foodId }
         return mealRepository.save(meal)
     }
 }
