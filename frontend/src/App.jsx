@@ -21,7 +21,7 @@ function App() {
 const MealViewWrapper = () => {
     const { mealTime } = useParams();
     const navigate = useNavigate();
-    return <MealView mealTime={mealTime} onClose={() => navigate('/')} />;
+    return <MealView mealTime={mealTime} onClose={() => navigate('/meal-plan')} />;
 };
 
 export default App;

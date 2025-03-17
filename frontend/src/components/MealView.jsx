@@ -91,34 +91,39 @@ const MealView = ({ mealTime, onClose }) => {
     };
 
     return (
-        <div className="meal-view-container">
-            <h1>{mealTime} View</h1>
-            <button className="close-button" onClick={onClose}>Back</button>
-            <table className="meal-view-table">
-                <thead>
-                <tr>
-                    <th>Days</th>
-                    <th>Meals</th>
-                </tr>
-                </thead>
-                <tbody>
-                {mealData.days.map(day => (
-                    <tr key={day.name}>
-                        <td>{day.name}</td>
-                        <td className="food-item" onClick={() => handleCellClick(day, day.meal)}>
-                            <button>{day.meal.foods[0]?.name || ''}</button>
-                        </td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
-            <AddFoodModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                onSave={handleSaveFood}
-                savedFoods={savedFoods}
-                onDeleteFood={handleDeleteFood}
-            />
+        <div className="app-container">
+            <h1 className="meal-view-title">{mealTime}</h1>
+            <div className="meal-view-table-wrapper">
+                <div className="meal-view-container">
+                    <table className="meal-view-table">
+                        <thead>
+                        <tr>
+                            <th>
+                                <button className="orange-button" onClick={onClose}>Back</button>
+                            </th>
+                            <th>Meals</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {mealData.days.map(day => (
+                            <tr key={day.name}>
+                                <td>{day.name}</td>
+                                <td className="food-item" onClick={() => handleCellClick(day, day.meal)}>
+                                    <button>{day.meal.foods[0]?.name || ''}</button>
+                                </td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                    <AddFoodModal
+                        isOpen={isModalOpen}
+                        onClose={() => setIsModalOpen(false)}
+                        onSave={handleSaveFood}
+                        savedFoods={savedFoods}
+                        onDeleteFood={handleDeleteFood}
+                    />
+                </div>
+            </div>
         </div>
     );
 };

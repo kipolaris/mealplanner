@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="394f1832-2bd8-4dcd-b968-3262c9a548d2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/MealView.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/MealPlan.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/MealPlan.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/MealView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/MealView.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/static/css/meal-plan.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/static/css/meal-plan.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/static/css/meal-view.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/static/css/meal-view.css" afterDir="false" />
     </list>
     <list id="542fc26d-9e25-4b21-8122-007167c71aa5" name="Changes by Lili" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -288,7 +288,7 @@
       <workItem from="1741852968003" duration="146000" />
       <workItem from="1741853143926" duration="597000" />
       <workItem from="1741892607301" duration="2374000" />
-      <workItem from="1742122469797" duration="9033000" />
+      <workItem from="1742122469797" duration="11200000" />
     </task>
     <servers />
   </component>

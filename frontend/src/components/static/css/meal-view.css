@@ -1,47 +1,129 @@
-.meal-view-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: url('../images/background.png') no-repeat center center fixed;
+    background-size: cover;
 }
 
-.meal-view-container h1 {
+.app-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+@media (max-width: 768px) {
+    .meal-view-container {
+        width: 95%;
+    }
+
+    .meal-view-table {
+        border-spacing: 5px;
+        font-size: 14px;
+    }
+
+    .modal-content {
+        width: 90%;
+        margin: 10% auto;
+    }
+}
+
+.meal-view-title {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+.meal-view-table-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 60px;
+    flex-grow: 1;
+}
+
+.meal-view-container {
     text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .meal-view-table {
-    width: 100%;
-    border-collapse: collapse;
+    width: 50%;
+    max-width: 600px;
+    border-collapse: separate;
+    border-spacing: 10px;
+    table-layout: fixed;
+    margin: 0 auto;
 }
 
 .meal-view-table th,
 .meal-view-table td {
-    padding: 8px;
-    border: 1px solid #ddd;
-    text-align: left;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
-.meal-view-table th {
-    background-color: #f2f2f2;
+.meal-view-table td.food-item {
+    font-weight: normal;
 }
 
-.meal-view-table td {
-    cursor: pointer;
+.meal-view-table td.food-item button {
+    font-weight: normal;
 }
 
 .meal-view-table tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
+.meal-view-table td.selected {
+    outline: 2px solid #4CAF50;
+    outline-offset: -2px;
+}
+
 .meal-view-table tr:hover {
     background-color: #ddd;
 }
 
-.meal-view-container button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
+.meal-view-table button {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
+    font-weight: bold;
+    border-radius: 10px;
+    background: none;
+}
+
+.orange-button {
+    color: orange;
+    background: none;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 10px;
 }
