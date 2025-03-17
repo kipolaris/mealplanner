@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import AddFoodModal from './AddFoodModal';
 import './static/css/meal-plan.css';
 
@@ -28,6 +30,8 @@ const MealPlan = () => {
             })
             .catch((error) => console.error('Error fetching foods:', error));
     }, []);
+
+    const navigate = useNavigate();
 
     const handleCellClick = (day, meal, mealtime) => {
         setSelectedCell({ day: day, meal: meal, mealtime: mealtime });
@@ -219,7 +223,9 @@ const MealPlan = () => {
                                 <tr key={mt.id}>
                                     <td className="meal-name-cell">
                                         <div className="meal-time-container">
-                                            <span className="meal-time-name">{mt.name}</span>
+                                            <span className="meal-time-name" onClick={() => navigate(`/meal-view/${mt.name}`)}>
+                                                {mt.name}
+                                            </span>
                                             <div className="arrow-buttons">
                                                 {index > 0 && (
                                                     <img

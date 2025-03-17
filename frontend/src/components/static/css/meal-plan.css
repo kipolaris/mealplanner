@@ -3,7 +3,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;  /* Make the body take the full height of the viewport */
+    height: 100vh;  /* Full height of the viewport */
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
@@ -27,7 +27,7 @@ body {
 
     .meal-plan-table {
         border-spacing: 5px;
-        font-size: 14px; /* Smaller font for better fit */
+        font-size: 14px;
     }
 
     .modal-content {
@@ -52,7 +52,7 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin-top: 60px; /* Adjust to create space for the title */
+    margin-top: 60px; /* Space for the title */
     flex-grow: 1;  /* Allow the wrapper to take up available space */
 }
 
@@ -65,7 +65,7 @@ body {
     width: 100%;
     border-collapse: separate;
     border-spacing: 10px;
-    table-layout: fixed; /* Table width is maintained */
+    table-layout: fixed;
     margin-top: 20px;
 }
 
@@ -97,11 +97,11 @@ body {
 .meal-time-container {
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Aligns meal name and arrows vertically */
+    align-items: center;
 }
 
 .meal-time-name {
-    margin-right: 10px; /* Adds spacing between meal name and arrows */
+    margin-right: 10px; /* Spacing between meal name and arrows */
 }
 
 .arrow-buttons {
@@ -114,8 +114,8 @@ body {
 
 .arrow-button {
     cursor: pointer;
-    width: 12px; /* Smaller width */
-    height: 12px; /* Smaller height */
+    width: 12px;
+    height: 12px;
     display: block;
 }
 
@@ -184,7 +184,7 @@ body {
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
-    max-width: 400px; /* Max-width for better responsiveness */
+    max-width: 400px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -240,7 +240,7 @@ body {
     z-index: 1000;
     top: 100%; /* Position below the button */
     left: 0;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .dropdown-item {

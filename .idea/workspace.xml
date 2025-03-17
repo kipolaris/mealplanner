@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="394f1832-2bd8-4dcd-b968-3262c9a548d2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Data/ReorderRequest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/temp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/MealView.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Controllers/MealTimeController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Controllers/MealTimeController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Data/MealTime.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Data/MealTime.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Repositories/MealTimeRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Repositories/MealTimeRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Service/MealTimeService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Service/MealTimeService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/MealPlan.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/MealPlan.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/static/css/meal-plan.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/static/css/meal-plan.css" afterDir="false" />
     </list>
@@ -63,10 +59,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="CSS File" />
         <option value="Kotlin Class" />
         <option value="Kotlin Data Class" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -292,7 +288,7 @@
       <workItem from="1741852968003" duration="146000" />
       <workItem from="1741853143926" duration="597000" />
       <workItem from="1741892607301" duration="2374000" />
-      <workItem from="1742122469797" duration="4431000" />
+      <workItem from="1742122469797" duration="9033000" />
     </task>
     <servers />
   </component>
