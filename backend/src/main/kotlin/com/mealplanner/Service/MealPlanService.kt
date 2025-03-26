@@ -4,10 +4,7 @@ import com.mealplanner.Data.Day
 import com.mealplanner.Data.MealTime
 import com.mealplanner.Data.Meal
 import com.mealplanner.Data.MealPlan
-import com.mealplanner.Repositories.DayRepository
-import com.mealplanner.Repositories.MealPlanRepository
-import com.mealplanner.Repositories.MealRepository
-import com.mealplanner.Repositories.MealTimeRepository
+import com.mealplanner.Repositories.*
 import org.springframework.stereotype.Service
 
 @Service
@@ -15,7 +12,8 @@ class MealPlanService(
     private val mealPlanRepository: MealPlanRepository,
     private val dayRepository: DayRepository,
     private val mealRepository: MealRepository,
-    private val mealTimeRepository: MealTimeRepository
+    private val mealTimeRepository: MealTimeRepository,
+    private val foodRepository: FoodRepository
 ) {
     private val mealPlanId = 1L // Singleton ID
 
@@ -64,11 +62,13 @@ class MealPlanService(
         val day = dayRepository.findById(dayId).orElse(null) ?: return null
         val savedMeal = mealRepository.save(meal)
 
-       val existingMeal = day.meals.find { it.mealTime.name.equals(mealType, ignoreCase = true) }
-       if (existingMeal != null) {
+        val mealTime = mealTimeRepository.findByName(mealType) ?: mealTimeRepository.save(MealTime(name = mealType))
+
+        val existingMeal = day.meals.find { it.mealTime.name.equals(mealType, ignoreCase = true) }
+        if (existingMeal != null) {
             existingMeal.foods += savedMeal.foods
         } else {
-            day.meals += savedMeal
+            day.meals += savedMeal.copy(mealTime = mealTime)
         }
 
         return dayRepository.save(day)
@@ -82,5 +82,53 @@ class MealPlanService(
 
         mealRepository.save(meal)
         return dayRepository.save(day)
+    }
+
+
+    fun updateMealPlan(updatedMealPlan: MealPlan): MealPlan {
+        val existingMealPlan = getMealPlan()
+
+        val mealTimeMap = existingMealPlan.mealTimes.associateBy { it.name }.toMutableMap()
+
+        /*updatedMealPlan.days.forEach { updatedDay ->
+            val existingDay = existingMealPlan.days.find { it.id == updatedDay.id }
+            if (existingDay != null) {
+                existingDay.meals.clear()
+
+                updatedDay.meals.forEach { meal ->
+                    val mealTime = mealTimeMap.getOrPut(meal.mealTime.name) {
+                        mealTimeRepository.save(MealTime(name = meal.mealTime.name))
+                    }
+                    existingDay.meals.add(meal.copy(mealTime = mealTime))
+                }
+            }
+        }*/
+
+        updatedMealPlan.days.forEach { updatedDay ->
+            val existingDay = existingMealPlan.days.find { it.id == updatedDay.id }
+            if (existingDay != null) {
+                existingDay.meals.clear()
+                updatedDay.meals.forEach { meal ->
+                    println(meal)
+                    val existingMeal = existingDay.meals.find { it.id == meal.id }
+                    if (existingMeal != null) {
+                        existingMeal.foods.clear()
+                        existingMeal.foods += meal.foods
+                        existingMeal.foods.map { foodRepository.save(it) }
+                    } else {
+                        val mealTime = mealTimeMap.getOrPut(meal.mealTime.name) {
+                            mealTimeRepository.save(MealTime(name = meal.mealTime.name))
+                        }
+                        val newMeal = meal.copy(mealTime = mealTime)
+                        newMeal.foods.map { foodRepository.save(it) }
+                        mealRepository.save(newMeal)
+                        existingDay.meals.add(newMeal)
+                    }
+                }
+            }
+        }
+
+
+        return mealPlanRepository.save(updatedMealPlan)
     }
 }

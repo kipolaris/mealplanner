@@ -6,12 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="394f1832-2bd8-4dcd-b968-3262c9a548d2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Controllers/MealPlanController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Controllers/MealPlanController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Data/Day.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Data/Day.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Data/Meal.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Data/Meal.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Repositories/MealRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Repositories/MealRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Repositories/MealTimeRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Repositories/MealTimeRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Service/MealPlanService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Service/MealPlanService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/MealPlan.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/MealPlan.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/MealView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/MealView.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/static/css/meal-plan.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/static/css/meal-plan.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/static/css/meal-view.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/static/css/meal-view.css" afterDir="false" />
     </list>
-    <list id="542fc26d-9e25-4b21-8122-007167c71aa5" name="Changes by Lili" comment="" />
+    <list id="542fc26d-9e25-4b21-8122-007167c71aa5" name="Changes by Lili" comment="">
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/MealPlan.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/MealPlan.jsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -71,6 +77,23 @@
   </component>
   <component name="JpbToolWindowState">
     <option name="isToolWindowVisible" value="false" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/frontend/src/components/MealPlan.jsx">
+      <ranges>
+        <range start1="22" end1="23" start2="22" end2="23" changelist="394f1832-2bd8-4dcd-b968-3262c9a548d2" />
+        <range start1="40" end1="40" start2="40" end2="47" changelist="394f1832-2bd8-4dcd-b968-3262c9a548d2" />
+        <range start1="46" end1="48" start2="53" end2="54" changelist="542fc26d-9e25-4b21-8122-007167c71aa5" />
+        <range start1="56" end1="56" start2="62" end2="72" changelist="394f1832-2bd8-4dcd-b968-3262c9a548d2" />
+        <range start1="61" end1="62" start2="77" end2="80" changelist="394f1832-2bd8-4dcd-b968-3262c9a548d2" />
+        <range start1="69" end1="98" start2="87" end2="133" changelist="394f1832-2bd8-4dcd-b968-3262c9a548d2" />
+        <range start1="115" end1="116" start2="150" end2="161" changelist="394f1832-2bd8-4dcd-b968-3262c9a548d2" />
+        <range start1="137" end1="144" start2="182" end2="196" changelist="394f1832-2bd8-4dcd-b968-3262c9a548d2" />
+        <range start1="145" end1="146" start2="197" end2="199" changelist="394f1832-2bd8-4dcd-b968-3262c9a548d2" />
+        <range start1="169" end1="171" start2="222" end2="234" changelist="394f1832-2bd8-4dcd-b968-3262c9a548d2" />
+        <range start1="253" end1="254" start2="316" end2="317" changelist="394f1832-2bd8-4dcd-b968-3262c9a548d2" />
+      </ranges>
+    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -288,7 +311,8 @@
       <workItem from="1741852968003" duration="146000" />
       <workItem from="1741853143926" duration="597000" />
       <workItem from="1741892607301" duration="2374000" />
-      <workItem from="1742122469797" duration="11200000" />
+      <workItem from="1742122469797" duration="27428000" />
+      <workItem from="1742481325345" duration="17904000" />
     </task>
     <servers />
   </component>

@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface MealRepository : JpaRepository<Meal, Long>
+interface MealRepository : JpaRepository<Meal, Long> {
+    fun findByDayId(dayId: Long): Meal?
+}

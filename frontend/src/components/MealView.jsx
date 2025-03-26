@@ -23,7 +23,7 @@ const MealView = ({ mealTime, onClose }) => {
 
         fetch(`${BackendUrl}/api/foods`)
             .then(response => response.json())
-            .then(setSavedFoods)
+            .then((data) => setSavedFoods(data))
             .catch(error => console.error('Error fetching foods:', error));
     }, [mealTime]);
 

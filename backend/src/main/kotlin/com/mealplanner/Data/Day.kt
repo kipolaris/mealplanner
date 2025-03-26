@@ -9,6 +9,6 @@ data class Day(
     val id: Long = 0,
     val name: String,
 
-    @OneToMany(mappedBy = "day", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "dayId", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     val meals: MutableList<Meal> = mutableListOf()
 )

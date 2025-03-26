@@ -15,11 +15,10 @@ data class Meal(
     )
     val foods: MutableList<Food> = mutableListOf(),
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mealtime_id")
     val mealTime: MealTime,
 
-    @ManyToOne
-    @JoinColumn(name = "day_id")
-    val day: Day
+    @Column(name = "day_id")
+    val dayId: Long
 )
