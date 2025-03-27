@@ -42,6 +42,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
     color: white;
+    text-shadow: 2px 2px 5px rgba(255, 165, 0, 0.75);
     padding: 10px 20px;
     border-radius: 5px;
     z-index: 1000;
@@ -290,4 +291,11 @@ body {
     width: 16px;
     height: 16px;
     cursor: pointer;
+}
+
+.loading {
+    font-weight: bolder;
+    margin-bottom: 30px;
+    color: white;
+    text-shadow: 2px 2px 5px rgba(255, 165, 0, 0.75);
 }

@@ -5,15 +5,11 @@ import jakarta.persistence.*
 @Entity
 data class Meal(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = 1,
+    val id: Long? = null,
 
-    @ManyToMany
-    @JoinTable(
-        name = "meal_food",
-        joinColumns = [JoinColumn(name = "meal_id")],
-        inverseJoinColumns = [JoinColumn(name = "food_id")]
-    )
-    val foods: MutableList<Food> = mutableListOf(),
+    @ManyToOne(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "food_id")
+    var food: Food?,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mealtime_id")

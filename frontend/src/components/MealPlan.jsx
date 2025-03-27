@@ -51,45 +51,51 @@ const MealPlan = () => {
             return;
         }
 
-        const updatedMealPlan = {...mealPlan};
-
-        const day = updatedMealPlan.days.find(d => d.name === selectedCell.day.name);
-        if (!day) {
-            console.error(`Day ${selectedCell.day.name} not found in meal plan`);
-            return;
-        }
+        const day = mealPlan.days.find(d => d.name === selectedCell.day.name);
         console.log('Day:', day.name);
         console.log('Meal time:', selectedCell.mealtime);
-
-        let mealTimeObject = mealPlan.mealTimes.find(mt => mt.name === selectedCell.mealtime);
-        if (!mealTimeObject) {
-            console.error(`MealTime ${selectedCell.mealtime} not found in mealTimes.`);
-            mealTimeObject = {
-                id: undefined,
-                name: selectedCell.mealtime,
-                order: undefined
-            };
-        }
 
         let mealToUpdate = day.meals.find(m => m.name === selectedCell.mealtime);
         if (!mealToUpdate) {
             mealToUpdate = {
                 name: selectedCell.mealtime,
-                foods: [],
-                mealTime: mealTimeObject,
+                food: undefined,
+                mealTime: mealPlan.mealTimes.find(mt => mt.name === selectedCell.mealtime),
                 dayId: day.id
             }
-            day.meals.push(mealToUpdate)
         }
-        console.log('Meal to update:', mealToUpdate.name);
 
         const existingFood = savedFoods.find(food => food.name.toLowerCase() === foodName.toLowerCase());
 
-        const foodUpdate = async () => {if (existingFood) {
+        const updateMealPlan = (updatedMealPlan) => {
+            console.log('Meal plan after modification:', JSON.stringify(updatedMealPlan));
+
+            fetch(`${BackendUrl}/api/meal-plan`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updatedMealPlan),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Meal plan sent to backend:', JSON.stringify(updatedMealPlan));
+                    setMealPlan(data);
+                    console.log('Meal plan received from backend:', JSON.stringify(data));
+                })
+                .catch(error => console.error('Error saving updated meal plan:', error));
+        };
+
+        if (existingFood) {
             console.log(`Food ${foodName} already exists. Not adding to backend.`);
-            mealToUpdate.foods.push(existingFood);
-            setMealPlan(updatedMealPlan);
-            console.log('Updated meal plan:', JSON.stringify(updatedMealPlan));
+            //TODO: pop
+            //day.meals = day.meals.filter(meal => meal !== mealToUpdate);
+            mealToUpdate.food = existingFood;
+            day.meals.push(mealToUpdate);
+
+            setMealPlan(prevMealPlan => {
+                const updatedMealPlan = { ...prevMealPlan };
+                updateMealPlan(updatedMealPlan);
+                return updatedMealPlan;
+            });
         } else {
             const foodData = {
                 name: foodName,
@@ -97,6 +103,7 @@ const MealPlan = () => {
                 description: undefined,
                 ingredients: []
             };
+
             fetch(`${BackendUrl}/api/foods`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -105,32 +112,19 @@ const MealPlan = () => {
                 .then(response => response.json())
                 .then(savedFood => {
                     setSavedFoods(prevFoods => [...prevFoods, savedFood].sort((a, b) => a.name.localeCompare(b.name)));
-                    mealToUpdate.foods.push(savedFood);
-                    setMealPlan(updatedMealPlan);
-                    console.log('Updated meal plan:', JSON.stringify(updatedMealPlan));
+
+                    mealToUpdate.food = savedFood;
+                    //TODO: pop
+                    day.meals.push(mealToUpdate);
+
+                    setMealPlan(prevMealPlan => {
+                        const updatedMealPlan = { ...prevMealPlan };
+                        updateMealPlan(updatedMealPlan);
+                        return updatedMealPlan;
+                    });
                 })
                 .catch(error => console.error('Error saving food:', error));
-        }};
-
-        const mealPlanUpdate = async () => {
-            fetch(`${BackendUrl}/api/meal-plan`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(updatedMealPlan),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(JSON.stringify(updatedMealPlan))
-                    setMealPlan(data);
-                    console.log('Updated meal plan:', JSON.stringify(data));
-                })
-                .catch(error => console.error('Error saving updated meal plan:', error));
-        };
-
-        foodUpdate().then(() => {
-            setIsModalOpen(false);
-            mealPlanUpdate().then();
-        });
+        }
     };
 
     const handleDeleteFood = (foodId) => {
@@ -262,7 +256,7 @@ const MealPlan = () => {
 
 
     if (!mealPlan?.days || mealPlan.days.length === 0) {
-        return <div>Loading meal plan...</div>;
+        return <h1 className="loading">Loading meal plan...</h1>;
     }
 
     return (

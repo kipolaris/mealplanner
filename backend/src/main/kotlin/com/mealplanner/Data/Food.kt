@@ -5,10 +5,10 @@ import jakarta.persistence.*
 @Entity
 data class Food(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    val id: Long?,
     val name: String,
     val description: String? = null,
-    @OneToMany(mappedBy = "food", cascade = [CascadeType.ALL], orphanRemoval = true)
+    @OneToMany(cascade = [CascadeType.ALL])
     val ingredients: MutableList<Ingredient>? = null
 )
 
