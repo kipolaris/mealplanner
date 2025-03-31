@@ -42,11 +42,8 @@ class FoodController(val foodService: FoodService) {
 
     @DeleteMapping("/{id}")
     fun deleteFood(@PathVariable id: Long): ResponseEntity<Unit> {
-        return if (foodService.deleteFood(id)) {
-            ResponseEntity.noContent().build()
-        } else {
-            ResponseEntity.notFound().build()
-        }
+        foodService.deleteFood(id)
+        return ResponseEntity.noContent().build()
     }
 
     @PostMapping("/{id}/ingredients")

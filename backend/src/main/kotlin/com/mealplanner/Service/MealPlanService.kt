@@ -100,13 +100,11 @@ class MealPlanService(
                 updatedDay.meals.forEach { meal ->
                     println(meal)
 
-                    // Ensure Food is managed
                     val managedFood = meal.food?.id?.let {
                         foodRepository.findById(it).orElse(null)
                     } ?: meal.food
 
                     if (managedFood?.id != null) {
-                        // Use only the managed version of the Food entity
                         meal.food = managedFood
                     }
 

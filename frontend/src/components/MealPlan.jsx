@@ -45,6 +45,20 @@ const MealPlan = () => {
         } : { days: [], mealTimes: [] };
     };
 
+    const updateMealPlan = (updatedMealPlan) => {
+        fetch(`${BackendUrl}/api/meal-plan`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedMealPlan),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Meal plan received from backend:', JSON.stringify(data));
+                setMealPlan(data);
+            })
+            .catch(error => console.error('Error saving updated meal plan:', error));
+    };
+
     const handleSaveFood = (foodName) => {
         if (!selectedCell.day) {
             console.error('Selected cell information missing');
@@ -55,47 +69,36 @@ const MealPlan = () => {
         console.log('Day:', day.name);
         console.log('Meal time:', selectedCell.mealtime);
 
-        let mealToUpdate = day.meals.find(m => m.name === selectedCell.mealtime);
-        if (!mealToUpdate) {
-            mealToUpdate = {
-                name: selectedCell.mealtime,
-                food: undefined,
-                mealTime: mealPlan.mealTimes.find(mt => mt.name === selectedCell.mealtime),
-                dayId: day.id
-            }
-        }
-
         const existingFood = savedFoods.find(food => food.name.toLowerCase() === foodName.toLowerCase());
 
-        const updateMealPlan = (updatedMealPlan) => {
-            console.log('Meal plan after modification:', JSON.stringify(updatedMealPlan));
+        const processUpdate = (foodToUse) => {
+            setMealPlan(prevMealPlan => {
+                const updatedMealPlan = JSON.parse(JSON.stringify(prevMealPlan));
 
-            fetch(`${BackendUrl}/api/meal-plan`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(updatedMealPlan),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Meal plan sent to backend:', JSON.stringify(updatedMealPlan));
-                    setMealPlan(data);
-                    console.log('Meal plan received from backend:', JSON.stringify(data));
-                })
-                .catch(error => console.error('Error saving updated meal plan:', error));
+                const dayToUpdate = updatedMealPlan.days.find(d => d.id === day.id);
+                let mealToUpdate = dayToUpdate.meals.find(m => m.name === selectedCell.mealtime);
+
+                if (!mealToUpdate) {
+                    mealToUpdate = {
+                        name: selectedCell.mealtime,
+                        food: foodToUse,
+                        mealTime: updatedMealPlan.mealTimes.find(mt => mt.name === selectedCell.mealtime),
+                        dayId: day.id
+                    };
+                    dayToUpdate.meals.push(mealToUpdate);
+                } else {
+                    mealToUpdate.food = foodToUse;
+                }
+
+                updateMealPlan(updatedMealPlan);
+
+                return updatedMealPlan;
+            });
         };
 
         if (existingFood) {
             console.log(`Food ${foodName} already exists. Not adding to backend.`);
-            //TODO: pop
-            //day.meals = day.meals.filter(meal => meal !== mealToUpdate);
-            mealToUpdate.food = existingFood;
-            day.meals.push(mealToUpdate);
-
-            setMealPlan(prevMealPlan => {
-                const updatedMealPlan = { ...prevMealPlan };
-                updateMealPlan(updatedMealPlan);
-                return updatedMealPlan;
-            });
+            processUpdate(existingFood);
         } else {
             const foodData = {
                 name: foodName,
@@ -112,16 +115,7 @@ const MealPlan = () => {
                 .then(response => response.json())
                 .then(savedFood => {
                     setSavedFoods(prevFoods => [...prevFoods, savedFood].sort((a, b) => a.name.localeCompare(b.name)));
-
-                    mealToUpdate.food = savedFood;
-                    //TODO: pop
-                    day.meals.push(mealToUpdate);
-
-                    setMealPlan(prevMealPlan => {
-                        const updatedMealPlan = { ...prevMealPlan };
-                        updateMealPlan(updatedMealPlan);
-                        return updatedMealPlan;
-                    });
+                    processUpdate(savedFood);
                 })
                 .catch(error => console.error('Error saving food:', error));
         }
@@ -135,25 +129,12 @@ const MealPlan = () => {
                     const updatedMealPlan = { ...mealPlan };
                     updatedMealPlan.days.forEach(day => {
                         day.meals.forEach(meal => {
-                            Object.keys(meal.foods).forEach(mealDayKey => {
-                                if (meal.foods[mealDayKey].id === foodId) {
-                                    delete meal.foods[mealDayKey];
-                                }
-                            });
+                            if (meal.food.id === foodId) {
+                                meal.food = null;
+                            }
                         });
                     });
-                    fetch(`${BackendUrl}/api/meal-plan`, {
-                        method: 'PUT',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(updatedMealPlan),
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            setMealPlan(data);
-                            console.log('Updated meal plan saved successfully:',data);
-                        })
-                        .catch(error => console.log('Failed to update meal plan:',error));
-                    console.log('Food deleted successfully');
+                    updateMealPlan(updatedMealPlan);
                 } else {
                     console.error(`Failed to delete food with id ${foodId}`);
                 }
@@ -308,7 +289,7 @@ const MealPlan = () => {
                                         return (
                                             <td key={idx} className="food-item" onClick={() => handleCellClick(day, mealForDay, mt.name)}>
                                                 <button>
-                                                    { mealForDay?.foods?.[0]?.name || "" }
+                                                    { mealForDay ? (mealForDay.food ? mealForDay.food.name : "") : "" }
                                                 </button>
                                             </td>
                                         );
