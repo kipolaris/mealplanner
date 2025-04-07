@@ -72,8 +72,7 @@ const MealPlan = () => {
         const existingFood = savedFoods.find(food => food.name.toLowerCase() === foodName.toLowerCase());
 
         const processUpdate = (foodToUse) => {
-            setMealPlan(prevMealPlan => {
-                const updatedMealPlan = JSON.parse(JSON.stringify(prevMealPlan));
+                const updatedMealPlan = {...mealPlan};
 
                 const dayToUpdate = updatedMealPlan.days.find(d => d.id === day.id);
                 let mealToUpdate = dayToUpdate.meals.find(m => m.name === selectedCell.mealtime);
@@ -90,10 +89,10 @@ const MealPlan = () => {
                     mealToUpdate.food = foodToUse;
                 }
 
+                setMealPlan(updatedMealPlan);
+
                 updateMealPlan(updatedMealPlan);
 
-                return updatedMealPlan;
-            });
         };
 
         if (existingFood) {
