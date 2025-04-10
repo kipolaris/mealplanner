@@ -1,4 +1,3 @@
-// src/App.jsx
 import React from 'react';
 import {BrowserRouter as Router, Route, Routes, useNavigate, useParams} from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
@@ -12,7 +11,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/meal-plan" element={<MealPlanPage />} />
-                <Route path="/meal-view/:mealTime" element={<MealtimePageWrapper />} />
+                <Route path="/meal/:mealTime" element={<MealtimePageWrapper />} />
             </Routes>
         </Router>
     );

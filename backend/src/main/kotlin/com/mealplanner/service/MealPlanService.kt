@@ -1,9 +1,9 @@
 package com.mealplanner.service
 
 import com.mealplanner.data.Day
-import com.mealplanner.data.MealTime
 import com.mealplanner.data.Meal
 import com.mealplanner.data.MealPlan
+import com.mealplanner.data.MealTime
 import com.mealplanner.repositories.*
 import jakarta.persistence.EntityManager
 import jakarta.persistence.PersistenceContext
@@ -93,12 +93,21 @@ class MealPlanService(
         val existingMealPlan = getMealPlan()
         val mealTimeMap = existingMealPlan.mealTimes.associateBy { it.name }.toMutableMap()
 
+        updatedMealPlan.mealTimes.forEach {mt ->
+            val mealTime = mealTimeMap.getOrPut(mt.name) {
+                mealTimeRepository.save(MealTime(name = mt.name))
+            }
+            mealTimeMap[mt.name] = mealTime
+        }
+
+        existingMealPlan.mealTimes.clear()
+        existingMealPlan.mealTimes.addAll(updatedMealPlan.mealTimes)
+
+
         updatedMealPlan.days.forEach { updatedDay ->
             val existingDay = existingMealPlan.days.find { it.id == updatedDay.id }
             if (existingDay != null) {
                 updatedDay.meals.forEach { meal ->
-                    println(meal)
-
                     val managedFood = meal.food?.id?.let {
                         foodRepository.findById(it).orElse(null)
                     } ?: meal.food
@@ -115,11 +124,13 @@ class MealPlanService(
                         val mealTime = mealTimeMap.getOrPut(meal.mealTime.name) {
                             mealTimeRepository.save(MealTime(name = meal.mealTime.name))
                         }
+
                         val newMeal = Meal(
                             mealTime = mealTime,
                             food = managedFood,
                             dayId = updatedDay.id
                         )
+
                         existingDay.meals.add(newMeal)
                     }
                 }

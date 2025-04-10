@@ -159,22 +159,12 @@ const MealPlanPage = () => {
                     mealTimes: [...mealPlan.mealTimes, newMealTime],
                     days: mealPlan.days,
                 }
-                fetch(`${BackendUrl}/api/meal-plan`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(updatedMealPlan),
-                })
-                    .then(response => response.json())
-                    .catch(error => console.log('Error saving meal plan:',error))
-
-                setMealPlan(updatedMealPlan);
-                console.log('Added new meal successfully:', JSON.stringify(mealTimeData));
-                console.log('New meal plan:', updatedMealPlan);
-
+                console.log(newMealTime)
+                console.log(updatedMealPlan)
+                updateMealPlan(updatedMealPlan)
             })
             .catch(error => console.error('Error adding meal:', error));
     };
-
 
     const handleReorder = (index1, index2) => {
         if (index1 < 0 || index2 < 0 || index1 >= mealPlan.mealTimes.length || index2 >= mealPlan.mealTimes.length) {
@@ -195,17 +185,7 @@ const MealPlanPage = () => {
                     [updatedMealTimes[index1], updatedMealTimes[index2]] = [updatedMealTimes[index2], updatedMealTimes[index1]];
                     console.log('Updated meal times:',updatedMealTimes)
                     const updatedMealPlan = { ...mealPlan, mealTimes: updatedMealTimes}
-                    fetch(`${BackendUrl}/api/meal-plan`, {
-                        method: 'PUT',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(updatedMealPlan),
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            setMealPlan(data);
-                            console.log('Updated meal plan saved successfully:', data);
-                        })
-                        .catch(error => console.log('Error saving meal plan:',error));
+                    updateMealPlan(updatedMealPlan)
                 }
             })
             .catch(error => console.error("Error reordering meal times:", error));
@@ -233,8 +213,6 @@ const MealPlanPage = () => {
             .catch(error => console.error('Error resetting meal plan:', error));
     };
 
-
-
     if (!mealPlan?.days || mealPlan.days.length === 0) {
         return <h1 className="loading">Loading meal plan...</h1>;
     }
@@ -260,7 +238,7 @@ const MealPlanPage = () => {
                                 <tr key={mt.id}>
                                     <td className="meal-name-cell">
                                         <div className="meal-time-container">
-                                            <span className="meal-time-name" onClick={() => navigate(`/meal-view/${mt.name}`)}>
+                                            <span className="meal-time-name" onClick={() => navigate(`/meal/${mt.name}`)}>
                                                 {mt.name}
                                             </span>
                                             <div className="arrow-buttons">
@@ -284,7 +262,7 @@ const MealPlanPage = () => {
                                         </div>
                                     </td>
                                     {mealPlan.days.map((day, idx) => {
-                                        const mealForDay = day.meals.find((m) => m.name === mt.name);
+                                        const mealForDay = day.meals.find((m) => m.mealTime.name === mt.name);
                                         return (
                                             <td key={idx} className="food-item" onClick={() => handleCellClick(day, mealForDay, mt.name)}>
                                                 <button>
