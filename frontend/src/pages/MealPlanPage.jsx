@@ -6,211 +6,45 @@ import '../assets/css/meal-plan-page.css';
 
 import upArrow from "../assets/images/arrowpointingup.png";
 import downArrow from "../assets/images/arrowpointingdown.png";
-
-import {BackendUrl} from "../utils/constants";
+import {useMealPlan} from "../hooks/useMealPlan";
+import {useMealTime} from "../hooks/useMealTime";
 
 const MealPlanPage = () => {
-    const [mealPlan, setMealPlan] = useState({ days: [], mealTimes: [] });
-    const [selectedCell, setSelectedCell] = useState({day: {}, meal: {}, mealtime: {}});
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [savedFoods, setSavedFoods] = useState([]);
+    const {
+        mealPlan,
+        savedFoods,
+        isModalOpen,
+        setIsModalOpen,
+        setSelectedCell,
+        handleSaveFood,
+        handleDeleteFood,
+        updateMealPlan,
+        resetMealPlan,
+    } = useMealPlan();
+
+    /* const {
+        mealTimes,
+        handleAddMealTime,
+        handleReorder
+    } = useMealTime(mealPlan, updateMealPlan); */
+
+    const [mealTimes, setMealTimes] = useState([]);
+    const [isMealPlanLoaded, setIsMealPlanLoaded] = useState(false);
 
     useEffect(() => {
-        fetch(`${BackendUrl}/api/meal-plan`)
-            .then(response => response.json())
-            .then(data => {
-                console.log("Fetched meal plan data:", data);
-                setMealPlan(getValidMealPlan(data));
-            })
-            .catch(error => console.error('Error fetching meal plan:', error));
-        fetch(`${BackendUrl}/api/foods`)
-            .then((response) => response.json())
-            .then((data) => {
-                setSavedFoods(data);
-            })
-            .catch((error) => console.error('Error fetching foods:', error));
-    }, []);
+        if (mealPlan && mealPlan.mealTimes.length > 0) {
+            setIsMealPlanLoaded(true);
+            setMealTimes(mealPlan.mealTimes);
+        }
+    }, [mealPlan]);
+
+    const { handleAddMealTime, handleReorder } = useMealTime(mealPlan, updateMealPlan);
 
     const navigate = useNavigate();
 
     const handleCellClick = (day, meal, mealtime) => {
         setSelectedCell({ day: day, meal: meal, mealtime: mealtime });
         setIsModalOpen(true);
-    };
-
-    const getValidMealPlan = (data) => {
-        return data ? {
-            days: data.days || [],
-            mealTimes: data.mealTimes || []
-        } : { days: [], mealTimes: [] };
-    };
-
-    const updateMealPlan = (updatedMealPlan) => {
-        fetch(`${BackendUrl}/api/meal-plan`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updatedMealPlan),
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Meal plan received from backend:', JSON.stringify(data));
-                setMealPlan(data);
-            })
-            .catch(error => console.error('Error saving updated meal plan:', error));
-    };
-
-    const handleSaveFood = (foodName) => {
-        if (!selectedCell.day) {
-            console.error('Selected cell information missing');
-            return;
-        }
-
-        const day = mealPlan.days.find(d => d.name === selectedCell.day.name);
-        console.log('Day:', day.name);
-        console.log('Meal time:', selectedCell.mealtime);
-
-        const existingFood = savedFoods.find(food => food.name.toLowerCase() === foodName.toLowerCase());
-
-        const processUpdate = (foodToUse) => {
-                const updatedMealPlan = {...mealPlan};
-
-                const dayToUpdate = updatedMealPlan.days.find(d => d.id === day.id);
-                let mealToUpdate = dayToUpdate.meals.find(m => m.name === selectedCell.mealtime);
-
-                if (!mealToUpdate) {
-                    mealToUpdate = {
-                        name: selectedCell.mealtime,
-                        food: foodToUse,
-                        mealTime: updatedMealPlan.mealTimes.find(mt => mt.name === selectedCell.mealtime),
-                        dayId: day.id
-                    };
-                    dayToUpdate.meals.push(mealToUpdate);
-                } else {
-                    mealToUpdate.food = foodToUse;
-                }
-
-                setMealPlan(updatedMealPlan);
-
-                updateMealPlan(updatedMealPlan);
-
-        };
-
-        if (existingFood) {
-            console.log(`Food ${foodName} already exists. Not adding to backend.`);
-            processUpdate(existingFood);
-        } else {
-            const foodData = {
-                name: foodName,
-                id: undefined,
-                description: undefined,
-                ingredients: []
-            };
-
-            fetch(`${BackendUrl}/api/foods`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(foodData)
-            })
-                .then(response => response.json())
-                .then(savedFood => {
-                    setSavedFoods(prevFoods => [...prevFoods, savedFood].sort((a, b) => a.name.localeCompare(b.name)));
-                    processUpdate(savedFood);
-                })
-                .catch(error => console.error('Error saving food:', error));
-        }
-    };
-
-    const handleDeleteFood = (foodId) => {
-        fetch(`${BackendUrl}/api/foods/${foodId}`, { method: 'DELETE' })
-            .then(response => {
-                if (response.ok) {
-                    setSavedFoods(prevFoods => prevFoods.filter(f => f.id !== foodId));
-                    const updatedMealPlan = { ...mealPlan };
-                    updatedMealPlan.days.forEach(day => {
-                        day.meals.forEach(meal => {
-                            if (meal.food.id === foodId) {
-                                meal.food = null;
-                            }
-                        });
-                    });
-                    updateMealPlan(updatedMealPlan);
-                } else {
-                    console.error(`Failed to delete food with id ${foodId}`);
-                }
-            })
-            .catch(error => console.error(`Error deleting food with id ${foodId}:`, error));
-    };
-
-    const handleAddMealTime = () => {
-        const newName = prompt('Enter the name of the new meal:');
-        const mealTimeData = {
-            name: newName,
-        };
-
-        fetch(`${BackendUrl}/api/mealtimes`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(mealTimeData)
-        })
-            .then(response => response.json())
-            .then((newMealTime) => {
-                const updatedMealPlan = {
-                    ...mealPlan,
-                    mealTimes: [...mealPlan.mealTimes, newMealTime],
-                    days: mealPlan.days,
-                }
-                console.log(newMealTime)
-                console.log(updatedMealPlan)
-                updateMealPlan(updatedMealPlan)
-            })
-            .catch(error => console.error('Error adding meal:', error));
-    };
-
-    const handleReorder = (index1, index2) => {
-        if (index1 < 0 || index2 < 0 || index1 >= mealPlan.mealTimes.length || index2 >= mealPlan.mealTimes.length) {
-            return;
-        }
-
-        const mealTime1 = mealPlan.mealTimes[index1];
-        const mealTime2 = mealPlan.mealTimes[index2];
-
-        fetch(`${BackendUrl}/api/mealtimes/reorder`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ mealTimeId1: mealTime1.id, mealTimeId2: mealTime2.id })
-        })
-            .then(response => {
-                if (response.ok) {
-                    const updatedMealTimes = [...mealPlan.mealTimes];
-                    [updatedMealTimes[index1], updatedMealTimes[index2]] = [updatedMealTimes[index2], updatedMealTimes[index1]];
-                    console.log('Updated meal times:',updatedMealTimes)
-                    const updatedMealPlan = { ...mealPlan, mealTimes: updatedMealTimes}
-                    updateMealPlan(updatedMealPlan)
-                }
-            })
-            .catch(error => console.error("Error reordering meal times:", error));
-    };
-
-    const resetMealPlan = () => {
-        const mealTimesToPreserve = mealPlan.mealTimes.map(mt => ({ name: mt.name }));
-
-        fetch(`${BackendUrl}/api/meal-plan/reset`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ mealTimes: mealTimesToPreserve })
-        })
-            .then(response => {
-                if (response.ok) {
-                    return fetch(`${BackendUrl}/api/meal-plan`);
-                }
-                throw new Error('Failed to reset meal plan');
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Reset meal plan successfully', data);
-                setMealPlan(data);
-            })
-            .catch(error => console.error('Error resetting meal plan:', error));
     };
 
     if (!mealPlan?.days || mealPlan.days.length === 0) {
@@ -234,7 +68,7 @@ const MealPlanPage = () => {
                         </tr>
                         </thead>
                         <tbody>
-                            {mealPlan.mealTimes?.map((mt, index) => (
+                            {mealTimes.map((mt, index) => (
                                 <tr key={mt.id}>
                                     <td className="meal-name-cell">
                                         <div className="meal-time-container">
@@ -250,7 +84,7 @@ const MealPlanPage = () => {
                                                         onClick={() => handleReorder(index, index - 1)}
                                                     />
                                                 )}
-                                                {index < mealPlan.mealTimes.length - 1 && (
+                                                {index < mealTimes.length - 1 && (
                                                     <img
                                                         src={downArrow}
                                                         alt="Move down"

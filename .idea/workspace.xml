@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="394f1832-2bd8-4dcd-b968-3262c9a548d2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/src/hooks/useMealPlan.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/hooks/useMealTime.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MealtimePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MealtimePage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MealPlanPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MealPlanPage.jsx" afterDir="false" />
     </list>
     <list id="542fc26d-9e25-4b21-8122-007167c71aa5" name="Changes by Lili" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -313,7 +315,7 @@
       <workItem from="1743087884496" duration="217000" />
       <workItem from="1743088114471" duration="5468000" />
       <workItem from="1744042847490" duration="3416000" />
-      <workItem from="1744285819844" duration="8290000" />
+      <workItem from="1744285819844" duration="10460000" />
     </task>
     <servers />
   </component>
