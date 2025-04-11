@@ -22,12 +22,6 @@ const MealPlanPage = () => {
         resetMealPlan,
     } = useMealPlan();
 
-    /* const {
-        mealTimes,
-        handleAddMealTime,
-        handleReorder
-    } = useMealTime(mealPlan, updateMealPlan); */
-
     const [mealTimes, setMealTimes] = useState([]);
     const [isMealPlanLoaded, setIsMealPlanLoaded] = useState(false);
 
