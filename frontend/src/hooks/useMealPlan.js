@@ -129,7 +129,7 @@ export const useMealPlan = () => {
             })
             .then(response => response.json())
             .then(data => {
-                console.log('Reset meal plan successfully', data);
+                console.log('Reset meal plan successfully', JSON.stringify(data));
                 setMealPlan(data);
             })
             .catch(error => console.error('Error resetting meal plan:', error));

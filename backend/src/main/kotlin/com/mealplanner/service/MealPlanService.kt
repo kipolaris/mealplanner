@@ -30,6 +30,7 @@ class MealPlanService(
             MealTime(name = it)
         }.toMutableList()
     }
+
     private fun initializeDays(): MutableList<Day> {
         val daysOfWeek = listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
 
@@ -57,81 +58,58 @@ class MealPlanService(
         return mealPlan
     }
 
-
-    fun updateMealInDay(dayId: Long, mealType: String, meal: Meal): Day? {
-        val day = dayRepository.findById(dayId).orElse(null) ?: return null
-        val savedMeal = mealRepository.save(meal)
-
-        val mealTime = mealTimeRepository.findByName(mealType) ?: mealTimeRepository.save(MealTime(name = mealType))
-
-        val existingMeal = day.meals.find { it.mealTime.name.equals(mealType, ignoreCase = true) }
-        if (existingMeal != null) {
-            existingMeal.food = savedMeal.food
-        } else {
-            day.meals += savedMeal.copy(mealTime = mealTime)
-        }
-
-        return dayRepository.save(day)
-    }
-
-    fun removeFoodFromMeal(dayId: Long, mealId: Long, foodId: Long): Day? {
-        val day = dayRepository.findById(dayId).orElse(null) ?: return null
-        val meal = day.meals.find { it.id == mealId }?: return null
-
-        if (meal.food?.id == foodId) meal.food = null
-
-        mealRepository.save(meal)
-        return dayRepository.save(day)
-    }
-
     fun updateMealPlan(updatedMealPlan: MealPlan): MealPlan {
-        val existingMealPlan = getMealPlan()
-        val mealTimeMap = existingMealPlan.mealTimes.associateBy { it.name }.toMutableMap()
+        val mealPlan = getMealPlan()
 
-        updatedMealPlan.mealTimes.forEach {mt ->
-            val mealTime = mealTimeMap.getOrPut(mt.name) {
-                mealTimeRepository.save(MealTime(name = mt.name))
-            }
-            mealTimeMap[mt.name] = mealTime
-        }
-
-        existingMealPlan.mealTimes.clear()
-        existingMealPlan.mealTimes.addAll(updatedMealPlan.mealTimes)
-
+        updateMealTimes(mealPlan, updatedMealPlan.mealTimes)
 
         updatedMealPlan.days.forEach { updatedDay ->
-            val existingDay = existingMealPlan.days.find { it.id == updatedDay.id }
-            if (existingDay != null) {
-                updatedDay.meals.forEach { meal ->
-                    val managedFood = meal.food?.id?.let {
-                        foodRepository.findById(it).orElse(null)
-                    } ?: meal.food
-
-                    if (managedFood?.id != null) {
-                        meal.food = managedFood
-                    }
-
-                    val existingMeal = existingDay.meals.find { it.mealTime.id == meal.mealTime.id }
-
-                    if (existingMeal != null) {
-                        existingMeal.food = managedFood
-                    } else {
-                        val mealTime = mealTimeMap.getOrPut(meal.mealTime.name) {
-                            mealTimeRepository.save(MealTime(name = meal.mealTime.name))
-                        }
-
-                        val newMeal = Meal(
-                            mealTime = mealTime,
-                            food = managedFood,
-                            dayId = updatedDay.id
-                        )
-
-                        existingDay.meals.add(newMeal)
-                    }
-                }
-            }
+            updateMealsForDay(mealPlan, updatedDay)
         }
 
-        return mealPlanRepository.save(existingMealPlan)
+        println("Meal plan after update: $mealPlan")
+        return mealPlanRepository.save(mealPlan)
+    }
+
+    private fun updateMealTimes(mealPlan: MealPlan, newMealTimes: MutableList<MealTime>) {
+        newMealTimes.forEach {mt ->
+            if(mt.id?.let { mealTimeRepository.existsById(it) } == false) mealTimeRepository.save(mt)
+        }
+
+        mealPlan.mealTimes.clear()
+        mealPlan.mealTimes = newMealTimes
+    }
+
+    private fun updateMealsForDay(mealPlan: MealPlan, updatedDay: Day) {
+        val existingDay = mealPlan.days.find { it.id == updatedDay.id }
+        if (existingDay != null) {
+            updatedDay.meals.forEach { meal ->
+                updateMeal(existingDay, meal)
+            }
+        }
+    }
+
+    private fun updateMeal(day: Day, meal: Meal) {
+        val managedFood = meal.food?.id?.let {
+            foodRepository.findById(it).orElse(null)
+        } ?: meal.food
+
+        if (managedFood?.id != null) {
+            meal.food = managedFood
+        }
+
+        val existingMeal = day.meals.find { it.mealTime.id == meal.mealTime.id }
+
+        if (existingMeal != null) {
+            existingMeal.food = managedFood
+        } else {
+            val newMeal = Meal(
+                mealTime = meal.mealTime,
+                food = managedFood,
+                dayId = day.id
+            )
+
+            day.meals.add(newMeal)
+        }
     }
 }

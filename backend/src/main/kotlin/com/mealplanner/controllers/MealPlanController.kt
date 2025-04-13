@@ -14,6 +14,8 @@ class MealPlanController(private val mealPlanService: MealPlanService) {
 
     @GetMapping
     fun getMealPlan(): ResponseEntity<MealPlan> {
+        val mealPlan = mealPlanService.getMealPlan()
+        println("Fetched meal plan: $mealPlan")
         return ResponseEntity.ok(mealPlanService.getMealPlan())
     }
 
@@ -22,24 +24,9 @@ class MealPlanController(private val mealPlanService: MealPlanService) {
         return ResponseEntity.ok(mealPlanService.resetMealPlan(mealTimesRequest))
     }
 
-
-    @PutMapping("/days/{dayId}/meals/{mealType}")
-    fun updateMealInDay(@PathVariable dayId: Long, @PathVariable mealType: String, @RequestBody meal: Meal): ResponseEntity<Day> {
-        return mealPlanService.updateMealInDay(dayId, mealType, meal)?.let {
-            ResponseEntity.ok(it)
-        } ?: ResponseEntity.notFound().build()
-    }
-
-    @DeleteMapping("/days/{dayId}/meals/{mealId}/foods/{foodId}")
-    fun removeFoodFromMeal(@PathVariable dayId: Long, @PathVariable mealId: Long, @PathVariable foodId: Long): ResponseEntity<Day> {
-        return mealPlanService.removeFoodFromMeal(dayId, mealId, foodId)?.let {
-            ResponseEntity.ok(it)
-        } ?: ResponseEntity.notFound().build()
-    }
-
     @PutMapping
     fun updateMealPlan(@RequestBody updatedMealPlan: MealPlan): ResponseEntity<MealPlan> {
-        println(updatedMealPlan)
+        println("Updated meal plan received from frontend: $updatedMealPlan")
         return ResponseEntity.ok(mealPlanService.updateMealPlan(updatedMealPlan))
     }
 }
