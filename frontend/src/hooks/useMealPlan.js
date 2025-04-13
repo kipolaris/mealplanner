@@ -11,7 +11,7 @@ export const useMealPlan = () => {
         fetch(`${BackendUrl}/api/meal-plan`)
             .then(response => response.json())
             .then(data => {
-                console.log("Fetched meal plan data:", data);
+                console.log("Fetched meal plan data:", JSON.stringify(data));
                 setMealPlan(getValidMealPlan(data));
             })
             .catch(error => console.error('Error fetching meal plan:', error));
@@ -71,7 +71,6 @@ export const useMealPlan = () => {
                 mealToUpdate.food = foodToUse;
             }
 
-            setMealPlan(updatedMealPlan);
             updateMealPlan(updatedMealPlan);
         };
 

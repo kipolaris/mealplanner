@@ -1,8 +1,14 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import { BackendUrl } from '../utils/constants';
 
 export const useMealTime = (mealPlan, updateMealPlan) => {
-    const [mealTimes, setMealTimes] = useState(mealPlan.mealTimes);
+    const [mealTimes, setMealTimes] = useState();
+
+    useEffect(() => {
+        if(mealPlan) {
+            setMealTimes(mealPlan.mealTimes);
+        }
+    }, [mealPlan])
 
     const handleAddMealTime = () => {
         const newName = prompt('Enter the name of the new meal:');
@@ -44,8 +50,9 @@ export const useMealTime = (mealPlan, updateMealPlan) => {
                 if (response.ok) {
                     const updatedMealTimes = [...mealTimes];
                     [updatedMealTimes[index1], updatedMealTimes[index2]] = [updatedMealTimes[index2], updatedMealTimes[index1]];
-                    console.log('Updated meal times:', updatedMealTimes);
+                    console.log('Updated meal times:', JSON.stringify(updatedMealTimes));
                     const updatedMealPlan = { ...mealPlan, mealTimes: updatedMealTimes };
+                    console.log('Meal plan after reordering mealtimes:',JSON.stringify(updatedMealPlan));
                     setMealTimes(updatedMealTimes);
                     updateMealPlan(updatedMealPlan);
                 }

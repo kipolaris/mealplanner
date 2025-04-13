@@ -5,8 +5,6 @@ import com.mealplanner.data.Meal
 import com.mealplanner.data.MealPlan
 import com.mealplanner.data.MealTime
 import com.mealplanner.repositories.*
-import jakarta.persistence.EntityManager
-import jakarta.persistence.PersistenceContext
 import org.springframework.stereotype.Service
 
 @Service
@@ -18,9 +16,6 @@ class MealPlanService(
     private val foodRepository: FoodRepository
 ) {
     private val mealPlanId = 1L // Singleton ID
-
-    @PersistenceContext
-    private lateinit var entityManager: EntityManager
 
     fun getMealPlan(): MealPlan {
         return mealPlanRepository.findById(mealPlanId).orElseGet {
