@@ -53,9 +53,9 @@ class MealTimeController(private val mealTimeService: MealTimeService) {
     }
 
     @PutMapping("/reorder")
-    fun reorderMealTimes(@RequestBody request: ReorderRequest): ResponseEntity<Void> {
+    fun reorderMealTimes(@RequestBody request: ReorderRequest): ResponseEntity<List<MealTime>> {
         mealTimeService.reorderMealTimes(request.mealTimeId1, request.mealTimeId2)
-        return ResponseEntity.ok().build()
+        return ResponseEntity.ok(mealTimeService.getAllMealTimes())
     }
 
 }

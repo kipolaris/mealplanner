@@ -114,7 +114,7 @@ export const useMealPlan = () => {
     };
 
     const resetMealPlan = () => {
-        const mealTimesToPreserve = mealPlan.mealTimes.map(mt => ({ name: mt.name }));
+        const mealTimesToPreserve = mealPlan.mealTimes.map(mt => ({ id: mt.id, name: mt.name }));
 
         fetch(`${BackendUrl}/api/meal-plan/reset`, {
             method: 'POST',

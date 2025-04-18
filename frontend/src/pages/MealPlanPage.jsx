@@ -52,7 +52,7 @@ const MealPlanPage = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        {mealTimes.map((mt, index) => (
+                        {mealTimes.slice().sort((a,b) => a.order - b.order).map((mt, order) => (
                             <tr key={mt.id}>
                                 <td className="meal-name-cell">
                                     <div className="meal-time-container">
@@ -60,20 +60,20 @@ const MealPlanPage = () => {
                                                 {mt.name}
                                             </span>
                                         <div className="arrow-buttons">
-                                            {index > 0 && (
+                                            {order > 0 && ( //TODO: use object's order field instead of indices
                                                 <img
                                                     src={upArrow}
                                                     alt="Move up"
                                                     className="arrow-button up-arrow"
-                                                    onClick={() => handleReorder(index, index - 1)}
+                                                    onClick={() => handleReorder(order, order - 1)}
                                                 />
                                             )}
-                                            {index < mealPlan.mealTimes.length - 1 && (
+                                            {order < mealPlan.mealTimes.length - 1 && (
                                                 <img
                                                     src={downArrow}
                                                     alt="Move down"
                                                     className="arrow-button down-arrow"
-                                                    onClick={() => handleReorder(index, index + 1)}
+                                                    onClick={() => handleReorder(order, order + 1)}
                                                 />
                                             )}
                                         </div>

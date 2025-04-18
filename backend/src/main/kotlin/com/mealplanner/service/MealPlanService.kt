@@ -26,8 +26,8 @@ class MealPlanService(
 
     private fun initializeMealTimes(): MutableList<MealTime> {
         val basicMealTimes = listOf("Breakfast", "Lunch", "Dinner")
-        return basicMealTimes.map {
-            MealTime(name = it)
+        return basicMealTimes.mapIndexed {index, mt ->
+            MealTime(name = mt, order = index)
         }.toMutableList()
     }
 
@@ -51,8 +51,14 @@ class MealPlanService(
             }
         }
 
-        val mealTimes = mealTimesRequest["mealTimes"]?.map { it["name"] ?: "" }?.filter { it.isNotBlank() } ?: emptyList()
-        mealPlan.mealTimes = mealTimes.map { MealTime(name = it) }.toMutableList()
+
+        val mealTimes = mealTimesRequest["mealTimes"]?.map {
+            if(!mealTimeRepository.existsById(it["id"]?.toLong()!!)) {
+                mealTimeRepository.save(MealTime(id = it["id"]!!.toLong(), name = it["name"]!!))
+            }
+            mealTimeRepository.getReferenceById(it["id"]!!.toLong())
+        } ?: listOf()
+        mealPlan.mealTimes = mealTimes.toMutableList()
 
         mealPlanRepository.save(mealPlan)
         return mealPlan

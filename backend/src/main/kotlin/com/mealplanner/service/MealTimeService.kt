@@ -1,11 +1,14 @@
 package com.mealplanner.service
 
 import com.mealplanner.data.MealTime
+import com.mealplanner.repositories.MealPlanRepository
 import com.mealplanner.repositories.MealTimeRepository
 import org.springframework.stereotype.Service
 
 @Service
-class MealTimeService(private val mealTimeRepository: MealTimeRepository) {
+class MealTimeService(private val mealTimeRepository: MealTimeRepository,
+                      private val mealPlanRepository: MealPlanRepository
+) {
     fun getAllMealTimes(): List<MealTime> {
         return mealTimeRepository.findAll()
     }
@@ -41,9 +44,6 @@ class MealTimeService(private val mealTimeRepository: MealTimeRepository) {
         val tempOrder = mealTime1.order
         mealTime1.order = mealTime2.order
         mealTime2.order = tempOrder
-
-        mealTimeRepository.save(mealTime1)
-        mealTimeRepository.save(mealTime2)
     }
 
     fun getNextOrderValue(): Int {

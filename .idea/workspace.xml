@@ -6,9 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="394f1832-2bd8-4dcd-b968-3262c9a548d2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/MealPlanController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/MealPlanController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/MealTimeController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/MealTimeController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/data/ReorderRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/data/ReorderRequest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/MealPlanService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/MealPlanService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/MealTimeService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/MealTimeService.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useMealPlan.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useMealPlan.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useMealTime.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useMealTime.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MealPlanPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MealPlanPage.jsx" afterDir="false" />
     </list>
     <list id="542fc26d-9e25-4b21-8122-007167c71aa5" name="Changes by Lili" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -315,7 +319,8 @@
       <workItem from="1743087884496" duration="217000" />
       <workItem from="1743088114471" duration="5468000" />
       <workItem from="1744042847490" duration="3416000" />
-      <workItem from="1744285819844" duration="27029000" />
+      <workItem from="1744285819844" duration="27627000" />
+      <workItem from="1744819544424" duration="4292000" />
     </task>
     <servers />
   </component>
@@ -324,5 +329,16 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint type="kotlin-line">
+          <url>file://$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/MealTimeService.kt</url>
+          <line>43</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
