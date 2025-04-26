@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route, Routes, useNavigate, useParams} from 're
 import LandingPage from './pages/LandingPage';
 import MealPlanPage from './pages/MealPlanPage';
 import MealtimePage from './pages/MealtimePage';
-import './assets/css/meal-plan-page.css';
+import './App.css';
 
 function App() {
     return (

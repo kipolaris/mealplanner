@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service
 class MealPlanService(
     private val mealPlanRepository: MealPlanRepository,
     private val dayRepository: DayRepository,
-    private val mealRepository: MealRepository,
     private val mealTimeRepository: MealTimeRepository,
     private val foodRepository: FoodRepository
 ) {

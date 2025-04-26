@@ -5,13 +5,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="394f1832-2bd8-4dcd-b968-3262c9a548d2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/public/meal_planner_logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/css/page-title.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/css/tape-button.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/css/taped-table.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/fonts/Lobster-Regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/fonts/PatrickHand-Regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/arrowdown.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/arrowleft.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/arrowright.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/arrowup.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/backgroundpattern.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/paper.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/paperbackground.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/pencil.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/pinkflowertape.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/trashcan.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/whitetape.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/PageTitle.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/TapeButton.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/TapedTable.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/MealtimesPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/MealTimeController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/MealTimeController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/data/ReorderRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/data/ReorderRequest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/MealPlanService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/MealPlanService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/MealTimeService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/MealTimeService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useMealPlan.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useMealPlan.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useMealTime.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useMealTime.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/landing-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/landing-page.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/meal-plan-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/meal-plan-page.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/mealtime-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/mealtime-page.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/LandingPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/LandingPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/MealPlanPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MealPlanPage.jsx" afterDir="false" />
     </list>
     <list id="542fc26d-9e25-4b21-8122-007167c71aa5" name="Changes by Lili" comment="" />
@@ -68,10 +91,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
         <option value="Kotlin Class" />
         <option value="Kotlin Data Class" />
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -95,44 +118,46 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/csuto/programming/mealplanner/backend/src/main/kotlin/com/mealplanner/Service&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;84e29e708c80bf3a3fe53a0bffc34007&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2022.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "last_opened_file_path": "C:/Users/csuto/programming/mealplanner/frontend/public",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "spring.configuration.checksum": "84e29e708c80bf3a3fe53a0bffc34007",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2022.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\csuto\programming\mealplanner\frontend\public" />
+      <recent name="C:\Users\csuto\programming\mealplanner\frontend\public\fonts" />
       <recent name="C:\Users\csuto\programming\mealplanner\backend\src\main\kotlin\com\mealplanner\Service" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\csuto\programming\mealplanner\frontend\src\assets" />
       <recent name="C:\Users\csuto\programming\mealplanner\frontend\src\utils" />
       <recent name="C:\Users\csuto\programming\mealplanner\frontend\src" />
       <recent name="C:\Users\csuto\programming\mealplanner\frontend\src\components\modals" />
       <recent name="C:\Users\csuto\programming\mealplanner\frontend\src\components\pages" />
-      <recent name="C:\Users\csuto\programming\mealplanner\frontend\src\assets" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
       <recent name="com.mealplanner.Controllers" />
@@ -320,7 +345,11 @@
       <workItem from="1743088114471" duration="5468000" />
       <workItem from="1744042847490" duration="3416000" />
       <workItem from="1744285819844" duration="27627000" />
-      <workItem from="1744819544424" duration="4292000" />
+      <workItem from="1744819544424" duration="6163000" />
+      <workItem from="1744995653932" duration="2319000" />
+      <workItem from="1745263064277" duration="461000" />
+      <workItem from="1745329231622" duration="1067000" />
+      <workItem from="1745615181815" duration="6966000" />
     </task>
     <servers />
   </component>

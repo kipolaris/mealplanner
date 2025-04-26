@@ -1,0 +1,66 @@
+.taped-table-wrapper {
+    position: relative;
+    display: inline-block;
+    padding: 30px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 40px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.taped-table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.taped-table th,
+.taped-table td {
+    border: 1px solid #c0b9a6;
+    padding: 12px;
+    text-align: center;
+}
+
+.lobster {
+    font-family: 'Lobster', cursive;
+    font-size: 24px;
+    color: #ff78a8;
+}
+
+.patrick {
+    font-family: 'PatrickHand', cursive;
+    font-size: 20px;
+    color: #ff78a8;
+}
+
+/* Flower tapes on corners */
+.tape {
+    position: absolute;
+    width: 60px;
+    z-index: 2;
+}
+
+.top-left {
+    top: -15px;
+    left: -15px;
+    transform: rotate(-45deg);
+}
+
+.top-right {
+    top: -15px;
+    right: -15px;
+    transform: rotate(45deg);
+}
+
+.bottom-left {
+    bottom: -15px;
+    left: -15px;
+    transform: rotate(45deg);
+}
+
+.bottom-right {
+    bottom: -15px;
+    right: -15px;
+    transform: rotate(-45deg);
+}

@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/css/landing-page.css';
+import PageTitle from "../components/PageTitle";
+import TapeButton from '../components/TapeButton';
 
 const LandingPage = () => {
     const navigate = useNavigate();
@@ -11,10 +13,10 @@ const LandingPage = () => {
 
     return (
         <div className="landing-page-container">
-            <h1>Welcome to Meal Planner!</h1>
+            <PageTitle text="Welcome to Meal Planner!" />
             <div className="button-container">
-                <button className="orange-button" onClick={navigateToMealPlan}>Login</button>
-                <button className="orange-button" onClick={navigateToMealPlan}>Sign up</button>
+                <TapeButton text="Log in" onClick={navigateToMealPlan}/>
+                <TapeButton text="Sign up" onClick={navigateToMealPlan}/>
             </div>
         </div>
     );

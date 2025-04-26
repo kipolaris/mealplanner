@@ -8,6 +8,7 @@ import upArrow from "../assets/images/arrowpointingup.png";
 import downArrow from "../assets/images/arrowpointingdown.png";
 import { useMealPlan } from "../hooks/useMealPlan";
 import { useMealTime } from "../hooks/useMealTime";
+import PageTitle from "../components/PageTitle";
 
 const MealPlanPage = () => {
     const {
@@ -32,12 +33,12 @@ const MealPlanPage = () => {
     };
 
     if (!mealPlan?.days || mealPlan.days.length === 0) {
-        return <h1 className="loading">Loading meal plan...</h1>;
+        return <PageTitle text="Loading Meal Plan..." />;
     }
 
     return (
         <div className="app-container">
-            <h1 className="meal-plan-title">Meal Plan</h1>
+            <PageTitle text="Meal Plan" />
             <div className="meal-plan-table-wrapper">
                 <div className="meal-plan-container">
                     <table className="meal-plan-table">

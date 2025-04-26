@@ -11,8 +11,6 @@
 
 .landing-page-container h1 {
     margin-bottom: 30px;
-    color: white;
-    text-shadow: 2px 2px 5px rgba(255, 165, 0, 0.75); /* Faint orange shadow */
 }
 
 .button-container {
@@ -28,6 +26,7 @@
     cursor: pointer;
     font-size: 16px;
     border-radius: 5px;
+    font-family: 'PatrickHand', cursive;
 }
 
 .landing-page-container .orange-button:hover {
