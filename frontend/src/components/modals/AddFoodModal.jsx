@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import trashIcon from '../../assets/images/trash_icon.png';
+import trashIcon from '../../assets/images/trashcan.png';
+import paperBackground from '../../assets/images/paperbackground.png'
+import '../../assets/css/modal.css'
 
 const AddFoodModal = ({ isOpen, onClose, onSave, savedFoods = [], onDeleteFood }) => {
     const [selectedFood, setSelectedFood] = useState('');
@@ -45,7 +47,9 @@ const AddFoodModal = ({ isOpen, onClose, onSave, savedFoods = [], onDeleteFood }
 
     return (
         <div className={`modal-overlay ${isOpen ? 'open' : ''}`}>
-            <div className="modal-content">
+            <div className="modal-content" style={{
+                    backgroundImage: `url(${paperBackground})`
+                }}>
                 <h2>Select or Add Food</h2>
                 <div className="custom-dropdown">
                     <button

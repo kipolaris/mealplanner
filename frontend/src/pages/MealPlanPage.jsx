@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import AddFoodModal from '../components/modals/AddFoodModal';
 import '../assets/css/meal-plan-page.css';
 
-import upArrow from "../assets/images/arrowpointingup.png";
-import downArrow from "../assets/images/arrowpointingdown.png";
 import { useMealPlan } from "../hooks/useMealPlan";
 import { useMealTime } from "../hooks/useMealTime";
 import PageTitle from "../components/PageTitle";
+import TapedTable from "../components/TapedTable";
 
 const MealPlanPage = () => {
     const {
@@ -38,69 +37,36 @@ const MealPlanPage = () => {
 
     return (
         <div className="app-container">
-            <PageTitle text="Meal Plan" />
             <div className="meal-plan-table-wrapper">
                 <div className="meal-plan-container">
-                    <table className="meal-plan-table">
-                        <thead>
-                        <tr>
-                            <th>
-                                <button className="orange-button" onClick={resetMealPlan}>Reset</button>
-                            </th>
-                            {mealPlan.days?.map((day, index) => (
-                                <th key={index}>{day.name}</th>
-                            ))}
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {mealTimes.slice().sort((a,b) => a.order - b.order).map((mt, order) => (
-                            <tr key={mt.id}>
-                                <td className="meal-name-cell">
-                                    <div className="meal-time-container">
-                                            <span className="meal-time-name" onClick={() => navigate(`/meal/${mt.name}`)}>
-                                                {mt.name}
-                                            </span>
-                                        <div className="arrow-buttons">
-                                            {order > 0 && ( //TODO: use object's order field instead of indices
-                                                <img
-                                                    src={upArrow}
-                                                    alt="Move up"
-                                                    className="arrow-button up-arrow"
-                                                    onClick={() => handleReorder(order, order - 1)}
-                                                />
-                                            )}
-                                            {order < mealPlan.mealTimes.length - 1 && (
-                                                <img
-                                                    src={downArrow}
-                                                    alt="Move down"
-                                                    className="arrow-button down-arrow"
-                                                    onClick={() => handleReorder(order, order + 1)}
-                                                />
-                                            )}
-                                        </div>
-                                    </div>
+            <PageTitle text="Meal Plan" />
+                    <TapedTable
+                        columns={mealPlan.days.map(day => day.name)}
+                        rows={mealTimes.slice().sort((a, b) => a.order - b.order)}
+                        renderCell={(rowIndex, colIndex) => {
+                            const mt = mealTimes.slice().sort((a, b) => a.order - b.order)[rowIndex];
+                            const day = mealPlan.days[colIndex];
+                            const mealForDay = day.meals.find(m => m.mealTime.name === mt.name);
+                            return (
+                                <button className="meal-button" onClick={() => handleCellClick(day, mealForDay, mt.name)}>
+                                    {mealForDay ? (mealForDay.food ? mealForDay.food.name : "") : ""}
+                                </button>
+                            );
+                        }}
+                        extraBottomRow={
+                            <tr>
+                                <td colSpan={mealPlan.days.length + 1}>
+                                    <button className="table-button lobster" onClick={handleAddMealTime}>Add new meal time</button>
                                 </td>
-                                {mealPlan.days.map((day, idx) => {
-                                    const mealForDay = day.meals.find((m) => m.mealTime.name === mt.name);
-                                    return (
-                                        <td key={idx} className="food-item" onClick={() => handleCellClick(day, mealForDay, mt.name)}>
-                                            <button>
-                                                { mealForDay ? (mealForDay.food ? mealForDay.food.name : "") : "" }
-                                            </button>
-                                        </td>
-                                    );
-                                })}
                             </tr>
-                        ))}
-                        <tr>
-                            <td colSpan={mealPlan.days.length + 1}>
-                                <button className="orange-button" onClick={handleAddMealTime}>Add new meal time</button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                        }
+                        handleReset={resetMealPlan}
+                        handleReorder={handleReorder}
+                        navigate={navigate}
+                        />
+                    </div>
+                 </div>
+
             <AddFoodModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}

@@ -17,10 +17,12 @@ body {
   background-size: auto;
   font-family: 'PatrickHand', cursive;
   color: #ff78a8;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Lobster', cursive;
+  color: #ff78a8;
 }
 
 .App {

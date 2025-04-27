@@ -2,8 +2,10 @@ import React from 'react';
 import '../assets/css/taped-table.css';
 import pinkFlowerTape from '../assets/images/pinkflowertape.png';
 import paperBackground from '../assets/images/paperbackground.png';
+import upArrow from '../assets/images/arrowup.png';
+import downArrow from '../assets/images/arrowdown.png'
 
-const TapedTable = ({ columns, rows, renderCell, extraBottomRow }) => {
+const TapedTable = ({ columns, rows, renderCell, extraBottomRow, handleReset, handleReorder, navigate }) => {
     return (
         <div className="taped-table-wrapper" style={{
             backgroundImage: `url(${paperBackground})`
@@ -17,7 +19,9 @@ const TapedTable = ({ columns, rows, renderCell, extraBottomRow }) => {
             <table className="taped-table">
                 <thead>
                 <tr>
-                    <th><button className="orange-button lobster">Reset</button></th>
+                    <th>
+                        <button className="table-button lobster" onClick={handleReset}>Reset</button>
+                    </th>
                     {columns.map((col, idx) => (
                         <th key={idx} className="lobster">{col}</th>
                     ))}
@@ -25,8 +29,33 @@ const TapedTable = ({ columns, rows, renderCell, extraBottomRow }) => {
                 </thead>
                 <tbody>
                 {rows.map((row, rowIndex) => (
-                    <tr key={rowIndex}>
-                        <td className="lobster meal-time">{row}</td>
+                    <tr key={row.id}>
+                        <td className="lobster meal-time-cell">
+                            <div className="meal-time-container">
+                                <span className="meal-time-name" onClick={() => navigate(`/meal/${row.name}`)}>
+                                  {row.name}
+                                </span>
+                                <div className="arrow-buttons">
+                                    {rowIndex > 0 && (
+                                        <img
+                                            src={upArrow}
+                                            alt="Move up"
+                                            className="arrow-button"
+                                            onClick={() => handleReorder(rowIndex, rowIndex - 1)}
+                                        />
+                                    )}
+                                    {rowIndex < rows.length - 1 && (
+                                        <img
+                                            src={downArrow}
+                                            alt="Move down"
+                                            className="arrow-button"
+                                            onClick={() => handleReorder(rowIndex, rowIndex + 1)}
+                                        />
+                                    )}
+                                </div>
+                            </div>
+                        </td>
+
                         {columns.map((col, colIndex) => (
                             <td key={colIndex} className="patrick">
                                 {renderCell(rowIndex, colIndex)}

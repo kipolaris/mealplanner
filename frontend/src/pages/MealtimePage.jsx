@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import AddFoodModal from '../components/modals/AddFoodModal';
 import '../assets/css/mealtime-page.css';
 import { useMealPlan } from '../hooks/useMealPlan';
+import {useNavigate} from "react-router-dom";
 
 const MealtimePage = ({ mealTime, onClose }) => {
     const {
@@ -15,6 +16,7 @@ const MealtimePage = ({ mealTime, onClose }) => {
         updateMealPlan,
     } = useMealPlan();
 
+    const navigate = useNavigate();
     const handleCellClick = (day, meal, mealtime) => {
         setSelectedCell({ day: day, meal: meal, mealtime: mealtime });
         setIsModalOpen(true);
@@ -33,7 +35,7 @@ const MealtimePage = ({ mealTime, onClose }) => {
                         <thead>
                         <tr>
                             <th>
-                                <button className="orange-button" onClick={onClose}>Back</button>
+                                <button className="table-button" onClick={onClose}>Back</button>
                             </th>
                             <th>Meals</th>
                         </tr>

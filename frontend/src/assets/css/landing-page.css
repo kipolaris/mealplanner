@@ -18,7 +18,7 @@
     gap: 10px;
 }
 
-.landing-page-container .orange-button {
+.landing-page-container .table-button {
     background-color: white;
     color: orange;
     border: none;
@@ -29,6 +29,6 @@
     font-family: 'PatrickHand', cursive;
 }
 
-.landing-page-container .orange-button:hover {
+.landing-page-container .table-button:hover {
     background-color: darkorange;
 }

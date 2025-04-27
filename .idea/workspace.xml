@@ -5,37 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="394f1832-2bd8-4dcd-b968-3262c9a548d2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/public/meal_planner_logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/assets/css/page-title.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/assets/css/tape-button.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/assets/css/taped-table.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/assets/fonts/Lobster-Regular.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/assets/fonts/PatrickHand-Regular.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/arrowdown.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/arrowleft.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/arrowright.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/arrowup.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/backgroundpattern.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/paper.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/paperbackground.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/pencil.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/pinkflowertape.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/trashcan.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/assets/images/whitetape.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/PageTitle.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/TapeButton.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/TapedTable.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/pages/MealtimesPage.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/css/modal.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/MealPlanService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/MealPlanService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/landing-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/landing-page.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/meal-plan-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/meal-plan-page.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/mealtime-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/mealtime-page.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/LandingPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/LandingPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/page-title.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/page-title.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/taped-table.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/taped-table.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/TapedTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/TapedTable.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/modals/AddFoodModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/modals/AddFoodModal.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/MealPlanPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MealPlanPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MealtimePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MealtimePage.jsx" afterDir="false" />
     </list>
     <list id="542fc26d-9e25-4b21-8122-007167c71aa5" name="Changes by Lili" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -108,7 +90,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2hYpcXtSANa4PqIH3bW99KcOdnr" />
   <component name="ProjectLevelVcsManager">
@@ -349,7 +331,7 @@
       <workItem from="1744995653932" duration="2319000" />
       <workItem from="1745263064277" duration="461000" />
       <workItem from="1745329231622" duration="1067000" />
-      <workItem from="1745615181815" duration="6966000" />
+      <workItem from="1745615181815" duration="14842000" />
     </task>
     <servers />
   </component>
