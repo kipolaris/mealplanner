@@ -1,16 +1,17 @@
-// src/App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import LandingPage from './components/LandingPage';
-import MealPlan from './components/MealPlan';
-import './components/static/css/meal-plan.css';
+import LandingPage from './pages/LandingPage';
+import MealPlanPage from './pages/MealPlanPage';
+import MealtimePage from './pages/MealtimePage';
+import './App.css';
 
 function App() {
     return (
         <Router>
             <Routes>
                 <Route path="/" element={<LandingPage />} />
-                <Route path="/meal-plan" element={<MealPlan />} />
+                <Route path="/meal-plan" element={<MealPlanPage />} />
+                <Route path="/meal/:mealTime" element={<MealtimePage />} />
             </Routes>
         </Router>
     );

@@ -5,15 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="394f1832-2bd8-4dcd-b968-3262c9a548d2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Data/ReorderRequest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/temp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Controllers/MealTimeController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Controllers/MealTimeController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Data/MealTime.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Data/MealTime.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Repositories/MealTimeRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Repositories/MealTimeRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Service/MealTimeService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/Service/MealTimeService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/MealPlan.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/MealPlan.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/static/css/meal-plan.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/static/css/meal-plan.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/mealtime-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/mealtime-page.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/tape-button.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/tape-button.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MealtimePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MealtimePage.jsx" afterDir="false" />
     </list>
     <list id="542fc26d-9e25-4b21-8122-007167c71aa5" name="Changes by Lili" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,6 +17,9 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
     <projectState path="$PROJECT_DIR$/backend">
       <ProjectState />
     </projectState>
@@ -45,13 +43,16 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="mealplanner" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="mealplanner" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="mealplanner" type="f1a62948:ProjectNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
               </path>
             </expand>
             <select />
@@ -63,10 +64,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Kotlin Data Class" />
         <option value="JavaScript File" />
         <option value="CSS File" />
         <option value="Kotlin Class" />
-        <option value="Kotlin Data Class" />
       </list>
     </option>
   </component>
@@ -78,6 +79,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2hYpcXtSANa4PqIH3bW99KcOdnr" />
   <component name="ProjectLevelVcsManager">
@@ -99,7 +103,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/csuto/programming/mealplanner/backend/src/main/kotlin/com/mealplanner/Service&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/csuto/programming/mealplanner/frontend/public&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -117,10 +121,16 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\csuto\programming\mealplanner\frontend\public" />
+      <recent name="C:\Users\csuto\programming\mealplanner\frontend\public\fonts" />
       <recent name="C:\Users\csuto\programming\mealplanner\backend\src\main\kotlin\com\mealplanner\Service" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\csuto\programming\mealplanner\frontend\public" />
+      <recent name="C:\Users\csuto\programming\mealplanner\frontend\src\assets" />
+      <recent name="C:\Users\csuto\programming\mealplanner\frontend\src\utils" />
+      <recent name="C:\Users\csuto\programming\mealplanner\frontend\src" />
+      <recent name="C:\Users\csuto\programming\mealplanner\frontend\src\components\modals" />
+      <recent name="C:\Users\csuto\programming\mealplanner\frontend\src\components\pages" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
       <recent name="com.mealplanner.Controllers" />
@@ -137,6 +147,27 @@
       <toRun name="MealplannerApplication" type="SpringBootApplicationConfigurationType" />
       <method v="2" />
     </configuration>
+    <configuration name="C:/Users/csuto/programming/mealplanner [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <configuration name="C:/Users/csuto/programming/mealplanner [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -149,27 +180,6 @@
         <option name="taskNames">
           <list>
             <option value="clean" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="backend [:clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/backend" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":clean" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -221,6 +231,13 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="build.gradle.kts" type="KotlinStandaloneScriptRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <module name="mealplanner" />
+      <option name="filePath" value="$PROJECT_DIR$/backend/build.gradle.kts" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="MealplannerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="com.mealplanner.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.mealplanner.MealplannerApplication" />
@@ -237,10 +254,11 @@
     </configuration>
     <list>
       <item itemvalue="Compound.MealPlanner fullstack" />
+      <item itemvalue="Gradle.C:/Users/csuto/programming/mealplanner [build]" />
       <item itemvalue="Gradle.backend [build]" />
       <item itemvalue="Gradle.C:/Users/csuto/programming/mealplanner [clean]" />
       <item itemvalue="Gradle.backend [clean]" />
-      <item itemvalue="Gradle.backend [:clean]" />
+      <item itemvalue="Kotlin script (Beta).build.gradle.kts" />
       <item itemvalue="npm.run_frontend" />
       <item itemvalue="Spring Boot.MealplannerApplication" />
     </list>
@@ -249,7 +267,8 @@
         <item itemvalue="Gradle.backend [build]" />
         <item itemvalue="Gradle.backend [clean]" />
         <item itemvalue="Gradle.C:/Users/csuto/programming/mealplanner [clean]" />
-        <item itemvalue="Gradle.backend [:clean]" />
+        <item itemvalue="Kotlin script (Beta).build.gradle.kts" />
+        <item itemvalue="Gradle.C:/Users/csuto/programming/mealplanner [build]" />
       </list>
     </recent_temporary>
   </component>
@@ -292,7 +311,18 @@
       <workItem from="1741852968003" duration="146000" />
       <workItem from="1741853143926" duration="597000" />
       <workItem from="1741892607301" duration="2374000" />
-      <workItem from="1742122469797" duration="4431000" />
+      <workItem from="1742122469797" duration="27428000" />
+      <workItem from="1742481325345" duration="32978000" />
+      <workItem from="1743087311445" duration="567000" />
+      <workItem from="1743087884496" duration="217000" />
+      <workItem from="1743088114471" duration="5468000" />
+      <workItem from="1744042847490" duration="3416000" />
+      <workItem from="1744285819844" duration="27627000" />
+      <workItem from="1744819544424" duration="6163000" />
+      <workItem from="1744995653932" duration="2319000" />
+      <workItem from="1745263064277" duration="461000" />
+      <workItem from="1745329231622" duration="1067000" />
+      <workItem from="1745615181815" duration="14842000" />
     </task>
     <servers />
   </component>
@@ -301,5 +331,16 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint type="kotlin-line">
+          <url>file://$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/MealTimeService.kt</url>
+          <line>43</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
