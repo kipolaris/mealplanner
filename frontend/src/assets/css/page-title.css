@@ -1,6 +1,6 @@
 .page-title {
     position: fixed;
-    top: 20px;
+    top: 50px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
@@ -54,10 +54,11 @@
 @keyframes fadeInPop {
     0% {
         opacity: 0;
-        transform: scale(0.8);
+        transform: translateX(-50%) scale(0.8);
     }
     100% {
         opacity: 1;
-        transform: scale(1);
+        transform: translateX(-50%) scale(1);
     }
 }
+

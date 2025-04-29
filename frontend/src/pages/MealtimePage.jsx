@@ -2,9 +2,13 @@ import React from 'react';
 import AddFoodModal from '../components/modals/AddFoodModal';
 import '../assets/css/mealtime-page.css';
 import { useMealPlan } from '../hooks/useMealPlan';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
+import PageTitle from "../components/PageTitle";
+import TapedTable from "../components/TapedTable";
 
-const MealtimePage = ({ mealTime, onClose }) => {
+const MealtimePage = () => {
+    const { mealTime } = useParams();
+
     const {
         mealPlan,
         savedFoods,
@@ -17,6 +21,10 @@ const MealtimePage = ({ mealTime, onClose }) => {
     } = useMealPlan();
 
     const navigate = useNavigate();
+
+    const navigateToMealPlan = () => {
+        navigate('/meal-plan');
+    };
     const handleCellClick = (day, meal, mealtime) => {
         setSelectedCell({ day: day, meal: meal, mealtime: mealtime });
         setIsModalOpen(true);
@@ -28,34 +36,26 @@ const MealtimePage = ({ mealTime, onClose }) => {
 
     return (
         <div className="app-container">
-            <h1 className="meal-view-title">{mealTime}</h1>
-            <div className="meal-view-table-wrapper">
-                <div className="meal-view-container">
-                    <table className="meal-view-table">
-                        <thead>
-                        <tr>
-                            <th>
-                                <button className="table-button" onClick={onClose}>Back</button>
-                            </th>
-                            <th>Meals</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {mealPlan.days.map(day => {
-                            const mealForDay = day.meals.find((m) => m.mealTime.name === mealTime);
+            <PageTitle text = {mealTime}/>
+            <div className="mealtime-table-wrapper">
+                <div className="mealtime-container">
+                    <TapedTable
+                        layout="vertical"
+                        columns={['Meals']}
+                        rows={mealPlan.days}
+                        renderRowLabel={(day) => day.name}
+                        renderCell={(rowIndex) => {
+                            const day = mealPlan.days[rowIndex];
+                            const meal = day.meals.find(m => m.mealTime.name === mealTime);
                             return (
-                                <tr key={day.name}>
-                                    <td>{day.name}</td>
-                                    <td className="food-item" onClick={() => handleCellClick(day, mealForDay, mealTime)}>
-                                        <button>
-                                            { mealForDay ? (mealForDay.food ? mealForDay.food.name : "") : "" }
-                                        </button>
-                                    </td>
-                                </tr>
+                                <button className="meal-button" onClick={() => handleCellClick(day, meal, mealTime)}>
+                                    {meal?.food?.name || ""}
+                                </button>
                             );
-                        })}
-                        </tbody>
-                    </table>
+                        }}
+                        handleReset={() => {}}
+                        allowReorder={false}
+                    />
                     <AddFoodModal
                         isOpen={isModalOpen}
                         onClose={() => setIsModalOpen(false)}

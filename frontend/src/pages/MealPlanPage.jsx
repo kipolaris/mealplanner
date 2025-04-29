@@ -32,40 +32,53 @@ const MealPlanPage = () => {
     };
 
     if (!mealPlan?.days || mealPlan.days.length === 0) {
-        return <PageTitle text="Loading Meal Plan..." />;
+        return <PageTitle className="loading" text="Loading Meal Plan..." />;
     }
 
     return (
         <div className="app-container">
             <div className="meal-plan-table-wrapper">
                 <div className="meal-plan-container">
-            <PageTitle text="Meal Plan" />
+                    <PageTitle text="Meal Plan" />
                     <TapedTable
+                        layout="horizontal"
                         columns={mealPlan.days.map(day => day.name)}
                         rows={mealTimes.slice().sort((a, b) => a.order - b.order)}
+                        renderRowLabel={(mealTime) => (
+                            <span className="meal-time-name" onClick={() => navigate(`/meal/${mealTime.name}`)}>
+                                {mealTime.name}
+                            </span>
+                        )}
                         renderCell={(rowIndex, colIndex) => {
-                            const mt = mealTimes.slice().sort((a, b) => a.order - b.order)[rowIndex];
+                            const sortedMealTimes = mealTimes.slice().sort((a, b) => a.order - b.order);
+                            const mt = sortedMealTimes[rowIndex];
                             const day = mealPlan.days[colIndex];
                             const mealForDay = day.meals.find(m => m.mealTime.name === mt.name);
+
                             return (
-                                <button className="meal-button" onClick={() => handleCellClick(day, mealForDay, mt.name)}>
-                                    {mealForDay ? (mealForDay.food ? mealForDay.food.name : "") : ""}
+                                <button
+                                    className="meal-button"
+                                    onClick={() => handleCellClick(day, mealForDay, mt.name)}
+                                >
+                                    {mealForDay?.food?.name || ""}
                                 </button>
                             );
                         }}
                         extraBottomRow={
                             <tr>
                                 <td colSpan={mealPlan.days.length + 1}>
-                                    <button className="table-button lobster" onClick={handleAddMealTime}>Add new meal time</button>
+                                    <button className="table-button lobster" onClick={handleAddMealTime}>
+                                        Add new meal time
+                                    </button>
                                 </td>
                             </tr>
                         }
                         handleReset={resetMealPlan}
                         handleReorder={handleReorder}
                         navigate={navigate}
-                        />
-                    </div>
-                 </div>
+                    />
+                </div>
+            </div>
 
             <AddFoodModal
                 isOpen={isModalOpen}

@@ -42,6 +42,5 @@
 }
 
 .loading {
-    font-weight: bolder;
-    margin-bottom: 30px;
+    alignment: center;
 }
