@@ -5,6 +5,7 @@ import { useMealPlan } from '../hooks/useMealPlan';
 import {useNavigate, useParams} from "react-router-dom";
 import PageTitle from "../components/PageTitle";
 import TapedTable from "../components/TapedTable";
+import TapeButton from "../components/TapeButton";
 
 const MealtimePage = () => {
     const { mealTime } = useParams();
@@ -36,7 +37,10 @@ const MealtimePage = () => {
 
     return (
         <div className="app-container">
-            <PageTitle text = {mealTime}/>
+            <div className="mealtime-header">
+                <TapeButton text="Back" onClick={navigateToMealPlan} />
+                <PageTitle text={mealTime} />
+            </div>
             <div className="mealtime-table-wrapper">
                 <div className="mealtime-container">
                     <TapedTable

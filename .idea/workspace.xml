@@ -6,12 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="394f1832-2bd8-4dcd-b968-3262c9a548d2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/meal-plan-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/meal-plan-page.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/mealtime-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/mealtime-page.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/page-title.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/page-title.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/taped-table.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/taped-table.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/TapedTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/TapedTable.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MealPlanPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MealPlanPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/tape-button.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/tape-button.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/MealtimePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MealtimePage.jsx" afterDir="false" />
     </list>
     <list id="542fc26d-9e25-4b21-8122-007167c71aa5" name="Changes by Lili" comment="" />

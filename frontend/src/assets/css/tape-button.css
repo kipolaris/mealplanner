@@ -1,7 +1,7 @@
 .tape-button {
     position: relative;
-    width: 256px;
-    height: 80px;
+    width: 192px;
+    height: 60px;
     background-image: url('../images/whitetape.png');
     background-size: cover;
     background-position: center;
