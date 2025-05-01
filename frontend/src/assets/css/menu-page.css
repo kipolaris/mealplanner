@@ -4,11 +4,11 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    min-height: 80vh;
+    max-height: 80vh;
     padding-top: 120px;
 }
 
-.meal-plan-header {
+.menu-header {
     position: relative;
     width: 100%;
     display: flex;
@@ -17,7 +17,7 @@
     gap: 20px;
 }
 
-.meal-plan-buttons {
+.menu-buttons {
     position: fixed;
     top: 20px;
     left: 20px;
@@ -27,39 +27,17 @@
     z-index: 1000;
 }
 
-.meal-plan-table-wrapper {
+.menu-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-grow: 1;
-    width: 100%;
-    padding: 20px;
-    max-width: 95vw;
+    margin-top: 60px;
 }
 
-
-@media (max-width: 768px) {
-    .meal-plan-container {
-        width: 95%;
-    }
-
-    .meal-plan-table {
-        border-spacing: 5px;
-        font-size: 14px;
-    }
-
-    .modal-content {
-        width: 90%;
-        margin: 10% auto;
-    }
-}
-
-.meal-plan-container {
+.menu-table-container {
+    display: flex;
+    justify-content: center;
     text-align: center;
-    width: 90%;
-    max-width: 1200px;
-}
-
-.loading {
-    alignment: center;
+    align-items: center;
+    flex-direction: column;
 }

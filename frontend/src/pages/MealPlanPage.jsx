@@ -8,6 +8,7 @@ import { useMealPlan } from "../hooks/useMealPlan";
 import { useMealTime } from "../hooks/useMealTime";
 import PageTitle from "../components/PageTitle";
 import TapedTable from "../components/TapedTable";
+import TapeButton from "../components/TapeButton";
 
 const MealPlanPage = () => {
     const {
@@ -26,6 +27,10 @@ const MealPlanPage = () => {
 
     const navigate = useNavigate();
 
+    const navigateToMenu = () => {
+        navigate('/menu')
+    }
+
     const handleCellClick = (day, meal, mealtime) => {
         setSelectedCell({ day: day, meal: meal, mealtime: mealtime });
         setIsModalOpen(true);
@@ -37,9 +42,14 @@ const MealPlanPage = () => {
 
     return (
         <div className="app-container">
+            <div className="meal-plan-header">
+                <div className="meal-plan-buttons">
+                    <TapeButton text="Menu" onClick={navigateToMenu}/>
+                </div>
+                <PageTitle text="Meal Plan" />
+            </div>
             <div className="meal-plan-table-wrapper">
                 <div className="meal-plan-container">
-                    <PageTitle text="Meal Plan" />
                     <TapedTable
                         layout="horizontal"
                         columns={mealPlan.days.map(day => day.name)}

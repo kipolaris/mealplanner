@@ -15,7 +15,7 @@ const LandingPage = () => {
         <div className="landing-page-container">
             <PageTitle text="Welcome to Meal Planner!" />
             <div className="button-container">
-                <TapeButton text="Log in" onClick={navigateToMealPlan}/>
+                <TapeButton text="Log in" onClick={navigate("/menu")}/>
                 <TapeButton text="Sign up" onClick={navigateToMealPlan}/>
             </div>
         </div>

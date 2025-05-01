@@ -26,6 +26,10 @@ const MealtimePage = () => {
     const navigateToMealPlan = () => {
         navigate('/meal-plan');
     };
+
+    const navigateToMenu = () => {
+        navigate('/menu')
+    }
     const handleCellClick = (day, meal, mealtime) => {
         setSelectedCell({ day: day, meal: meal, mealtime: mealtime });
         setIsModalOpen(true);
@@ -38,7 +42,10 @@ const MealtimePage = () => {
     return (
         <div className="app-container">
             <div className="mealtime-header">
-                <TapeButton text="Back" onClick={navigateToMealPlan} />
+                <div className="mealtime-buttons">
+                    <TapeButton text="Menu" onClick={navigateToMenu} />
+                    <TapeButton text="Back" onClick={navigateToMealPlan} />
+                </div>
                 <PageTitle text={mealTime} />
             </div>
             <div className="mealtime-table-wrapper">
