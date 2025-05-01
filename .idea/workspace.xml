@@ -5,15 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="394f1832-2bd8-4dcd-b968-3262c9a548d2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/assets/css/menu-page.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/pages/MenuPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/meal-plan-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/meal-plan-page.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/mealtime-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/mealtime-page.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/TapedTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/TapedTable.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/LandingPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/LandingPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MealPlanPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MealPlanPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/MealController.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/MealPlanController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/MealPlanController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/MealTimeController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/MealTimeController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/repositories/FoodRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/repositories/FoodRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/repositories/MealTimeRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/repositories/MealTimeRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/DayService.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/MealService.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/MealTimeService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/MealTimeService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useMealTime.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useMealTime.js" afterDir="false" />
     </list>
     <list id="542fc26d-9e25-4b21-8122-007167c71aa5" name="Changes by Lili" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -342,7 +343,7 @@
       <breakpoints>
         <line-breakpoint type="kotlin-line">
           <url>file://$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/MealTimeService.kt</url>
-          <line>44</line>
+          <line>42</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>

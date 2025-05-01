@@ -18,14 +18,14 @@ class MealTimeController(private val mealTimeService: MealTimeService) {
     }
 
     @GetMapping("/{id}")
-    fun getById(@PathVariable id: Long): ResponseEntity<MealTime> {
+    fun getMealTimeById(@PathVariable id: Long): ResponseEntity<MealTime> {
         return mealTimeService.getMealTimeById(id)?.let {
             ResponseEntity.ok(it)
         } ?: ResponseEntity.notFound().build()
     }
 
     @PostMapping
-    fun create(@RequestBody mealTime: Map<String, Any>): ResponseEntity<MealTime?> {
+    fun createMealTime(@RequestBody mealTime: Map<String, Any>): ResponseEntity<MealTime?> {
         println("Received mealTime: $mealTime")
         val name = mealTime["name"] as? String ?: ""
 
@@ -37,14 +37,14 @@ class MealTimeController(private val mealTimeService: MealTimeService) {
 
 
     @PutMapping("/{id}")
-    fun update(@PathVariable id: Long, @RequestBody mealTime: MealTime): ResponseEntity<MealTime> {
-        return mealTimeService.updateMealTime(id, mealTime)?.let {
-            ResponseEntity.ok(it)
-        } ?: ResponseEntity.notFound().build()
+    fun updateMealTime(@PathVariable id: Long, @RequestBody mealTime: MealTime): ResponseEntity<MealTime> {
+        val updated = mealTimeService.updateMealTime(mealTime.copy(id = id))
+        return updated?.let { ResponseEntity.ok(it) } ?: ResponseEntity.notFound().build()
     }
 
+
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: Long): ResponseEntity<Unit> {
+    fun deleteMealTime(@PathVariable id: Long): ResponseEntity<Unit> {
         return if (mealTimeService.deleteMealTime(id)) {
             ResponseEntity.noContent().build()
         } else {

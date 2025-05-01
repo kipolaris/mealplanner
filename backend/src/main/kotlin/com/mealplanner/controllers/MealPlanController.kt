@@ -1,7 +1,5 @@
 package com.mealplanner.controllers
 
-import com.mealplanner.data.Day
-import com.mealplanner.data.Meal
 import com.mealplanner.data.MealPlan
 import com.mealplanner.service.MealPlanService
 import org.springframework.http.ResponseEntity

@@ -6,9 +6,7 @@ import com.mealplanner.repositories.MealTimeRepository
 import org.springframework.stereotype.Service
 
 @Service
-class MealTimeService(private val mealTimeRepository: MealTimeRepository,
-                      private val mealPlanRepository: MealPlanRepository
-) {
+class MealTimeService(private val mealTimeRepository: MealTimeRepository) {
     fun getAllMealTimes(): List<MealTime> {
         return mealTimeRepository.findAll()
     }
@@ -21,13 +19,13 @@ class MealTimeService(private val mealTimeRepository: MealTimeRepository,
         return mealTimeRepository.save(mealTime)
     }
 
-    fun updateMealTime(id: Long, updateMealTime: MealTime): MealTime? {
-        return if (mealTimeRepository.existsById(id)) {
-            mealTimeRepository.save(updateMealTime.copy(id = id))
-        } else {
-            null
-        }
+    fun updateMealTime(updatedMealTime: MealTime): MealTime? {
+        val id = updatedMealTime.id ?: return null
+        return mealTimeRepository.findById(id).map { existing ->
+            existing.copy(name = updatedMealTime.name)
+        }.map(mealTimeRepository::save).orElse(null)
     }
+
     fun deleteMealTime(id: Long): Boolean {
         return if (mealTimeRepository.existsById(id)) {
             mealTimeRepository.deleteById(id)

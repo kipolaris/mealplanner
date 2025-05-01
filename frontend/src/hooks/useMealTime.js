@@ -33,6 +33,47 @@ export const useMealTime = (mealPlan, updateMealPlan) => {
             .catch(error => console.error('Error adding meal time:', error));
     };
 
+    const handleEditMealTime = (mealTime) => {
+        fetch(`${BackendUrl}/api/mealtimes/${mealTime.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(mealTime)
+        })
+            .then(response => response.json())
+            .then((editedMealTime) => {
+                const updatedMealPlan = {
+                    ...mealPlan,
+                    mealTimes: mealPlan.mealTimes.map(mt =>
+                        mt.id === editedMealTime.id ? editedMealTime : mt
+                    ),
+                    days: mealPlan.days
+                };
+                setMealTimes(updatedMealPlan.mealTimes);
+                updateMealPlan(updatedMealPlan);
+            })
+            .catch(error => console.error('Error editing meal time:', error));
+    };
+
+
+    const handleDeleteMealTime = (mealTimeId) => {
+        fetch(`${BackendUrl}/api/mealtimes/${mealTimeId}`, { method: 'DELETE' })
+            .then(response => {
+                if (response.ok) {
+                    const newMealTimes = mealPlan.mealTimes.filter(mt => mt.id !== mealTimeId);
+                    setMealTimes(newMealTimes);
+                    const updatedMealPlan = {
+                        ...mealPlan,
+                        mealTimes: newMealTimes,
+                        days: mealPlan.days
+                    };
+                    updateMealPlan(updatedMealPlan);
+                } else {
+                    console.error(`Failed to delete meal time with id ${mealTimeId}`);
+                }
+            })
+            .catch(error => console.error(`Error deleting meal time with id ${mealTimeId}:`, error));
+    };
+
     const handleReorder = (order1, order2) => {
         if (order1 < 0 || order2 < 0 || order1 >= mealTimes.length || order2 >= mealTimes.length) {
             return;
@@ -60,6 +101,8 @@ export const useMealTime = (mealPlan, updateMealPlan) => {
     return {
         mealTimes,
         handleAddMealTime,
+        handleEditMealTime,
+        handleDeleteMealTime,
         handleReorder,
     };
 };
