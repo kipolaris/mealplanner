@@ -9,6 +9,7 @@ import { useMealTime } from "../hooks/useMealTime";
 import PageTitle from "../components/PageTitle";
 import TapedTable from "../components/TapedTable";
 import TapeButton from "../components/TapeButton";
+import NewNameModal from "../components/modals/NewNameModal";
 
 const MealPlanPage = () => {
     const {
@@ -23,7 +24,13 @@ const MealPlanPage = () => {
         resetMealPlan,
     } = useMealPlan();
 
-    const { mealTimes, handleAddMealTime, handleReorder } = useMealTime(mealPlan, updateMealPlan);
+    const {
+        mealTimes,
+        handleAddMealTime,
+        handleReorder,
+        isNameModalOpen,
+        setIsNameModalOpen
+    } = useMealTime(mealPlan, updateMealPlan);
 
     const navigate = useNavigate();
 
@@ -77,7 +84,7 @@ const MealPlanPage = () => {
                         extraBottomRow={
                             <tr>
                                 <td colSpan={mealPlan.days.length + 1}>
-                                    <button className="table-button lobster" onClick={handleAddMealTime}>
+                                    <button className="table-button lobster" onClick={() => setIsNameModalOpen(true)}>
                                         Add new meal time
                                     </button>
                                 </td>
@@ -96,6 +103,12 @@ const MealPlanPage = () => {
                 onSave={handleSaveFood}
                 savedFoods={savedFoods}
                 onDeleteFood={handleDeleteFood}
+            />
+            <NewNameModal
+                isOpen={isNameModalOpen}
+                onClose={() => setIsNameModalOpen(false)}
+                onSave={handleAddMealTime}
+                itemName="meal time"
             />
         </div>
     );

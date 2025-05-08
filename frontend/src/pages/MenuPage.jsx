@@ -10,7 +10,7 @@ const MenuPage = () => {
 
     const rows = [
         { label: 'Meal plan', onClick: () => navigate('/meal-plan') },
-        { label: 'Meal times', onClick: () => {} },
+        { label: 'Meal times', onClick: () => navigate('/meal-times') },
         { label: 'Foods', onClick: () => {} },
         { label: 'Ingredients', onClick: () => {} },
         { label: 'Shopping list', onClick: () => {} },
@@ -35,7 +35,7 @@ const MenuPage = () => {
                         renderCell={(rowIndex) => {
                             const row = rows[rowIndex];
                             return (
-                                <button className="meal-button" onClick={row.onClick}>
+                                <button className="meal-button lobster" onClick={row.onClick}>
                                     {row.label}
                                 </button>
                             );

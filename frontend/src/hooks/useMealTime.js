@@ -1,17 +1,16 @@
-import {useEffect, useState} from 'react';
 import { BackendUrl } from '../utils/constants';
+import {useState} from "react";
 
 export const useMealTime = (mealPlan, updateMealPlan) => {
-    const [mealTimes, setMealTimes] = useState();
 
-    useEffect(() => {
-        if(mealPlan) {
-            setMealTimes(mealPlan.mealTimes);
-        }
-    }, [mealPlan])
+    const [isNameModalOpen, setIsNameModalOpen] = useState(false);
+    const [editingMealTime, setEditingMealTime] = useState(null);
 
-    const handleAddMealTime = () => {
-        const newName = prompt('Enter the name of the new meal:');
+    const handleEditMealTime = (mealtime) => {
+        setEditingMealTime(mealtime);
+        setIsNameModalOpen(true);
+    }
+    const handleAddMealTime = (newName) => {
         const mealTimeData = { name: newName };
 
         fetch(`${BackendUrl}/api/mealtimes`, {
@@ -27,17 +26,20 @@ export const useMealTime = (mealPlan, updateMealPlan) => {
                     days: mealPlan.days,
                 };
                 console.log('New meal time added:', newMealTime);
-                setMealTimes(updatedMealPlan.mealTimes);
                 updateMealPlan(updatedMealPlan);
             })
             .catch(error => console.error('Error adding meal time:', error));
     };
 
-    const handleEditMealTime = (mealTime) => {
-        fetch(`${BackendUrl}/api/mealtimes/${mealTime.id}`, {
+    const handleSaveEditedMealTime = (newName) => {
+        if (!editingMealTime) return;
+
+        const updatedMealTime = { ...editingMealTime, name: newName.trim() };
+
+        fetch(`${BackendUrl}/api/mealtimes/${editingMealTime.id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(mealTime)
+            body: JSON.stringify(updatedMealTime)
         })
             .then(response => response.json())
             .then((editedMealTime) => {
@@ -48,19 +50,17 @@ export const useMealTime = (mealPlan, updateMealPlan) => {
                     ),
                     days: mealPlan.days
                 };
-                setMealTimes(updatedMealPlan.mealTimes);
                 updateMealPlan(updatedMealPlan);
+                setEditingMealTime(false);
             })
             .catch(error => console.error('Error editing meal time:', error));
     };
-
 
     const handleDeleteMealTime = (mealTimeId) => {
         fetch(`${BackendUrl}/api/mealtimes/${mealTimeId}`, { method: 'DELETE' })
             .then(response => {
                 if (response.ok) {
                     const newMealTimes = mealPlan.mealTimes.filter(mt => mt.id !== mealTimeId);
-                    setMealTimes(newMealTimes);
                     const updatedMealPlan = {
                         ...mealPlan,
                         mealTimes: newMealTimes,
@@ -75,12 +75,18 @@ export const useMealTime = (mealPlan, updateMealPlan) => {
     };
 
     const handleReorder = (order1, order2) => {
-        if (order1 < 0 || order2 < 0 || order1 >= mealTimes.length || order2 >= mealTimes.length) {
+        const sortedMealTimes = [...mealPlan.mealTimes].sort((a, b) => a.order - b.order);
+        if (order1 < 0 || order2 < 0 || order1 >= sortedMealTimes.length || order2 >= sortedMealTimes.length) {
             return;
         }
 
-        const mealTime1 = mealTimes.find(o => o.order === order1);
-        const mealTime2 = mealTimes.find(o => o.order === order2);
+        const mealTime1 = sortedMealTimes.find(o => o.order === order1);
+        const mealTime2 = sortedMealTimes.find(o => o.order === order2);
+
+        if (!mealTime1 || !mealTime2) {
+            console.error("Invalid meal time(s) for reordering", { mealTime1, mealTime2 });
+            return;
+        }
 
         fetch(`${BackendUrl}/api/mealtimes/reorder`, {
             method: "PUT",
@@ -92,17 +98,20 @@ export const useMealTime = (mealPlan, updateMealPlan) => {
                     console.log('Updated meal times:', JSON.stringify(updatedMealTimes));
                     const updatedMealPlan = { ...mealPlan, mealTimes: updatedMealTimes };
                     console.log('Meal plan after reordering mealtimes:',JSON.stringify(updatedMealPlan));
-                    setMealTimes(updatedMealTimes);
                     updateMealPlan(updatedMealPlan);
             })
             .catch(error => console.error("Error reordering meal times:", error));
     };
 
     return {
-        mealTimes,
+        mealTimes: mealPlan?.mealTimes || [],
         handleAddMealTime,
         handleEditMealTime,
         handleDeleteMealTime,
         handleReorder,
+        isNameModalOpen,
+        setIsNameModalOpen,
+        handleSaveEditedMealTime,
+        editingMealTime
     };
 };

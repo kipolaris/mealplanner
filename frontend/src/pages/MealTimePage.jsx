@@ -7,7 +7,7 @@ import PageTitle from "../components/PageTitle";
 import TapedTable from "../components/TapedTable";
 import TapeButton from "../components/TapeButton";
 
-const MealtimePage = () => {
+const MealTimePage = () => {
     const { mealTime } = useParams();
 
     const {
@@ -80,4 +80,4 @@ const MealtimePage = () => {
     );
 };
 
-export default MealtimePage;
+export default MealTimePage;

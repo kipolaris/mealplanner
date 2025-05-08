@@ -11,11 +11,15 @@ const LandingPage = () => {
         navigate('/meal-plan');
     };
 
+    const navigateToMenu = () => {
+        navigate('/menu')
+    }
+
     return (
         <div className="landing-page-container">
             <PageTitle text="Welcome to Meal Planner!" />
             <div className="button-container">
-                <TapeButton text="Log in" onClick={navigate("/menu")}/>
+                <TapeButton text="Log in" onClick={navigateToMenu}/>
                 <TapeButton text="Sign up" onClick={navigateToMealPlan}/>
             </div>
         </div>

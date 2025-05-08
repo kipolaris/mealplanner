@@ -37,12 +37,18 @@ export const useMealPlan = () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updatedMealPlan),
         })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to update meal plan');
+                }
+                return fetch(`${BackendUrl}/api/meal-plan`);
+            })
             .then(response => response.json())
             .then(data => {
-                console.log('Meal plan received from backend:', JSON.stringify(data));
-                setMealPlan(data);
+                console.log('Meal plan re-fetched after update:', JSON.stringify(data));
+                setMealPlan(getValidMealPlan(data));
             })
-            .catch(error => console.error('Error saving updated meal plan:', error));
+            .catch(error => console.error('Error updating meal plan:', error));
     };
 
     const handleSaveFood = (foodName) => {

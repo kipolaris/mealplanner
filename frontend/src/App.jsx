@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import MealPlanPage from './pages/MealPlanPage';
-import MealtimePage from './pages/MealtimePage';
+import MealTimePage from './pages/MealTimePage';
+import MealTimesPage from './pages/MealTimesPage'
 import './App.css';
 import MenuPage from "./pages/MenuPage";
 
@@ -13,7 +14,8 @@ function App() {
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/menu" element={<MenuPage />} />
                 <Route path="/meal-plan" element={<MealPlanPage />} />
-                <Route path="/meal/:mealTime" element={<MealtimePage />} />
+                <Route path="/meal/:mealTime" element={<MealTimePage />} />
+                <Route path="/meal-times" element={<MealTimesPage />} />
             </Routes>
         </Router>
     );
