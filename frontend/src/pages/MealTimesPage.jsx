@@ -11,7 +11,7 @@ import NewNameModal from "../components/modals/NewNameModal";
 const MealTimesPage = () => {
     const navigate = useNavigate();
 
-    const { mealPlan, updateMealPlan } = useMealPlan()
+    const { mealPlan, updateMealPlan } = useMealPlan();
 
     const {
         mealTimes,
@@ -23,10 +23,10 @@ const MealTimesPage = () => {
         setIsNameModalOpen,
         handleSaveEditedMealTime,
         editingMealTime
-    } = useMealTime(mealPlan, updateMealPlan)
+    } = useMealTime(mealPlan, updateMealPlan);
 
     const navigateToMenu = () => {
-        navigate('/menu')
+        navigate('/menu');
     }
 
     if (!mealTimes) return <PageTitle text="Loading meal times..."/>;
