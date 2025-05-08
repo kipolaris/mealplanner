@@ -5,19 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="394f1832-2bd8-4dcd-b968-3262c9a548d2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/modals/NewNameModal.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/pages/MealTimesPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/taped-table.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/taped-table.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/MealPlanController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/MealPlanController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/MealPlanService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/MealPlanService.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useMealPlan.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useMealPlan.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useMealTime.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useMealTime.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/LandingPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/LandingPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MealPlanPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MealPlanPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MealtimePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MealTimePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MealtimesPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/meal-times-page.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MenuPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MenuPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MealTimePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MealTimePage.jsx" afterDir="false" />
     </list>
     <list id="542fc26d-9e25-4b21-8122-007167c71aa5" name="Changes by Lili" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -332,7 +324,7 @@
       <workItem from="1745263064277" duration="461000" />
       <workItem from="1745329231622" duration="1067000" />
       <workItem from="1745615181815" duration="14842000" />
-      <workItem from="1746709746190" duration="2131000" />
+      <workItem from="1746709746190" duration="3642000" />
     </task>
     <servers />
   </component>

@@ -63,6 +63,19 @@ class MealPlanService(
         return mealPlan
     }
 
+    fun resetMealTime(mealTime: MealTime) : MealPlan {
+        val mealPlan = getMealPlan()
+
+        mealPlan.days.forEach { day ->
+            day.meals.forEach { meal ->
+                if(meal.mealTime==mealTime) meal.food = null
+            }
+        }
+
+        mealPlanRepository.save(mealPlan)
+        return mealPlan
+    }
+
     fun updateMealPlan(updatedMealPlan: MealPlan): MealPlan {
         val mealPlan = getMealPlan()
 

@@ -19,6 +19,7 @@ const MealTimePage = () => {
         handleSaveFood,
         handleDeleteFood,
         updateMealPlan,
+        resetMealTime
     } = useMealPlan();
 
     const navigate = useNavigate();
@@ -34,6 +35,16 @@ const MealTimePage = () => {
         setSelectedCell({ day: day, meal: meal, mealtime: mealtime });
         setIsModalOpen(true);
     };
+
+    const handleResetMealTime = () => {
+        const mt = mealPlan.mealTimes.find(mt => mt.name === mealTime);
+        if (!mt) {
+            console.error(`MealTime "${mealTime}" not found`);
+            return;
+        }
+        resetMealTime(mt);
+    };
+
 
     if (!mealPlan?.days || mealPlan.days.length === 0) {
         return <h1 className="loading">Loading meal plan...</h1>;
@@ -64,7 +75,7 @@ const MealTimePage = () => {
                                 </button>
                             );
                         }}
-                        handleReset={() => {}}
+                        handleReset={handleResetMealTime}
                         allowReorder={false}
                     />
                     <AddFoodModal
