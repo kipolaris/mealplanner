@@ -1,18 +1,20 @@
 package com.mealplanner.service
 
 import com.mealplanner.data.Food
-import com.mealplanner.data.Ingredient
+import com.mealplanner.data.ingredient.Ingredient
 import com.mealplanner.repositories.FoodRepository
-import com.mealplanner.repositories.IngredientRepository
+import com.mealplanner.repositories.ingredient.IngredientRepository
 import com.mealplanner.repositories.MealRepository
+import com.mealplanner.repositories.ingredient.FoodIngredientRepository
+import com.mealplanner.service.ingredient.FoodIngredientService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 class FoodService(
     private val foodRepository: FoodRepository,
-    private val ingredientRepository: IngredientRepository,
-    private val mealRepository: MealRepository
+    private val mealRepository: MealRepository,
+    private val foodIngredientService: FoodIngredientService
 ) {
 
     fun getAllFoods(): List<Food> {
@@ -52,10 +54,33 @@ class FoodService(
     }
 
 
-    fun addIngredientToFood(foodId: Long, ingredient: Ingredient): Food? {
-        val food = foodRepository.findById(foodId).orElse(null) ?: return null
-        ingredientRepository.save(ingredient)
-        food.ingredients?.add(ingredient)
+    @Transactional
+    fun addIngredientToFood(foodId: Long, ingredientId: Long, quantity: String): Food {
+        val food = foodRepository.findById(foodId).orElseThrow { RuntimeException("Food not found") }
+        val foodIngredient = foodIngredientService.createFoodIngredient(foodId, ingredientId, quantity)
+        food.ingredients.add(foodIngredient)
+        return foodRepository.save(food)
+    }
+
+    fun deleteIngredientFromFood(foodId: Long, foodIngredientId: Long): Food {
+        val food = foodRepository.findById(foodId).orElseThrow { RuntimeException("Food not found") }
+        val foodIngredient = food.ingredients.find { it.id == foodIngredientId }
+            ?: throw RuntimeException("FoodIngredient not found in Food")
+
+        food.ingredients.remove(foodIngredient)
+        foodIngredientService.deleteFoodIngredient(foodIngredientId)
+
+        return foodRepository.save(food)
+    }
+
+    fun updateIngredientInFood(foodId: Long, foodIngredientId: Long, newQuantity: String): Food {
+        val food = foodRepository.findById(foodId).orElseThrow { RuntimeException("Food not found") }
+        val updated = foodIngredientService.updateFoodIngredient(foodIngredientId, newQuantity)
+
+        food.ingredients = food.ingredients
+            .map { if (it.id == updated.id) updated else it }
+            .toMutableList()
+
         return foodRepository.save(food)
     }
 }

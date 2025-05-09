@@ -1,6 +1,6 @@
 package com.mealplanner.repositories
 
-import com.mealplanner.data.MealTime
+import com.mealplanner.data.mealtime.MealTime
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository

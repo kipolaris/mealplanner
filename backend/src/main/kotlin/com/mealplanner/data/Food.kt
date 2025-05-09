@@ -1,5 +1,7 @@
 package com.mealplanner.data
 
+import com.mealplanner.data.ingredient.FoodIngredient
+import com.mealplanner.data.ingredient.Ingredient
 import jakarta.persistence.*
 
 @Entity
@@ -8,7 +10,7 @@ data class Food(
     val id: Long?,
     val name: String,
     val description: String? = null,
-    @OneToMany(cascade = [CascadeType.ALL])
-    val ingredients: MutableList<Ingredient>? = null
+    @OneToMany(mappedBy = "food", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    var ingredients: MutableList<FoodIngredient> = mutableListOf()
 )
 

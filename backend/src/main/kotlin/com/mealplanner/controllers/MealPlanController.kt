@@ -1,7 +1,7 @@
 package com.mealplanner.controllers
 
 import com.mealplanner.data.MealPlan
-import com.mealplanner.data.MealTime
+import com.mealplanner.data.mealtime.MealTime
 import com.mealplanner.service.MealPlanService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

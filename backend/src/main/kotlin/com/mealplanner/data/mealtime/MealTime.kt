@@ -1,4 +1,4 @@
-package com.mealplanner.data
+package com.mealplanner.data.mealtime
 
 import jakarta.persistence.*
 

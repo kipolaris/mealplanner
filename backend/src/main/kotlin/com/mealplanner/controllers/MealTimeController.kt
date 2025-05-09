@@ -1,7 +1,7 @@
 package com.mealplanner.controllers
 
-import com.mealplanner.data.MealTime
-import com.mealplanner.data.ReorderRequest
+import com.mealplanner.data.mealtime.MealTime
+import com.mealplanner.data.mealtime.ReorderRequest
 import com.mealplanner.service.MealTimeService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

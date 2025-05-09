@@ -1,7 +1,6 @@
 package com.mealplanner.service
 
-import com.mealplanner.data.MealTime
-import com.mealplanner.repositories.MealPlanRepository
+import com.mealplanner.data.mealtime.MealTime
 import com.mealplanner.repositories.MealTimeRepository
 import org.springframework.stereotype.Service
 

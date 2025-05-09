@@ -1,6 +1,6 @@
-package com.mealplanner.repositories
+package com.mealplanner.repositories.ingredient
 
-import com.mealplanner.data.Ingredient
+import com.mealplanner.data.ingredient.Ingredient
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 

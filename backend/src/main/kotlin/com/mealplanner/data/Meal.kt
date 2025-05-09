@@ -1,5 +1,6 @@
 package com.mealplanner.data
 
+import com.mealplanner.data.mealtime.MealTime
 import jakarta.persistence.*
 
 @Entity

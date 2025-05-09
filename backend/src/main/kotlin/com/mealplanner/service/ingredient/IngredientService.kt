@@ -1,7 +1,7 @@
-package com.mealplanner.service
+package com.mealplanner.service.ingredient
 
-import com.mealplanner.data.Ingredient
-import com.mealplanner.repositories.IngredientRepository
+import com.mealplanner.data.ingredient.Ingredient
+import com.mealplanner.repositories.ingredient.IngredientRepository
 import org.springframework.stereotype.Service
 
 @Service

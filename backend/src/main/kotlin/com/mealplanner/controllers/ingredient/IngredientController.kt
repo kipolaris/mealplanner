@@ -1,7 +1,7 @@
-package com.mealplanner.controllers
+package com.mealplanner.controllers.ingredient
 
-import com.mealplanner.data.Ingredient
-import com.mealplanner.service.IngredientService
+import com.mealplanner.data.ingredient.Ingredient
+import com.mealplanner.service.ingredient.IngredientService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
