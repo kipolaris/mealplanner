@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '..assets/css/ingredients-page.css';
+import '../assets/css/ingredients-page.css';
 import { useIngredient } from "../hooks/useIngredient";
 import PageTitle from "../components/PageTitle";
 import TapeButton from "../components/TapeButton";

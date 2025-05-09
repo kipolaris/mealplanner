@@ -12,7 +12,7 @@ const MenuPage = () => {
         { label: 'Meal plan', onClick: () => navigate('/meal-plan') },
         { label: 'Meal times', onClick: () => navigate('/meal-times') },
         { label: 'Foods', onClick: () => {} },
-        { label: 'Ingredients', onClick: () => {} },
+        { label: 'Ingredients', onClick: () => navigate('/ingredients') },
         { label: 'Shopping list', onClick: () => {} },
         { label: 'Calendar', onClick: () => {} }
     ];

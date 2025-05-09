@@ -32,7 +32,7 @@ export const useIngredient = () => {
 
         fetch(`${BackendUrl}/api/ingredients/${editingIngredient.id}`, {
             method: 'PUT',
-            headers: { 'Contend-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(ingredient)
         })
             .then(response => response.json())
@@ -47,7 +47,7 @@ export const useIngredient = () => {
     };
 
     const handleAddIngredient = (newName) => {
-        const ingredientData = { name: newName, quantity: undefined };
+        const ingredientData = { name: newName };
 
         fetch(`${BackendUrl}/api/ingredients`, {
             method: 'POST',
