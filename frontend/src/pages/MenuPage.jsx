@@ -13,6 +13,7 @@ const MenuPage = () => {
         { label: 'Meal times', onClick: () => navigate('/meal-times') },
         { label: 'Foods', onClick: () => {} },
         { label: 'Ingredients', onClick: () => navigate('/ingredients') },
+        { label: 'Ingredients at home', onClick: () => navigate('/ingredients-at-home')},
         { label: 'Shopping list', onClick: () => {} },
         { label: 'Calendar', onClick: () => {} }
     ];

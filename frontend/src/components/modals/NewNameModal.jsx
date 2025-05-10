@@ -32,7 +32,7 @@ const NewNameModal = ({
             <div className="modal-content" style={{
                 backgroundImage: `url(${paperBackground})`
             }}>
-                <h2>{defaultName ? `Edit ${defaultName}` : `Add ${itemName}`}</h2>
+                <h2>{defaultName ? `Edit ${itemName}` : `Add ${itemName}`}</h2>
                 <input
                     type="text"
                     value={newName}

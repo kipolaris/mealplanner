@@ -26,7 +26,11 @@ const IngredientsPage = () => {
         navigate('/menu');
     }
 
-    if(!ingredients) return <PageTitle text="Loading ingredients..."/>;
+    if (!Array.isArray(ingredients)) return <PageTitle text="Loading ingredients..." />;
+
+    const sortedIngredients = [...ingredients].sort((a, b) =>
+        a.name?.localeCompare(b.name || '') || 0
+    );
 
     return (
         <div className="app-container">
@@ -40,9 +44,9 @@ const IngredientsPage = () => {
                 <div className="ingredients-table-container">
                     <TapedTable
                         layout="vertical"
-                        rows={ingredients}
+                        rows={sortedIngredients}
                         renderCell={(rowIndex) => {
-                            const i = ingredients[rowIndex];
+                            const i = sortedIngredients[rowIndex];
                             return (
                                 <div className="ingredient-row">
                                     <span className="ingredient-name">{i.name}</span>

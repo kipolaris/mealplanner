@@ -13,7 +13,7 @@ export const useIngredient = () => {
                 console.log('Fetched ingredients:', JSON.stringify(data));
                 setIngredients(data);
             })
-            .catch(error => console.error('Error fetching ingredients'));
+            .catch(error => console.error('Error fetching ingredients:',error));
     },[]);
 
     const handleEditIngredient = (ingredient) => {

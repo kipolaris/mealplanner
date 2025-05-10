@@ -131,3 +131,25 @@
     height: 16px;
     cursor: pointer;
 }
+
+.error-message {
+    position: fixed;
+    margin: 15% auto;
+    padding: 10px;
+    border: 1px solid #c0b9a6;
+    max-width: 200px;
+    max-height: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001;
+    animation: fadeIn 0.3s ease-in-out;
+    transition: opacity 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

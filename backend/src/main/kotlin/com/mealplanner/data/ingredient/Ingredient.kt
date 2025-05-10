@@ -6,6 +6,5 @@ import jakarta.persistence.*
 data class Ingredient(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
-    val name: String,
-    val quantity: String? = null
+    val name: String
 )
