@@ -60,21 +60,13 @@ export const useMealTime = (mealPlan, updateMealPlan) => {
         fetch(`${BackendUrl}/api/mealtimes/${mealTimeId}`, { method: 'DELETE' })
             .then(response => {
                 if (response.ok) {
-                    const newMealTimes = mealPlan.mealTimes.filter(mt => mt.id !== mealTimeId);
-
-                    const updatedDays = mealPlan.days.map(day => ({
-                        ...day,
-                        meals: day.meals.filter(meal => meal.mealTime.id !== mealTimeId)
-                    }));
-
-                    const updatedMealPlan = {
-                        ...mealPlan,
-                        mealTimes: newMealTimes,
-                        days: updatedDays
-                    };
-                    updateMealPlan(updatedMealPlan);
-                } else {
-                    console.error(`Failed to delete meal time with id ${mealTimeId}`);
+                    fetch(`${BackendUrl}/api/meal-plan`)
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Fetched meal plan data:', JSON.stringify(data));
+                            updateMealPlan(data);
+                        })
+                        .catch(error => console.error('Error fetching meal plan:', error));
                 }
             })
             .catch(error => console.error(`Error deleting meal time with id ${mealTimeId}:`, error));

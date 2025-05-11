@@ -1,11 +1,15 @@
 package com.mealplanner.service
 
 import com.mealplanner.data.mealtime.MealTime
+import com.mealplanner.repositories.MealRepository
 import com.mealplanner.repositories.MealTimeRepository
 import org.springframework.stereotype.Service
 
 @Service
-class MealTimeService(private val mealTimeRepository: MealTimeRepository) {
+class MealTimeService(
+    private val mealTimeRepository: MealTimeRepository,
+    private val mealRepository: MealRepository
+) {
     fun getAllMealTimes(): List<MealTime> {
         return mealTimeRepository.findAll()
     }
@@ -26,8 +30,24 @@ class MealTimeService(private val mealTimeRepository: MealTimeRepository) {
     }
 
     fun deleteMealTime(id: Long): Boolean {
-        return if (mealTimeRepository.existsById(id)) {
-            mealTimeRepository.deleteById(id)
+        val mealTime = mealTimeRepository.findById(id).orElse(null)
+
+        return if (mealTime != null) {
+            mealRepository.findAll().forEach { meal ->
+                if (meal.mealTime.id == id) {
+                    mealRepository.delete(meal)
+                }
+            }
+            mealTimeRepository.delete(mealTime)
+
+            val allRemaining = mealTimeRepository.findAll().sortedBy { it.order }
+            allRemaining.forEachIndexed { index, mt ->
+                println(mt)
+                mt.order = index
+                println(mt)
+                mealTimeRepository.save(mt)
+            }
+
             true
         } else {
             false
