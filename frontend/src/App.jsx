@@ -8,6 +8,7 @@ import './App.css';
 import MenuPage from "./pages/MenuPage";
 import IngredientsPage from "./pages/IngredientsPage";
 import IngredientsAtHomePage from "./pages/IngredientsAtHomePage";
+import DayPage from "./pages/DayPage";
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                 <Route path="/meal-times" element={<MealTimesPage />} />
                 <Route path="/ingredients" element={<IngredientsPage />} />
                 <Route path="/ingredients-at-home" element={<IngredientsAtHomePage />} />
+                <Route path="/day/:day" element={<DayPage />} />
             </Routes>
         </Router>
     );

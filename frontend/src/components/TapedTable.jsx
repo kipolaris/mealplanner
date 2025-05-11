@@ -38,7 +38,10 @@ const TapedTable = ({
                                     <button className="table-button lobster" onClick={handleReset}>Reset</button>
                                 </th>
                                 {layout === 'horizontal' && columns.map((col, idx) => (
-                                    <th key={idx} className="lobster">{col}</th>
+                                    <th key={idx} className="lobster" onClick={() => navigate(`/day/${col}`)}>
+                                        {col}
+                                    </th>
+
                                 ))}
                                 {layout === 'vertical' && <th className="lobster">Meals</th>}
                             </>
@@ -83,7 +86,7 @@ const TapedTable = ({
                             </td>
                         )}
                         {layout === 'horizontal' && columns.map((col, colIndex) => (
-                            <td key={colIndex} className="patrick">
+                            <td key={colIndex} className="patrick" >
                                 {renderCell(rowIndex, colIndex)}
                             </td>
                         ))}

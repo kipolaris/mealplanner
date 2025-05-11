@@ -61,10 +61,16 @@ export const useMealTime = (mealPlan, updateMealPlan) => {
             .then(response => {
                 if (response.ok) {
                     const newMealTimes = mealPlan.mealTimes.filter(mt => mt.id !== mealTimeId);
+
+                    const updatedDays = mealPlan.days.map(day => ({
+                        ...day,
+                        meals: day.meals.filter(meal => meal.mealTime.id !== mealTimeId)
+                    }));
+
                     const updatedMealPlan = {
                         ...mealPlan,
                         mealTimes: newMealTimes,
-                        days: mealPlan.days
+                        days: updatedDays
                     };
                     updateMealPlan(updatedMealPlan);
                 } else {

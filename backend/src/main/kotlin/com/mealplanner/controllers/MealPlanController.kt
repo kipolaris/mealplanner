@@ -1,5 +1,6 @@
 package com.mealplanner.controllers
 
+import com.mealplanner.data.Day
 import com.mealplanner.data.MealPlan
 import com.mealplanner.data.mealtime.MealTime
 import com.mealplanner.service.MealPlanService
@@ -26,6 +27,11 @@ class MealPlanController(private val mealPlanService: MealPlanService) {
     @PostMapping("/reset-meal-time")
     fun resetMealTime(@RequestBody mealTime: MealTime): ResponseEntity<MealPlan> {
         return ResponseEntity.ok(mealPlanService.resetMealTime(mealTime))
+    }
+
+    @PostMapping("/reset-day")
+    fun resetDay(@RequestBody day: Day): ResponseEntity<MealPlan> {
+        return ResponseEntity.ok(mealPlanService.resetDay(day))
     }
 
     @PutMapping

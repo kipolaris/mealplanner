@@ -161,6 +161,20 @@ export const useMealPlan = () => {
             .catch(error => console.error('Error resetting meal time:', error));
     }
 
+    const resetDay = (day) => {
+        fetch(`${BackendUrl}/api/meal-plan/reset-day`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(day)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Reset day successfully', JSON.stringify(data));
+                setMealPlan(data);
+            })
+            .catch(error => console.error('Error fetching day:', error));
+    }
+
     return {
         mealPlan,
         savedFoods,
@@ -172,6 +186,7 @@ export const useMealPlan = () => {
         handleDeleteFood,
         updateMealPlan,
         resetMealPlan,
-        resetMealTime
+        resetMealTime,
+        resetDay
     };
 };
