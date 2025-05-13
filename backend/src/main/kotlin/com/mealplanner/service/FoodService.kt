@@ -1,11 +1,8 @@
 package com.mealplanner.service
 
 import com.mealplanner.data.Food
-import com.mealplanner.data.ingredient.Ingredient
 import com.mealplanner.repositories.FoodRepository
-import com.mealplanner.repositories.ingredient.IngredientRepository
 import com.mealplanner.repositories.MealRepository
-import com.mealplanner.repositories.ingredient.FoodIngredientRepository
 import com.mealplanner.service.ingredient.FoodIngredientService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -14,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional
 class FoodService(
     private val foodRepository: FoodRepository,
     private val mealRepository: MealRepository,
-    private val foodIngredientService: FoodIngredientService
+    private val foodIngredientService: FoodIngredientService,
 ) {
 
     fun getAllFoods(): List<Food> {
@@ -55,9 +52,9 @@ class FoodService(
 
 
     @Transactional
-    fun addIngredientToFood(foodId: Long, ingredientId: Long, quantity: String): Food {
+    fun addIngredientToFood(foodId: Long, ingredientId: Long, amount: Double, unitId: Long): Food {
         val food = foodRepository.findById(foodId).orElseThrow { RuntimeException("Food not found") }
-        val foodIngredient = foodIngredientService.createFoodIngredient(foodId, ingredientId, quantity)
+        val foodIngredient = foodIngredientService.createFoodIngredient(foodId, ingredientId, amount, unitId)
         food.ingredients.add(foodIngredient)
         return foodRepository.save(food)
     }
@@ -73,9 +70,9 @@ class FoodService(
         return foodRepository.save(food)
     }
 
-    fun updateIngredientInFood(foodId: Long, foodIngredientId: Long, newQuantity: String): Food {
+    fun updateIngredientInFood(foodId: Long, foodIngredientId: Long, newAmount: Double, unitId: Long): Food {
         val food = foodRepository.findById(foodId).orElseThrow { RuntimeException("Food not found") }
-        val updated = foodIngredientService.updateFoodIngredient(foodIngredientId, newQuantity)
+        val updated = foodIngredientService.updateFoodIngredient(foodIngredientId, newAmount, unitId)
 
         food.ingredients = food.ingredients
             .map { if (it.id == updated.id) updated else it }

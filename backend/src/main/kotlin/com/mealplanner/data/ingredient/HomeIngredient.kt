@@ -11,5 +11,6 @@ data class HomeIngredient(
     @JoinColumn(name = "ingredient_id")
     val ingredient: Ingredient? = null,
 
-    val quantity: String = ""
+    var amount: Double,
+    @ManyToOne val unit: UnitOfMeasure
 )

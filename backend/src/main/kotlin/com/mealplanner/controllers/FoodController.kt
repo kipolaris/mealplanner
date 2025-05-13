@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.*
 class FoodController(val foodService: FoodService) {
     data class FoodIngredientRequest(
         val ingredientId: Long,
-        val quantity: String
+        val amount: Double,
+        val unitId: Long
     )
 
     @GetMapping
@@ -54,7 +55,7 @@ class FoodController(val foodService: FoodService) {
         @PathVariable id: Long,
         @RequestBody request: FoodIngredientRequest
     ): ResponseEntity<Food> {
-        val food = foodService.addIngredientToFood(id, request.ingredientId, request.quantity)
+        val food = foodService.addIngredientToFood(id, request.ingredientId, request.amount, request.unitId)
         return ResponseEntity.ok(food)
     }
 
@@ -63,7 +64,7 @@ class FoodController(val foodService: FoodService) {
         @PathVariable id: Long,
         @RequestBody request: FoodIngredientRequest
     ): ResponseEntity<Food> {
-        val food = foodService.updateIngredientInFood(id, request.ingredientId, request.quantity)
+        val food = foodService.updateIngredientInFood(id, request.ingredientId, request.amount, request.unitId)
         return ResponseEntity.ok(food)
     }
 

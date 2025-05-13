@@ -3,7 +3,7 @@ package com.mealplanner.service
 import com.mealplanner.data.Day
 import com.mealplanner.data.Meal
 import com.mealplanner.data.MealPlan
-import com.mealplanner.data.mealtime.MealTime
+import com.mealplanner.data.MealTime
 import com.mealplanner.repositories.*
 import org.springframework.stereotype.Service
 

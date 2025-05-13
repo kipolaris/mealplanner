@@ -22,7 +22,8 @@ class HomeIngredientController(
 ) {
     data class HomeIngredientRequest(
         val ingredientId: Long,
-        val quantity: String
+        val amount: Double,
+        val unitId: Long
     )
     @GetMapping
     fun getAllHomeIngredients(): List<HomeIngredient> {
@@ -49,7 +50,11 @@ class HomeIngredientController(
     @PostMapping
     fun createHomeIngredient(@RequestBody request: HomeIngredientRequest): ResponseEntity<Any> {
         return try {
-            val created = homeIngredientService.createHomeIngredient(request.ingredientId, request.quantity)
+            val created = homeIngredientService.createHomeIngredient(
+                request.ingredientId,
+                request.amount,
+                request.unitId
+            )
             ResponseEntity.status(HttpStatus.CREATED).body(created)
         } catch (e: RuntimeException) {
             ResponseEntity.badRequest().body(mapOf("error" to e.message))
@@ -61,7 +66,7 @@ class HomeIngredientController(
         @PathVariable id: Long,
         @RequestBody request: HomeIngredientRequest
     ) : ResponseEntity<HomeIngredient> {
-        val homeIngredient = homeIngredientService.updateHomeIngredient(id, request.quantity)
+        val homeIngredient = homeIngredientService.updateHomeIngredient(id, request.amount, request.unitId)
         return ResponseEntity.ok(homeIngredient)
     }
 
@@ -69,5 +74,14 @@ class HomeIngredientController(
     fun deleteHomeIngredient(@PathVariable id: Long): ResponseEntity<Unit> {
         homeIngredientService.deleteHomeIngredient(id)
         return ResponseEntity.noContent().build()
+    }
+
+    @PutMapping("/merge")
+    fun mergeHomeIngredient(@RequestBody request: HomeIngredientRequest): ResponseEntity<Any> {
+        return try {
+            ResponseEntity.ok(homeIngredientService.mergeHomeIngredient(request.ingredientId,request.amount,request.unitId))
+        } catch (e: Exception) {
+            ResponseEntity.badRequest().body(mapOf("error" to e.message))
+        }
     }
 }

@@ -1,7 +1,6 @@
 package com.mealplanner.controllers
 
-import com.mealplanner.data.mealtime.MealTime
-import com.mealplanner.data.mealtime.ReorderRequest
+import com.mealplanner.data.MealTime
 import com.mealplanner.service.MealTimeService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -11,6 +10,8 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/api/mealtimes")
 @CrossOrigin
 class MealTimeController(private val mealTimeService: MealTimeService) {
+
+    data class ReorderRequest(val mealTimeId1: Long, val mealTimeId2: Long, val mealPlanId: Long)
 
     @GetMapping
     fun getAll(): List<MealTime> {
