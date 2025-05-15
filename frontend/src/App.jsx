@@ -9,6 +9,7 @@ import MenuPage from "./pages/MenuPage";
 import IngredientsPage from "./pages/IngredientsPage";
 import IngredientsAtHomePage from "./pages/IngredientsAtHomePage";
 import DayPage from "./pages/DayPage";
+import FoodsPage from "./pages/FoodsPage";
 
 function App() {
     return (
@@ -17,11 +18,12 @@ function App() {
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/menu" element={<MenuPage />} />
                 <Route path="/meal-plan" element={<MealPlanPage />} />
+                <Route path="/day/:day" element={<DayPage />} />
                 <Route path="/meal/:mealTime" element={<MealTimePage />} />
                 <Route path="/meal-times" element={<MealTimesPage />} />
                 <Route path="/ingredients" element={<IngredientsPage />} />
-                <Route path="/ingredients-at-home" element={<IngredientsAtHomePage />} />
-                <Route path="/day/:day" element={<DayPage />} />
+                <Route path="/ingredients-at-home" element={<IngredientsAtHomePage />}/>
+                <Route path="/foods" element={<FoodsPage />} />
             </Routes>
         </Router>
     );

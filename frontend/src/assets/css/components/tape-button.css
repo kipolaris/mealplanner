@@ -2,7 +2,7 @@
     position: relative;
     width: 192px;
     height: 60px;
-    background-image: url('../images/whitetape.png');
+    background-image: url('../../images/whitetape.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -16,9 +16,9 @@
     overflow: hidden;
     background-color: transparent;
 
-    -webkit-mask-image: url('../images/whitetape.png');
+    -webkit-mask-image: url('../../images/whitetape.png');
     -webkit-mask-size: cover;
-    mask-image: url('../images/whitetape.png');
+    mask-image: url('../../images/whitetape.png');
     mask-size: cover;
 }
 

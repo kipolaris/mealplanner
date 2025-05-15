@@ -12,12 +12,4 @@ class UnitOfMeasureController(
 ) {
     @GetMapping
     fun getAll(): List<UnitOfMeasure> = unitOfMeasureService.getUnitsOfMeasure()
-
-    @PostMapping("/init")
-    fun initialize(): List<UnitOfMeasure> = unitOfMeasureService.initializeUnitsOfMeasure()
-
-    @GetMapping("/convert")
-    fun convert(@RequestParam amount: Double, @RequestParam from: Long, @RequestParam to: Long): Double {
-        return unitOfMeasureService.convert(amount, from, to)
-    }
 }

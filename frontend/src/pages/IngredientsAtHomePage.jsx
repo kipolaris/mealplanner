@@ -1,13 +1,16 @@
 import React from 'react';
 import { useNavigate} from "react-router-dom";
-import '../assets/css/ingredients-at-home-page.css'
+import '../assets/css/pages/ingredients-at-home-page.css'
 import { useIngredient} from "../hooks/useIngredient";
 import PageTitle from "../components/PageTitle";
 import TapeButton from "../components/TapeButton";
 import TapedTable from "../components/TapedTable";
 import {useHomeIngredients} from "../hooks/useHomeIngredient";
+import {useUnitOfMeasure} from "../hooks/useUnitOfMeasure";
 import AddIngredientModal from "../components/modals/AddIngredientModal";
 import NewNameModal from "../components/modals/NewNameModal";
+import MergeAmountModal from "../components/modals/MergeAmountModal";
+import EditQuantityModal from "../components/modals/EditQuantityModal";
 
 const IngredientsAtHomePage = () => {
     const navigate = useNavigate();
@@ -20,6 +23,10 @@ const IngredientsAtHomePage = () => {
         isQuantityModalOpen,
         setIsQuantityModalOpen,
         editingHomeIngredient,
+        isMergeModalOpen,
+        setIsMergeModalOpen,
+        pendingMerge,
+        confirmMergeHomeIngredient,
         handleAddHomeIngredient,
         handleAddNewHomeIngredient,
         handleDeleteHomeIngredient,
@@ -27,13 +34,15 @@ const IngredientsAtHomePage = () => {
         handleSaveEditedHomeIngredient,
     } = useHomeIngredients();
 
+    const unitsOfMeasure = useUnitOfMeasure()
+
     const navigateToMenu = () => navigate('/menu');
 
-    const handleSave = async (selectedIngredient, newIngredientName, quantity) => {
+    const handleSave = async (selectedIngredient, newIngredientName, amount, unitId) => {
         if (selectedIngredient) {
-            await handleAddHomeIngredient(selectedIngredient.id, quantity);
+            await handleAddHomeIngredient(selectedIngredient.id, amount, unitId);
         } else if (newIngredientName.trim()) {
-            await handleAddNewHomeIngredient(newIngredientName.trim(), quantity);
+            await handleAddNewHomeIngredient(newIngredientName.trim(), amount, unitId);
         }
     };
 
@@ -62,7 +71,7 @@ const IngredientsAtHomePage = () => {
                                 <div className="home-ingredient-row">
                                     <div className="home-ingredient-label-wrapper">
                                         <span className="home-ingredient-name lobster">{hi.ingredient?.name}</span>
-                                        <span className="home-ingredient-quantity">({hi.quantity})</span>
+                                        <span className="home-ingredient-quantity">({hi.amount} {hi.unit.abbreviation})</span>
                                     </div>
                                     <div className="home-ingredient-icons">
                                         <img
@@ -101,19 +110,27 @@ const IngredientsAtHomePage = () => {
                 isOpen={isAddIngredientModalOpen}
                 onClose={() => setIsAddIngredientModalOpen(false)}
                 onSave={handleSave}
+                unitsOfMeasure={unitsOfMeasure}
                 savedIngredients={ingredients}
                 savedHomeIngredients={homeIngredients}
             />
-            <NewNameModal
+            <EditQuantityModal
                 isOpen={isQuantityModalOpen}
                 onClose={() => setIsQuantityModalOpen(false)}
                 onSave={handleSaveEditedHomeIngredient}
-                itemName="quantity"
-                defaultName={editingHomeIngredient?.quantity}
+                ingredient={editingHomeIngredient}
+                unitsOfMeasure={unitsOfMeasure}
+            />
+            <MergeAmountModal
+                isOpen={isMergeModalOpen}
+                onClose={() => setIsMergeModalOpen(false)}
+                onSave={confirmMergeHomeIngredient}
+                listName="home ingredients"
+                amount={pendingMerge?.amount}
+                unit={pendingMerge?.unit}
             />
         </div>
     );
-
 }
 
 export default IngredientsAtHomePage

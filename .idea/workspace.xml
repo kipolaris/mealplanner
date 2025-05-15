@@ -5,34 +5,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="394f1832-2bd8-4dcd-b968-3262c9a548d2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/ShoppingListController.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/ingredient/UnitOfMeasureController.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/data/ingredient/UnitOfMeasure.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/data/shopping/ShoppingItem.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/data/shopping/ShoppingList.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/repositories/ingredient/UnitOfMeasureRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/repositories/shopping/ShoppingItemRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/repositories/shopping/ShoppingListRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/ingredient/UnitOfMeasureService.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/shopping/ShoppingItemService.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/shopping/ShoppingListService.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/modals/EditQuantityModal.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/modals/MergeAmountModal.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/hooks/useFoods.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/hooks/useUnitOfMeasure.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/FoodsPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/FoodController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/FoodController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/MealPlanController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/MealPlanController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/MealTimeController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/MealTimeController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/ingredient/HomeIngredientController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/ingredient/HomeIngredientController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/data/Meal.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/data/Meal.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/data/MealPlan.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/data/MealPlan.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/data/ingredient/FoodIngredient.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/data/ingredient/FoodIngredient.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/data/ingredient/HomeIngredient.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/data/ingredient/HomeIngredient.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/data/mealtime/MealTime.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/data/MealTime.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/data/mealtime/ReorderRequest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/repositories/MealTimeRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/repositories/MealTimeRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/FoodService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/FoodService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/MealPlanService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/MealPlanService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/MealTimeService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/MealTimeService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/ingredient/FoodIngredientService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/ingredient/FoodIngredientService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/ingredient/UnitOfMeasureController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/ingredient/UnitOfMeasureController.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/ingredient/HomeIngredientService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/ingredient/HomeIngredientService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/ingredient/UnitOfMeasureService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/ingredient/UnitOfMeasureService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/day-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/pages/day-page.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/ingredients-at-home-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/pages/ingredients-at-home-page.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/ingredients-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/pages/ingredients-page.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/landing-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/pages/landing-page.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/meal-plan-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/pages/meal-plan-page.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/meal-times-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/pages/meal-times-page.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/mealtime-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/pages/mealtime-page.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/menu-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/pages/menu-page.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/modal.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/components/modal.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/page-title.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/components/page-title.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/tape-button.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/components/tape-button.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/taped-table.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/components/taped-table.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/PageTitle.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/PageTitle.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/TapeButton.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/TapeButton.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/TapedTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/TapedTable.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/modals/AddFoodModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/modals/AddFoodModal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/modals/AddIngredientModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/modals/AddIngredientModal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/modals/NewNameModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/modals/NewNameModal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useHomeIngredient.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useHomeIngredient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useIngredient.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useIngredient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/DayPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/DayPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/IngredientsAtHomePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/IngredientsAtHomePage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/IngredientsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/IngredientsPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/LandingPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/LandingPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MealPlanPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MealPlanPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MealTimePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MealTimePage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MealTimesPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MealTimesPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MenuPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MenuPage.jsx" afterDir="false" />
     </list>
     <list id="542fc26d-9e25-4b21-8122-007167c71aa5" name="Changes by Lili" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -89,10 +99,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Kotlin Data Class" />
-        <option value="JavaScript File" />
         <option value="CSS File" />
         <option value="Kotlin Interface" />
         <option value="Kotlin Class" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -151,11 +161,11 @@
       <recent name="C:\Users\csuto\programming\mealplanner\backend\src\main\kotlin\com\mealplanner\Service" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\csuto\programming\mealplanner\frontend\src\assets\css\components" />
+      <recent name="C:\Users\csuto\programming\mealplanner\frontend\src\assets\css\pages" />
       <recent name="C:\Users\csuto\programming\mealplanner\frontend\src\assets" />
       <recent name="C:\Users\csuto\programming\mealplanner\frontend\src\utils" />
       <recent name="C:\Users\csuto\programming\mealplanner\frontend\src" />
-      <recent name="C:\Users\csuto\programming\mealplanner\frontend\src\components\modals" />
-      <recent name="C:\Users\csuto\programming\mealplanner\frontend\src\components\pages" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
       <recent name="com.mealplanner.data" />
@@ -357,7 +367,7 @@
       <workItem from="1745615181815" duration="14842000" />
       <workItem from="1746709746190" duration="30148000" />
       <workItem from="1747121148727" duration="8182000" />
-      <workItem from="1747154301197" duration="4736000" />
+      <workItem from="1747154301197" duration="23082000" />
     </task>
     <servers />
   </component>

@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 import { BackendUrl } from "../utils/constants";
+import {useUnitOfMeasure} from "./useUnitOfMeasure";
 
 export const useHomeIngredients = () => {
     const [homeIngredients, setHomeIngredients] = useState([]);
     const [editingHomeIngredient, setEditingHomeIngredient] = useState(null);
     const [isAddIngredientModalOpen, setIsAddIngredientModalOpen] = useState(false);
     const [isQuantityModalOpen, setIsQuantityModalOpen] = useState(false);
+    const [isMergeModalOpen, setIsMergeModalOpen] = useState(false);
+    const [pendingMerge, setPendingMerge] = useState(null);
+
+    const unitsOfMeasure = useUnitOfMeasure()
 
     useEffect(() => {
         fetch(`${BackendUrl}/api/home-ingredients`)
@@ -14,20 +19,58 @@ export const useHomeIngredients = () => {
             .catch(error => console.error("Failed to fetch home ingredients", error));
     }, []);
 
-    const handleAddHomeIngredient = (ingredientId, quantity) => {
+    const handleAddHomeIngredient = (ingredientId, amount, unitId) => {
         fetch(`${BackendUrl}/api/home-ingredients`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ingredientId, quantity })
+            body: JSON.stringify({ ingredientId, amount, unitId })
         })
-            .then(response => response.json())
+            .then(async (response) => {
+                if (!response.ok) {
+                    const error = await response.json();
+                    if (error.error?.includes("same unit type")) {
+                        const unit = unitsOfMeasure.find(u => u.id === unitId);
+                        setPendingMerge({ ingredientId, amount, unit });
+                        setIsMergeModalOpen(true);
+                    } else {
+                        throw new Error(error.error || "Unknown error");
+                    }
+                } else {
+                    return response.json()
+                }
+            })
             .then((newHomeIngredient) => {
-                setHomeIngredients(prev => [...prev, newHomeIngredient])
+                if (newHomeIngredient) {
+                    setHomeIngredients(prev => [...prev, newHomeIngredient]);
+                }
             })
             .catch(error => console.error('Error adding home ingredient:', error));
     };
 
-    const handleAddNewHomeIngredient = async (newName, quantity) => {
+    const confirmMergeHomeIngredient = () => {
+        if (!pendingMerge) return;
+        const newPendingMerge = {
+            ingredientId: pendingMerge.ingredientId,
+            amount: pendingMerge.amount,
+            unitId: pendingMerge.unit.id
+        }
+
+        fetch(`${BackendUrl}/api/home-ingredients/merge`, {
+            method: 'PUT',
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify(newPendingMerge)
+        })
+            .then(response => response.json())
+            .then(merged => {
+                setHomeIngredients(prev =>
+                    prev.map(h => h.id === merged.id ? merged : h)
+                );
+                setIsMergeModalOpen(false);
+                setPendingMerge(null);
+            })
+    }
+
+    const handleAddNewHomeIngredient = async (newName, newAmount, unitId) => {
         try {
             const ingredientResponse = await fetch(`${BackendUrl}/api/ingredients`, {
                 method: 'POST',
@@ -40,7 +83,7 @@ export const useHomeIngredients = () => {
             const homeIngredientResponse = await fetch(`${BackendUrl}/api/home-ingredients`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ingredientId: newIngredient.id, quantity })
+                body: JSON.stringify({ ingredientId: newIngredient.id, amount: newAmount, unitId: unitId })
             });
 
             const newHomeIngredient = await homeIngredientResponse.json();
@@ -56,13 +99,14 @@ export const useHomeIngredients = () => {
         setIsQuantityModalOpen(true);
     };
 
-    const handleSaveEditedHomeIngredient = (newQuantity) => {
+    const handleSaveEditedHomeIngredient = (newAmount, unitId) => {
         if(!editingHomeIngredient) return;
 
         const homeIngredient = {
             id: editingHomeIngredient.id,
             name: editingHomeIngredient.name,
-            quantity: newQuantity
+            amount: newAmount,
+            unitId: unitId
         }
 
         fetch(`${BackendUrl}/api/home-ingredients/${editingHomeIngredient.id}`, {
@@ -102,6 +146,10 @@ export const useHomeIngredients = () => {
         setIsAddIngredientModalOpen,
         isQuantityModalOpen,
         setIsQuantityModalOpen,
+        isMergeModalOpen,
+        setIsMergeModalOpen,
+        pendingMerge,
+        confirmMergeHomeIngredient,
         handleAddHomeIngredient,
         handleAddNewHomeIngredient,
         handleEditHomeIngredient,

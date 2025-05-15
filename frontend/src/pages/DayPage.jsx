@@ -6,7 +6,7 @@ import { useNavigate, useParams} from "react-router-dom";
 import PageTitle from "../components/PageTitle";
 import TapedTable from "../components/TapedTable";
 import TapeButton from "../components/TapeButton";
-import '../assets/css/day-page.css';
+import '../assets/css/pages/day-page.css';
 import NewNameModal from "../components/modals/NewNameModal";
 
 const DayPage = () => {

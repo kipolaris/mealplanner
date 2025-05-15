@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import paperBackground from '../../assets/images/paperbackground.png'
-import '../../assets/css/modal.css'
+import '../../assets/css/components/modal.css'
 
 const NewNameModal = ({
     isOpen,
@@ -37,6 +37,7 @@ const NewNameModal = ({
                     type="text"
                     value={newName}
                     onChange={(e) => setNewName(e.target.value)}
+                    placeholder={defaultName}
                 />
                 <div className="modal-buttons">
                     <button className="save-button" onClick={handleSave}>Save</button>

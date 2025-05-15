@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import AddFoodModal from '../components/modals/AddFoodModal';
-import '../assets/css/meal-plan-page.css';
+import '../assets/css/pages/meal-plan-page.css';
 
 import { useMealPlan } from "../hooks/useMealPlan";
 import { useMealTime } from "../hooks/useMealTime";

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../assets/css/meal-times-page.css'
+import '../assets/css/pages/meal-times-page.css'
 import {useMealTime} from "../hooks/useMealTime";
 import TapeButton from "../components/TapeButton";
 import PageTitle from "../components/PageTitle";

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import TapeButton from '../components/TapeButton';
 import PageTitle from '../components/PageTitle';
 import TapedTable from '../components/TapedTable';
-import '../assets/css/menu-page.css';
+import '../assets/css/pages/menu-page.css';
 
 const MenuPage = () => {
     const navigate = useNavigate();
@@ -11,7 +11,7 @@ const MenuPage = () => {
     const rows = [
         { label: 'Meal plan', onClick: () => navigate('/meal-plan') },
         { label: 'Meal times', onClick: () => navigate('/meal-times') },
-        { label: 'Foods', onClick: () => {} },
+        { label: 'Foods', onClick: () => navigate('/foods') },
         { label: 'Ingredients', onClick: () => navigate('/ingredients') },
         { label: 'Ingredients at home', onClick: () => navigate('/ingredients-at-home')},
         { label: 'Shopping list', onClick: () => {} },

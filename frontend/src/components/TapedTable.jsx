@@ -1,5 +1,5 @@
 import React from 'react';
-import '../assets/css/taped-table.css';
+import '../assets/css/components/taped-table.css';
 import pinkFlowerTape from '../assets/images/pinkflowertape.png';
 import paperBackground from '../assets/images/paperbackground.png';
 import upArrow from '../assets/images/arrowup.png';

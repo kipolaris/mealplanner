@@ -1,51 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import paperBackground from '../../assets/images/paperbackground.png';
-import '../../assets/css/modal.css'
+import '../../assets/css/components/modal.css'
 
 const AddIngredientModal = ({
     isOpen,
     onClose,
     onSave,
-    savedIngredients = [],
-    savedHomeIngredients = []
+    unitsOfMeasure,
+    savedIngredients = []
 }) => {
     const [selectedIngredient, setSelectedIngredient] = useState(null);
+    const [selectedUnit, setSelectedUnit] = useState(null);
     const [newIngredient, setNewIngredient] = useState('');
-    const [quantity, setQuantity] = useState('');
+    const [amount, setAmount] = useState(0);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
+    const [isUnitDropdownOpen, setIsUnitDropdownOpen] = useState(false);
 
     useEffect(() => {
         if (!isOpen) {
-            setSelectedIngredient('');
+            setSelectedIngredient(null);
             setNewIngredient('');
+            setSelectedUnit(null);
+            setAmount(0);
             setIsDropdownOpen(false);
+            setIsUnitDropdownOpen(false);
         }
     }, [isOpen]);
 
-    useEffect(() => {
-        if (errorMessage) {
-            const timeout = setTimeout(() => {
-                setErrorMessage('');
-            }, 2000);
-
-            return () => clearTimeout(timeout);
-        }
-    }, [errorMessage]);
-
     const handleSave = () => {
-        const ingredient = selectedIngredient || { name: newIngredient.trim() };
-        const alreadyExists = savedHomeIngredients.some(
-            hi => hi.ingredient?.name?.toLowerCase() === ingredient.name.toLowerCase()
-        );
-
-        if (alreadyExists) {
-            setErrorMessage("You already added this ingredient");
-            return;
-        }
-
-        if ((selectedIngredient || newIngredient.trim()) && quantity) {
-            onSave(selectedIngredient, newIngredient.trim(), quantity);
+        if ((selectedIngredient || newIngredient.trim()) && amount && selectedUnit) {
+            onSave(selectedIngredient, newIngredient.trim(), amount, selectedUnit.id);
             onClose();
         }
     };
@@ -55,9 +39,18 @@ const AddIngredientModal = ({
         setIsDropdownOpen(false);
     };
 
+    const handleSelectUnit = (unit) => {
+        setSelectedUnit(unit);
+        setIsUnitDropdownOpen(false);
+    };
+
     const toggleDropdown = () => {
         setIsDropdownOpen(prev => !prev);
     };
+
+    const toggleUnitDropdown = () => {
+        setIsUnitDropdownOpen(prev => !prev);
+    }
 
     if (!isOpen) return null;
 
@@ -91,17 +84,39 @@ const AddIngredientModal = ({
                     onChange={(e) => setNewIngredient(e.target.value)}
                     placeholder="Or add a new ingredient"
                 />
-                <input
-                    type="text"
-                    onChange={(e) => setQuantity(e.target.value)}
-                    placeholder="Add quantity"
-                />
+                <div className="quantity">
+                    <input
+                        type="number"
+                        onChange={(e) => setAmount(parseFloat(e.target.value))}
+                        placeholder="Add quantity"
+                    />
+                    <div className="custom-dropdown">
+                        <button className="dropdown-button" onClick={toggleUnitDropdown}>
+                            {selectedUnit?.name || "Select a unit"}
+                            <span className="arrow-down">&#9662;</span>
+                        </button>
+                        {isUnitDropdownOpen && (
+                            <div className="dropdown-menu">
+                                {unitsOfMeasure.map(unit => (
+                                    <div key={unit.id} className="dropdown-item" onClick={() => handleSelectUnit(unit)}>
+                                        <span>{unit.name}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                </div>
                 <div className="modal-buttons">
-                    <button className="save-button" onClick={handleSave}>Save</button>
+                    <button
+                        className="save-button"
+                        onClick={handleSave}
+                        disabled={!(selectedIngredient || newIngredient.trim()) || !amount || !selectedUnit}
+                    >
+                        Save
+                    </button>
                     <button className="cancel-button" onClick={onClose}>Cancel</button>
                 </div>
             </div>
-            {errorMessage && <div className="error-message">{errorMessage}</div>}
         </div>
     );
 };

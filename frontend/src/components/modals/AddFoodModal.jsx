@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import trashIcon from '../../assets/images/trashcan.png';
 import paperBackground from '../../assets/images/paperbackground.png'
-import '../../assets/css/modal.css'
+import '../../assets/css/components/modal.css'
 
 const AddFoodModal = ({ isOpen, onClose, onSave, savedFoods = [], onDeleteFood }) => {
     const [selectedFood, setSelectedFood] = useState('');

@@ -26,8 +26,7 @@ export const useIngredient = () => {
 
         const ingredient = {
             id: editingIngredient.id,
-            name: newName.trim(),
-            quantity: editingIngredient.quantity
+            name: newName.trim()
         }
 
         fetch(`${BackendUrl}/api/ingredients/${editingIngredient.id}`, {

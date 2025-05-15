@@ -1,68 +1,67 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../assets/css/pages/ingredients-page.css';
-import { useIngredient } from "../hooks/useIngredient";
+import React from "react";
+import { useNavigate} from "react-router-dom";
+import { useFoods} from "../hooks/useFoods";
+import '../assets/css/pages/foods-page.css';
 import PageTitle from "../components/PageTitle";
 import TapeButton from "../components/TapeButton";
 import TapedTable from "../components/TapedTable";
 import NewNameModal from "../components/modals/NewNameModal";
 
-const IngredientsPage = () => {
+const FoodsPage = () => {
     const navigate = useNavigate();
 
     const {
-        ingredients,
-        setIngredients,
-        isNameModalOpen,
-        setIsNameModalOpen,
-        editingIngredient,
-        handleAddIngredient,
-        handleEditIngredient,
-        handleSaveEditedIngredient,
-        handleDeleteIngredient
-    } = useIngredient();
+        foods,
+        isModalOpen,
+        setIsModalOpen,
+        editingFood,
+        handleAddFood,
+        handleDeleteFood,
+        handleEditFood,
+        handleSaveEditedFood
+    } = useFoods()
 
     const navigateToMenu = () => {
         navigate('/menu');
     }
 
-    if (!Array.isArray(ingredients)) return <PageTitle text="Loading ingredients..." />;
+    if (!Array.isArray(foods)) return <PageTitle text="Loading foods..." />;
 
-    const sortedIngredients = [...ingredients].sort((a, b) =>
+    const sortedFoods = [...foods].sort((a,b) =>
         a.name?.localeCompare(b.name || '') || 0
     );
 
     return (
         <div className="app-container">
-            <div className="ingredients-header">
+            <div className="foods-header">
                 <div className="menu-button">
                     <TapeButton text="Menu" onClick={navigateToMenu} />
                 </div>
-                <PageTitle text="Ingredients"/>
+                <PageTitle text="Foods"/>
             </div>
-            <div className="ingredients-wrapper">
-                <div className="ingredients-table-container">
+            <div className="foods-wrapper">
+                <div className="foods-table-container">
                     <TapedTable
                         layout="vertical"
-                        rows={sortedIngredients}
+                        rows={sortedFoods}
                         renderCell={(rowIndex) => {
-                            const i = sortedIngredients[rowIndex];
+                            const f = sortedFoods[rowIndex];
                             return (
-                                <div className="ingredient-row">
-                                    <span className="ingredient-name">{i.name}</span>
-                                    <div className="ingredient-icons">
+                                <div className="food-row">
+                                    <span className="food-name">{f.name}</span>
+                                    <div className="food-icons">
                                         <div className="edit-buttons">
                                             <img
                                                 src={require('../assets/images/pencil.png')}
                                                 alt="Edit"
                                                 className="edit-button"
-                                                onClick={() => handleEditIngredient(i)}
+                                                onClick={() => handleEditFood(f)}
                                             />
                                             <img
                                                 src={require('../assets/images/trashcan.png')}
                                                 alt="Delete"
                                                 className="edit-button"
-                                                onClick={() => handleDeleteIngredient(i.id)}
+                                                onClick={() => handleDeleteFood(f.id)}
                                             />
                                         </div>
                                     </div>
@@ -75,30 +74,30 @@ const IngredientsPage = () => {
                         extraBottomRow={
                             <tr>
                                 <td>
-                                    <button className="table-button lobster" onClick={() => setIsNameModalOpen(true)}>
-                                        Add new ingredient
+                                    <button className="table-button lobster" onClick={() => setIsModalOpen(true)}>
+                                        Add new food
                                     </button>
                                 </td>
                             </tr>
                         }
                     />
                 </div>
+                <NewNameModal
+                    isOpen={isModalOpen}
+                    onClose={() => setIsModalOpen(false)}
+                    onSave={(name) => {
+                        if (editingFood) {
+                            handleSaveEditedFood(name);
+                        } else {
+                            handleAddFood(name);
+                        }
+                    }}
+                    itemName="food"
+                    defaultName={editingFood?.name}
+                />
             </div>
-            <NewNameModal
-                isOpen={isNameModalOpen}
-                onClose={() => setIsNameModalOpen(false)}
-                onSave={(name) => {
-                    if (editingIngredient) {
-                        handleSaveEditedIngredient(name);
-                    } else {
-                        handleAddIngredient(name);
-                    }
-                }}
-                itemName="ingredient"
-                defaultName={editingIngredient?.name}
-            />
         </div>
     );
 }
 
-export default IngredientsPage
+export default FoodsPage

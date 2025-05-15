@@ -1,6 +1,6 @@
 import React from 'react';
 import AddFoodModal from '../components/modals/AddFoodModal';
-import '../assets/css/mealtime-page.css';
+import '../assets/css/pages/mealtime-page.css';
 import { useMealPlan } from '../hooks/useMealPlan';
 import {useNavigate, useParams} from "react-router-dom";
 import PageTitle from "../components/PageTitle";

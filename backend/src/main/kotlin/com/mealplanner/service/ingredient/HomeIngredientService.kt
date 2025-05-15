@@ -29,6 +29,13 @@ class HomeIngredientService(
         val ingredient = ingredientRepository.findById(ingredientId).orElseThrow { RuntimeException("Ingredient not found")}
         val unit = unitOfMeasureService.getUnitById(unitId)
 
+        val existing = homeIngredientRepository.findAll().find {
+            it.ingredient?.id == ingredientId && it.unit.type == unit.type
+        }
+        if (existing != null) {
+            throw RuntimeException("Ingredient already exists with same unit type")
+        }
+
         val homeIngredient = HomeIngredient(
             id = null,
             ingredient = ingredient,

@@ -2,6 +2,7 @@ package com.mealplanner.service.ingredient
 
 import com.mealplanner.data.ingredient.UnitOfMeasure
 import com.mealplanner.repositories.ingredient.UnitOfMeasureRepository
+import jakarta.annotation.PostConstruct
 import org.springframework.stereotype.Service
 
 @Service
@@ -47,5 +48,13 @@ class UnitOfMeasureService(
         val to = unitOfMeasureRepository.findById(toId).orElseThrow()
         require(from.type == to.type) { "Cannot convert between types" }
         return (amount * from.multiplierToBase) / to.multiplierToBase
+    }
+
+    @PostConstruct
+    fun initializeIfEmpty() {
+        if (unitOfMeasureRepository.count() == 0L) {
+            initializeUnitsOfMeasure()
+            println("Initialized units of measure.")
+        }
     }
 }
