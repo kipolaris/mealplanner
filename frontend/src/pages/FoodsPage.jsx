@@ -19,11 +19,11 @@ const FoodsPage = () => {
         handleDeleteFood,
         handleEditFood,
         handleSaveEditedFood
-    } = useFoods()
+    } = useFoods();
 
     const navigateToMenu = () => {
         navigate('/menu');
-    }
+    };
 
     if (!Array.isArray(foods)) return <PageTitle text="Loading foods..." />;
 
@@ -48,7 +48,7 @@ const FoodsPage = () => {
                             const f = sortedFoods[rowIndex];
                             return (
                                 <div className="food-row">
-                                    <span className="food-name">{f.name}</span>
+                                    <span className="food-name" onClick={() => navigate(`/food/${encodeURIComponent(f.name)}`)}>{f.name}</span>
                                     <div className="food-icons">
                                         <div className="edit-buttons">
                                             <img

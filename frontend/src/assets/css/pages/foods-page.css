@@ -70,7 +70,7 @@
     left: 50%;
     transform: translate(-50%);
     font-size: 1.1rem;
-    pointer-events: none;
+    cursor: pointer;
 }
 
 .food-icons {

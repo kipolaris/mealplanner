@@ -14,7 +14,14 @@ data class ShoppingItem(
     val ingredient: Ingredient,
 
     var amount: Double,
-    @ManyToOne val unit: UnitOfMeasure,
+
+    @ManyToOne
+    val unit: UnitOfMeasure,
+
+    val price: Double,
+
+    @ManyToOne
+    val currency: Currency,
 
     val checked: Boolean = false
 )

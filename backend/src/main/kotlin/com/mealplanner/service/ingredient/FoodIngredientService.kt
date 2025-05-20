@@ -21,7 +21,7 @@ class FoodIngredientService(
 
         val foodIngredient = FoodIngredient(
             id = null,
-            food = food,
+            foodId = food.id,
             ingredient = ingredient,
             amount = amount,
             unit = unit

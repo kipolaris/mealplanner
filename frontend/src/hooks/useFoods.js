@@ -5,6 +5,7 @@ export const useFoods = () => {
     const [foods, setFoods] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingFood, setEditingFood] = useState(null);
+    const [editingFoodDescription, setEditingFoodDescription] = useState('');
 
     useEffect(() => {
         fetch(`${BackendUrl}/api/foods`)
@@ -17,7 +18,7 @@ export const useFoods = () => {
     }, []);
 
     const handleAddFood = (newName) => {
-        const foodData = { name: newName };
+        const foodData = { name: newName, id: undefined, description: undefined, ingredients: [] };
         fetch(`${BackendUrl}/api/foods`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

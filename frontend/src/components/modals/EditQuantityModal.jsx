@@ -24,7 +24,7 @@ const EditQuantityModal = ({
 
     const handleSave = () => {
         if (amount && selectedUnit) {
-            onSave(ingredient, amount, selectedUnit.id);
+            onSave(amount, selectedUnit.id);
             onClose();
         }
     };
@@ -46,7 +46,7 @@ const EditQuantityModal = ({
                 <div className="quantity">
                     <input
                         type="number"
-                        value={amount.toString()}
+                        value={amount ?? ""}
                         onChange={(e) => setAmount(parseFloat(e.target.value))}
                     />
                     <div className="custom-dropdown">

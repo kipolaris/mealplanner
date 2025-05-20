@@ -112,7 +112,6 @@ const IngredientsAtHomePage = () => {
                 onSave={handleSave}
                 unitsOfMeasure={unitsOfMeasure}
                 savedIngredients={ingredients}
-                savedHomeIngredients={homeIngredients}
             />
             <EditQuantityModal
                 isOpen={isQuantityModalOpen}

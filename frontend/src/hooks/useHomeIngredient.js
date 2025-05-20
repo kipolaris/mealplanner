@@ -118,9 +118,9 @@ export const useHomeIngredients = () => {
             .then((editedHomeIngredient) => {
                 const updatedHomeIngredients = homeIngredients.map(hi =>
                     hi.id === editedHomeIngredient.id ? editedHomeIngredient : hi
-                )
+                );
                 setHomeIngredients(updatedHomeIngredients);
-                setEditingHomeIngredient(false);
+                setEditingHomeIngredient(null);
             })
             .catch(error => console.error('Error editing home ingredient:',error));
     };
@@ -132,7 +132,7 @@ export const useHomeIngredients = () => {
             .then(response => {
                 if (response.ok) {
                     const newHomeIngredients = homeIngredients.filter(hi => hi.id !== homeIngredientId);
-                    setHomeIngredients(newHomeIngredients)
+                    setHomeIngredients(newHomeIngredients);
                 }
             })
             .catch(error => console.error(`Error deleting home ingredient with id ${homeIngredientId}:`,error));

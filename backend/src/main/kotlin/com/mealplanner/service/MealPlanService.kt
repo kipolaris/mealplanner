@@ -76,18 +76,17 @@ class MealPlanService(
         return mealPlan
     }
 
-    fun resetDay(day: Day) : MealPlan {
+    fun resetDay(day: Day): MealPlan {
         val mealPlan = getMealPlan()
 
-        mealPlan.days.forEach {day ->
-            day.meals.forEach { meal ->
-                meal.food = null
-            }
-        }
+        val existingDay = mealPlan.days.find { it.id == day.id }
+            ?: throw IllegalArgumentException("Day with id ${day.id} not found in the meal plan")
 
-        mealPlanRepository.save(mealPlan)
-        return mealPlan
+        existingDay.meals.forEach { it.food = null }
+
+        return mealPlanRepository.save(mealPlan)
     }
+
 
     fun updateMealPlan(updatedMealPlan: MealPlan): MealPlan {
         val mealPlan = getMealPlan()
@@ -127,6 +126,8 @@ class MealPlanService(
 
         if (managedFood?.id != null) {
             meal.food = managedFood
+        } else {
+            println(managedFood)
         }
 
         val existingMeal = day.meals.find { it.mealTime.id == meal.mealTime.id }

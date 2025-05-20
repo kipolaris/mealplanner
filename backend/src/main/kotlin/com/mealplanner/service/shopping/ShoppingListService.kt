@@ -33,13 +33,15 @@ class ShoppingListService(
     }
 
     @Transactional
-    fun addShoppingItemToList(ingredientId: Long, amount: Double, unitId: Long): ShoppingList {
+    fun addShoppingItemToList(ingredientId: Long, amount: Double, unitId: Long, price: Double, currencyId: Long): ShoppingList {
         val shoppingList = getShoppingList()
 
         val newItem = shoppingItemService.createShoppingItem(
             ingredientId,
             amount,
-            unitId
+            unitId,
+            price,
+            currencyId
         )
 
         shoppingList.items.add(newItem)
@@ -56,9 +58,9 @@ class ShoppingListService(
         return shoppingListRepository.save(shoppingList)
     }
 
-    fun updateShoppingItemInList(shoppingItemId: Long, ingredientId: Long, amount: Double, unitId: Long, checked: Boolean): ShoppingList {
+    fun updateShoppingItemInList(shoppingItemId: Long, ingredientId: Long, amount: Double, unitId: Long, price: Double, currencyId: Long, checked: Boolean): ShoppingList {
         val shoppingList = getShoppingList()
-        val updated = shoppingItemService.updateShoppingItem(shoppingItemId,ingredientId,amount,unitId,checked)
+        val updated = shoppingItemService.updateShoppingItem(shoppingItemId,ingredientId,amount,unitId,price, currencyId, checked)
 
         val index = shoppingList.items.indexOfFirst { it.id == updated.id }
         if (index != -1) {
@@ -68,17 +70,19 @@ class ShoppingListService(
         return shoppingListRepository.save(shoppingList)
     }
 
-    fun mergeShoppingItemInList(ingredientId: Long, amount: Double, unitId: Long): ShoppingList {
+    fun mergeShoppingItemInList(ingredientId: Long, amount: Double, unitId: Long, price: Double, currencyId: Long): ShoppingList {
         val shoppingList = getShoppingList()
         val unit = unitOfMeasureService.getUnitById(unitId)
 
-        val existing = shoppingList.items.find { it.ingredient.id == ingredientId && it.unit.type == unit.type }
+        val existing = shoppingList.items.find { it.ingredient.id == ingredientId && it.unit.type == unit.type && it.currency.id == currencyId}
             ?: throw RuntimeException("There are no ingredients in the shopping list like this")
 
         val convertedAmount = unitOfMeasureService.convert(amount, unitId, existing.unit.id!!)
 
         val newTotal = existing.amount + convertedAmount
 
-        return updateShoppingItemInList(existing.id!!, existing.ingredient.id, newTotal, existing.unit.id, false)
+        val newPrice = existing.price + price
+
+        return updateShoppingItemInList(existing.id!!, existing.ingredient.id, newTotal, existing.unit.id, newPrice, currencyId, false)
     }
 }

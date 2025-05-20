@@ -17,7 +17,7 @@ const LandingPage = () => {
 
     return (
         <div className="landing-page-container">
-            <PageTitle text="Welcome to Meal Planner!" />
+            <PageTitle text="Welcome to Forkcast!" />
             <div className="button-container">
                 <TapeButton text="Log in" onClick={navigateToMenu}/>
                 <TapeButton text="Sign up" onClick={navigateToMealPlan}/>

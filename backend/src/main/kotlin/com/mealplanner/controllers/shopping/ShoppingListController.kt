@@ -1,4 +1,4 @@
-package com.mealplanner.controllers
+package com.mealplanner.controllers.shopping
 
 import com.mealplanner.data.shopping.ShoppingList
 import com.mealplanner.service.shopping.ShoppingListService
@@ -13,6 +13,8 @@ class ShoppingListController(private val shoppingListService: ShoppingListServic
         val ingredientId: Long,
         val amount: Double,
         val unitId: Long,
+        val price: Double,
+        val currencyId: Long,
         val checked: Boolean
     )
 
@@ -33,7 +35,9 @@ class ShoppingListController(private val shoppingListService: ShoppingListServic
         return ResponseEntity.ok(shoppingListService.addShoppingItemToList(
             request.ingredientId,
             request.amount,
-            request.unitId
+            request.unitId,
+            request.price,
+            request.currencyId
         ))
     }
 
@@ -48,13 +52,21 @@ class ShoppingListController(private val shoppingListService: ShoppingListServic
 
     @PutMapping("/{id}")
     fun updateShoppingItemInList(@PathVariable id: Long, @RequestBody request: ShoppingItemRequest): ResponseEntity<ShoppingList> {
-        return ResponseEntity.ok(shoppingListService.updateShoppingItemInList(id, request.ingredientId, request.amount, request.unitId, request.checked))
+        return ResponseEntity.ok(shoppingListService.updateShoppingItemInList(
+            id,
+            request.ingredientId,
+            request.amount,
+            request.unitId,
+            request.price,
+            request.currencyId,
+            request.checked
+        ))
     }
 
     @PutMapping("/merge")
     fun mergeShoppingItemInList(@RequestBody request: ShoppingItemRequest): ResponseEntity<Any> {
         return try {
-            ResponseEntity.ok(shoppingListService.mergeShoppingItemInList(request.ingredientId, request.amount, request.unitId))
+            ResponseEntity.ok(shoppingListService.mergeShoppingItemInList(request.ingredientId, request.amount, request.unitId, request.price, request.currencyId))
         } catch (e: Exception) {
             ResponseEntity.badRequest().body(mapOf("error" to e.message))
         }

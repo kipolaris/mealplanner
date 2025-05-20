@@ -39,7 +39,7 @@ export const useMealPlan = () => {
         })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Failed to update meal plan');
+                    console.log(response);
                 }
                 return fetch(`${BackendUrl}/api/meal-plan`);
             })
@@ -67,7 +67,7 @@ export const useMealPlan = () => {
 
             if (!mealToUpdate) {
                 mealToUpdate = {
-                    name: selectedCell.mealtime,
+                    id: undefined,
                     food: foodToUse,
                     mealTime: updatedMealPlan.mealTimes.find(mt => mt.name === selectedCell.mealtime),
                     dayId: day.id
