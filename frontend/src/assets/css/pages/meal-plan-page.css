@@ -1,0 +1,65 @@
+.app-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 80vh;
+    padding-top: 120px;
+}
+
+.meal-plan-header {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 20px;
+}
+
+.meal-plan-buttons {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.meal-plan-table-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    width: 100%;
+    padding: 20px;
+    max-width: 95vw;
+}
+
+
+@media (max-width: 768px) {
+    .meal-plan-container {
+        width: 95%;
+    }
+
+    .meal-plan-table {
+        border-spacing: 5px;
+        font-size: 14px;
+    }
+
+    .modal-content {
+        width: 90%;
+        margin: 10% auto;
+    }
+}
+
+.meal-plan-container {
+    text-align: center;
+    width: 90%;
+    max-width: 1200px;
+}
+
+.loading {
+    alignment: center;
+}

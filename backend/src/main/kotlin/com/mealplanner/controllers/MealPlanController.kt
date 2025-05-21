@@ -3,6 +3,7 @@ package com.mealplanner.controllers
 import com.mealplanner.data.Day
 import com.mealplanner.data.Meal
 import com.mealplanner.data.MealPlan
+import com.mealplanner.data.MealTime
 import com.mealplanner.service.MealPlanService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -22,6 +23,21 @@ class MealPlanController(private val mealPlanService: MealPlanService) {
     @PostMapping("/reset")
     fun resetMealPlan(@RequestBody mealTimesRequest: Map<String, List<Map<String, String>>>): ResponseEntity<MealPlan> {
         return ResponseEntity.ok(mealPlanService.resetMealPlan(mealTimesRequest))
+    }
+
+    @PostMapping("/reset-meal-time")
+    fun resetMealTime(@RequestBody mealTime: MealTime): ResponseEntity<MealPlan> {
+        return ResponseEntity.ok(mealPlanService.resetMealTime(mealTime))
+    }
+
+    @PostMapping("/reset-day")
+    fun resetDay(@RequestBody day: Day): ResponseEntity<MealPlan> {
+        return ResponseEntity.ok(mealPlanService.resetDay(day))
+    }
+
+    @PostMapping("/reset-meal")
+    fun resetMeal(@RequestBody meal: Meal): ResponseEntity<MealPlan> {
+        return ResponseEntity.ok(mealPlanService.resetMeal(meal))
     }
 
     @PutMapping

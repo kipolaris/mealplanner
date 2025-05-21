@@ -9,6 +9,4 @@ import org.springframework.stereotype.Repository
 interface MealTimeRepository : JpaRepository<MealTime, Long> {
     @Query("SELECT COALESCE(MAX(m.order), 0) FROM MealTime m")
     fun findMaxOrder(): Int?
-
-    fun findByName(name: String): MealTime?
 }

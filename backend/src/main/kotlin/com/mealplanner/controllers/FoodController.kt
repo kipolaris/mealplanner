@@ -1,7 +1,6 @@
 package com.mealplanner.controllers
 
 import com.mealplanner.data.Food
-import com.mealplanner.data.Ingredient
 import com.mealplanner.service.FoodService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -11,6 +10,12 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/api/foods")
 @CrossOrigin
 class FoodController(val foodService: FoodService) {
+    data class FoodIngredientRequest(
+        val id: Long,
+        val ingredientId: Long,
+        val amount: Double,
+        val unitId: Long
+    )
 
     @GetMapping
     fun getAllFoods(): List<Map<String, Any>> {
@@ -47,9 +52,30 @@ class FoodController(val foodService: FoodService) {
     }
 
     @PostMapping("/{id}/ingredients")
-    fun addIngredientToFood(@PathVariable id: Long, @RequestBody ingredient: Ingredient): ResponseEntity<Food> {
-        return foodService.addIngredientToFood(id, ingredient)?.let {
-            ResponseEntity.ok(it)
-        } ?: ResponseEntity.notFound().build()
+    fun addIngredientToFood(
+        @PathVariable id: Long,
+        @RequestBody request: FoodIngredientRequest
+    ): ResponseEntity<Food> {
+        val food = foodService.addIngredientToFood(id, request.ingredientId, request.amount, request.unitId)
+        return ResponseEntity.ok(food)
+    }
+
+    @PutMapping("/{id}/ingredients")
+    fun updateIngredientInFood(
+        @PathVariable id: Long,
+        @RequestBody request: FoodIngredientRequest
+    ): ResponseEntity<Food> {
+        val food = foodService.updateIngredientInFood(id, request.id, request.amount, request.unitId)
+        return ResponseEntity.ok(food)
+    }
+
+
+    @DeleteMapping("/{id}/ingredients")
+    fun deleteIngredientFromFood(
+        @PathVariable id: Long,
+        @RequestBody request: FoodIngredientRequest
+    ): ResponseEntity<Unit> {
+        foodService.deleteIngredientFromFood(id, request.id)
+        return ResponseEntity.noContent().build()
     }
 }

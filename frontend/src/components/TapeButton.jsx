@@ -1,5 +1,5 @@
 import React from 'react';
-import '../assets/css/tape-button.css';
+import '../assets/css/components/tape-button.css';
 
 const TapeButton = ({ text, onClick, style }) => {
     return (

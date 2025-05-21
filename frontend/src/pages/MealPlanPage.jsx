@@ -2,12 +2,14 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import AddFoodModal from '../components/modals/AddFoodModal';
-import '../assets/css/meal-plan-page.css';
+import '../assets/css/pages/meal-plan-page.css';
 
 import { useMealPlan } from "../hooks/useMealPlan";
 import { useMealTime } from "../hooks/useMealTime";
 import PageTitle from "../components/PageTitle";
 import TapedTable from "../components/TapedTable";
+import TapeButton from "../components/TapeButton";
+import NewNameModal from "../components/modals/NewNameModal";
 
 const MealPlanPage = () => {
     const {
@@ -15,16 +17,28 @@ const MealPlanPage = () => {
         savedFoods,
         isModalOpen,
         setIsModalOpen,
+        selectedCell,
         setSelectedCell,
         handleSaveFood,
         handleDeleteFood,
         updateMealPlan,
         resetMealPlan,
+        resetMeal
     } = useMealPlan();
 
-    const { mealTimes, handleAddMealTime, handleReorder } = useMealTime(mealPlan, updateMealPlan);
+    const {
+        mealTimes,
+        handleAddMealTime,
+        handleReorder,
+        isNameModalOpen,
+        setIsNameModalOpen
+    } = useMealTime(mealPlan, updateMealPlan);
 
     const navigate = useNavigate();
+
+    const navigateToMenu = () => {
+        navigate('/menu')
+    }
 
     const handleCellClick = (day, meal, mealtime) => {
         setSelectedCell({ day: day, meal: meal, mealtime: mealtime });
@@ -37,9 +51,14 @@ const MealPlanPage = () => {
 
     return (
         <div className="app-container">
+            <div className="meal-plan-header">
+                <div className="meal-plan-buttons">
+                    <TapeButton text="Menu" onClick={navigateToMenu}/>
+                </div>
+                <PageTitle text="Meal Plan" />
+            </div>
             <div className="meal-plan-table-wrapper">
                 <div className="meal-plan-container">
-                    <PageTitle text="Meal Plan" />
                     <TapedTable
                         layout="horizontal"
                         columns={mealPlan.days.map(day => day.name)}
@@ -67,7 +86,7 @@ const MealPlanPage = () => {
                         extraBottomRow={
                             <tr>
                                 <td colSpan={mealPlan.days.length + 1}>
-                                    <button className="table-button lobster" onClick={handleAddMealTime}>
+                                    <button className="table-button lobster" onClick={() => setIsNameModalOpen(true)}>
                                         Add new meal time
                                     </button>
                                 </td>
@@ -84,8 +103,16 @@ const MealPlanPage = () => {
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 onSave={handleSaveFood}
+                onClearMeal={resetMeal}
+                meal={selectedCell.meal}
                 savedFoods={savedFoods}
                 onDeleteFood={handleDeleteFood}
+            />
+            <NewNameModal
+                isOpen={isNameModalOpen}
+                onClose={() => setIsNameModalOpen(false)}
+                onSave={handleAddMealTime}
+                itemName="meal time"
             />
         </div>
     );

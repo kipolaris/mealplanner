@@ -1,0 +1,168 @@
+.taped-table-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 40px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: relative;
+    width: fit-content;
+}
+
+.taped-table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.taped-table th,
+.taped-table td {
+    border: 1px solid #c0b9a6;
+    padding: 6px;
+    text-align: center;
+    width: 60px;
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: clamp(12px, 2vw, 18px);
+}
+
+/* Only for vertical (MealTimePage) layout */
+.taped-table-wrapper.vertical-layout {
+    max-width: 600px;
+    width: 100%;
+}
+
+/* For horizontal (MealPlanPage) layout — can keep wide or custom */
+.taped-table-wrapper.horizontal-layout {
+    max-width: 100%;
+    width: fit-content;
+}
+
+.lobster {
+    font-family: 'Lobster', cursive;
+    font-size: 22px;
+    color: #ff78a8;
+}
+
+.patrick {
+    font-family: 'PatrickHand', cursive;
+    font-size: 18px;
+    color: #ff78a8;
+}
+
+.meal-time-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.meal-time-name {
+    cursor: pointer;
+    text-align: left;
+    max-width: 80px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    font-size: clamp(10px, 2vw, 18px);
+    line-height: 1.1;
+}
+
+.day-name {
+    cursor: pointer;
+}
+
+.arrow-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+.arrow-button {
+    cursor: pointer;
+    width: 12px;
+    height: 12px;
+    display: block;
+}
+
+.arrow-button:hover {
+    opacity: 0.7;
+}
+
+.meal-name-cell {
+    text-align: left;
+    vertical-align: middle;
+}
+
+.meal-name-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.meal-name {
+    font-weight: bold;
+}
+
+.meal-button {
+    all: unset;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: normal;
+    font-family: 'PatrickHand', cursive;
+    font-size: clamp(12px, 2vw, 18px);
+    color: #ff78a8;
+    cursor: pointer;
+    padding: 0;
+}
+
+.table-button {
+    background: none;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 10px;
+    color: #ff78a8;
+    font-family: 'Lobster', cursive;
+}
+
+/* Flower tapes on corners */
+.tape {
+    position: absolute;
+    width: 60px;
+    z-index: 2;
+}
+
+.top-left {
+    top: 5px;
+    left: -15px;
+    transform: rotate(-45deg);
+}
+
+.top-right {
+    top: 5px;
+    right: -15px;
+    transform: rotate(45deg);
+}
+
+.bottom-left {
+    bottom: 5px;
+    left: -15px;
+    transform: rotate(45deg);
+}
+
+.bottom-right {
+    bottom: 5px;
+    right: -15px;
+    transform: rotate(-45deg);
+}

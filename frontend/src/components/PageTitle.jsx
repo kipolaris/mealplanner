@@ -1,6 +1,6 @@
 import React from 'react';
 import pinkFlowerTape from '../assets/images/pinkflowertape.png';
-import '../assets/css/page-title.css';
+import '../assets/css/components/page-title.css';
 
 const PageTitle = ({ text }) => {
     return (

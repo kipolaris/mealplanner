@@ -1,0 +1,176 @@
+.app-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-height: 80vh;
+    padding-top: 120px;
+}
+
+.food-header {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 20px;
+}
+
+.navigation-buttons {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.content-container.two-column {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    align-items: center;
+}
+
+.paper-wrapper, .ingredients-table-wrapper {
+    flex: none;
+    max-width: 500px;
+    width: 100%;
+}
+
+.taped-paper {
+    width: 100%;
+    max-width: 500px;
+    height: 400px;
+    padding: 2rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    box-sizing: border-box;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+}
+
+.editable-description {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    outline: none;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    font-size: 1.1rem;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+
+.tape {
+    position: absolute;
+    width: 60px;
+    z-index: 2;
+}
+
+.tape.top-left {
+    top: 5px;
+    left: -15px;
+    transform: rotate(-45deg);
+}
+
+.tape.top-right {
+    top: 5px;
+    right: -15px;
+    transform: rotate(45deg);
+}
+
+.tape.bottom-left {
+    bottom: 5px;
+    left: -15px;
+    transform: rotate(45deg);
+}
+
+.tape.bottom-right {
+    bottom: 5px;
+    right: -15px;
+    transform: rotate(-45deg);
+}
+
+.food-ingredients-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+}
+
+.ingredients-table-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+.ingredient-icons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.ingredient-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.ingredient-label-wrapper {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex: 1;
+    white-space: nowrap; /* Prevent wrapping */
+}
+
+.ingredient-name {
+    font-size: 1.1rem;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.ingredient-quantity {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-left: 2px;
+    white-space: nowrap;
+}
+
+.editable-description::-webkit-scrollbar {
+    width: 8px;
+}
+
+.editable-description::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.editable-description::-webkit-scrollbar-thumb {
+    background-color: #ff78a8;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+.editable-description::-webkit-scrollbar-thumb:hover {
+    background-color: #ec5990;
+}
+
+.editable-description {
+    scrollbar-width: thin;
+    scrollbar-color: #ff78a8 transparent;
+}

@@ -11,7 +11,7 @@ export const useMealPlan = () => {
         fetch(`${BackendUrl}/api/meal-plan`)
             .then(response => response.json())
             .then(data => {
-                console.log("Fetched meal plan data:", JSON.stringify(data));
+                console.log('Fetched meal plan data:', JSON.stringify(data));
                 setMealPlan(getValidMealPlan(data));
             })
             .catch(error => console.error('Error fetching meal plan:', error));
@@ -37,12 +37,18 @@ export const useMealPlan = () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updatedMealPlan),
         })
+            .then(response => {
+                if (!response.ok) {
+                    console.log(response);
+                }
+                return fetch(`${BackendUrl}/api/meal-plan`);
+            })
             .then(response => response.json())
             .then(data => {
-                console.log('Meal plan received from backend:', JSON.stringify(data));
-                setMealPlan(data);
+                console.log('Meal plan re-fetched after update:', JSON.stringify(data));
+                setMealPlan(getValidMealPlan(data));
             })
-            .catch(error => console.error('Error saving updated meal plan:', error));
+            .catch(error => console.error('Error updating meal plan:', error));
     };
 
     const handleSaveFood = (foodName) => {
@@ -61,7 +67,7 @@ export const useMealPlan = () => {
 
             if (!mealToUpdate) {
                 mealToUpdate = {
-                    name: selectedCell.mealtime,
+                    id: undefined,
                     food: foodToUse,
                     mealTime: updatedMealPlan.mealTimes.find(mt => mt.name === selectedCell.mealtime),
                     dayId: day.id
@@ -135,6 +141,54 @@ export const useMealPlan = () => {
             .catch(error => console.error('Error resetting meal plan:', error));
     };
 
+    const resetMealTime = (mealTime) => {
+        fetch(`${BackendUrl}/api/meal-plan/reset-meal-time`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(mealTime)
+        })
+            .then(response => {
+                if (response.ok) {
+                    return fetch(`${BackendUrl}/api/meal-plan`);
+                }
+                throw new Error('Failed to reset meal time');
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Reset meal time succesfully', JSON.stringify(data));
+                setMealPlan(data);
+            })
+            .catch(error => console.error('Error resetting meal time:', error));
+    }
+
+    const resetDay = (day) => {
+        fetch(`${BackendUrl}/api/meal-plan/reset-day`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(day)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Reset day successfully', JSON.stringify(data));
+                setMealPlan(data);
+            })
+            .catch(error => console.error('Error fetching day:', error));
+    }
+
+    const resetMeal = (meal) => {
+        fetch(`${BackendUrl}/api/meal-plan/reset-meal`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(meal)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Reset meal succesfully', JSON.stringify(data));
+                setMealPlan(data);
+            })
+            .catch(error => console.error('Error fetching meal:', error));
+    }
+
     return {
         mealPlan,
         savedFoods,
@@ -146,5 +200,8 @@ export const useMealPlan = () => {
         handleDeleteFood,
         updateMealPlan,
         resetMealPlan,
+        resetMealTime,
+        resetDay,
+        resetMeal
     };
 };
