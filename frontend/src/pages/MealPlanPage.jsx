@@ -17,11 +17,13 @@ const MealPlanPage = () => {
         savedFoods,
         isModalOpen,
         setIsModalOpen,
+        selectedCell,
         setSelectedCell,
         handleSaveFood,
         handleDeleteFood,
         updateMealPlan,
         resetMealPlan,
+        resetMeal
     } = useMealPlan();
 
     const {
@@ -101,6 +103,8 @@ const MealPlanPage = () => {
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 onSave={handleSaveFood}
+                onClearMeal={resetMeal}
+                meal={selectedCell.meal}
                 savedFoods={savedFoods}
                 onDeleteFood={handleDeleteFood}
             />

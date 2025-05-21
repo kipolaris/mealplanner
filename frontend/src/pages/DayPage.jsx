@@ -19,11 +19,13 @@ const DayPage = () => {
         savedFoods,
         isModalOpen,
         setIsModalOpen,
+        selectedCell,
         setSelectedCell,
         handleSaveFood,
         handleDeleteFood,
         updateMealPlan,
-        resetDay
+        resetDay,
+        resetMeal
     } = useMealPlan();
 
     const {
@@ -114,6 +116,8 @@ const DayPage = () => {
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 onSave={handleSaveFood}
+                onClearMeal={resetMeal}
+                meal={selectedCell.meal}
                 savedFoods={savedFoods}
                 onDeleteFood={handleDeleteFood}
             />

@@ -87,6 +87,18 @@ class MealPlanService(
         return mealPlanRepository.save(mealPlan)
     }
 
+    fun resetMeal(meal: Meal): MealPlan {
+        val mealPlan = getMealPlan()
+
+        mealPlan.days.forEach { day ->
+            day.meals.forEach { m ->
+                if (m.id == meal.id) m.food = null
+            }
+        }
+
+        return mealPlanRepository.save(mealPlan)
+    }
+
 
     fun updateMealPlan(updatedMealPlan: MealPlan): MealPlan {
         val mealPlan = getMealPlan()
@@ -122,12 +134,6 @@ class MealPlanService(
     private fun updateMeal(day: Day, meal: Meal) {
         val managedFood = meal.food?.id?.let {
             foodRepository.findById(it).orElse(null)
-        } ?: meal.food
-
-        if (managedFood?.id != null) {
-            meal.food = managedFood
-        } else {
-            println(managedFood)
         }
 
         val existingMeal = day.meals.find { it.mealTime.id == meal.mealTime.id }

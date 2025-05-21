@@ -20,6 +20,7 @@ export const useFoodIngredient = (foodId) => {
 
     const handleAddFoodIngredient = (ingredientId, amount, unitId) => {
         const foodIngredientData = {
+            id: undefined,
             ingredientId: ingredientId,
             amount: amount,
             unitId: unitId
@@ -31,9 +32,9 @@ export const useFoodIngredient = (foodId) => {
             body: JSON.stringify(foodIngredientData)
         })
             .then(response => response.json())
-            .then((newFoodIngredient) => {
-                console.log('New ingredient added:', newFoodIngredient);
-                setFoodIngredients(prevFoodIngredients => [...prevFoodIngredients,newFoodIngredient])
+            .then((newFoodData) => {
+                console.log('New food ingredients:',newFoodData.ingredients);
+                setFoodIngredients(newFoodData.ingredients)
             })
     };
 
@@ -48,6 +49,7 @@ export const useFoodIngredient = (foodId) => {
             const newIngredient = await ingredientResponse.json();
 
             const foodIngredientData = {
+                id: undefined,
                 ingredientId: newIngredient.id,
                 amount: newAmount,
                 unitId: unitId
@@ -78,7 +80,8 @@ export const useFoodIngredient = (foodId) => {
         if(!editingFoodIngredient) return;
 
         const foodIngredient = {
-            ingredientId: editingFoodIngredient.id,
+            id: editingFoodIngredient.id,
+            ingredientId: editingFoodIngredient.ingredient.id,
             amount: newAmount,
             unitId: unitId
         }
@@ -97,19 +100,27 @@ export const useFoodIngredient = (foodId) => {
             .catch(error => console.error('Error editing food ingredient:', error));
     };
 
-    const handleDeleteFoodIngredient = (foodIngredientId) => {
+    const handleDeleteFoodIngredient = (foodIngredient) => {
+        const requestBody = {
+            id: foodIngredient.id,
+            ingredientId: foodIngredient.ingredient.id,
+            amount: foodIngredient.amount,
+            unitId: foodIngredient.unit.id
+        };
+
         fetch(`${BackendUrl}/api/foods/${foodId}/ingredients`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(foodIngredientId)
+            body: JSON.stringify(requestBody)
         })
             .then(response => {
                 if (response.ok) {
-                    const newFoodIngredients = foodIngredients.filter(fi => fi.id !== foodIngredientId);
+                    const newFoodIngredients = foodIngredients.filter(fi => fi.id !== foodIngredient.id);
+                    console.log(newFoodIngredients);
                     setFoodIngredients(newFoodIngredients);
                 }
             })
-            .catch(error => console.error(`Error deleting food ingredient with id ${foodIngredientId} from food with id ${foodId}:`,error));
+            .catch(error => console.error(`Error deleting food ingredient with id ${foodIngredient.id} from food with id ${foodId}:`,error));
     };
 
     return {

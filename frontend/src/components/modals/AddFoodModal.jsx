@@ -3,7 +3,7 @@ import trashIcon from '../../assets/images/trashcan.png';
 import paperBackground from '../../assets/images/paperbackground.png'
 import '../../assets/css/components/modal.css'
 
-const AddFoodModal = ({ isOpen, onClose, onSave, savedFoods = [], onDeleteFood }) => {
+const AddFoodModal = ({ isOpen, onClose, onSave, onClearMeal, meal, savedFoods = [], onDeleteFood }) => {
     const [selectedFood, setSelectedFood] = useState('');
     const [newFood, setNewFood] = useState('');
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -33,6 +33,15 @@ const AddFoodModal = ({ isOpen, onClose, onSave, savedFoods = [], onDeleteFood }
         setSelectedFood(prev => (prev === food.name ? '' : prev));
     };
 
+    const handleClear = () => {
+        if (!meal || !meal.id) {
+            console.error("Meal object does not have an ID:", meal);
+            return;
+        }
+
+        onClearMeal(meal);
+        onClose();
+    }
 
     const handleSelectFood = (food) => {
         setSelectedFood(food.name);
@@ -87,6 +96,7 @@ const AddFoodModal = ({ isOpen, onClose, onSave, savedFoods = [], onDeleteFood }
                 />
                 <div className="modal-buttons">
                     <button className="save-button" onClick={handleSave}>Save</button>
+                    <button className="clear-button" onClick={handleClear}>Clear food</button>
                     <button className="cancel-button" onClick={onClose}>Cancel</button>
                 </div>
             </div>

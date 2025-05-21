@@ -72,6 +72,10 @@
     line-height: 1.1;
 }
 
+.day-name {
+    cursor: pointer;
+}
+
 .arrow-buttons {
     display: flex;
     flex-direction: column;

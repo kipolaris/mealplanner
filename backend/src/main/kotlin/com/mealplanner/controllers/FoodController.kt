@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*
 @CrossOrigin
 class FoodController(val foodService: FoodService) {
     data class FoodIngredientRequest(
+        val id: Long,
         val ingredientId: Long,
         val amount: Double,
         val unitId: Long
@@ -64,7 +65,7 @@ class FoodController(val foodService: FoodService) {
         @PathVariable id: Long,
         @RequestBody request: FoodIngredientRequest
     ): ResponseEntity<Food> {
-        val food = foodService.updateIngredientInFood(id, request.ingredientId, request.amount, request.unitId)
+        val food = foodService.updateIngredientInFood(id, request.id, request.amount, request.unitId)
         return ResponseEntity.ok(food)
     }
 
@@ -74,7 +75,7 @@ class FoodController(val foodService: FoodService) {
         @PathVariable id: Long,
         @RequestBody request: FoodIngredientRequest
     ): ResponseEntity<Unit> {
-        foodService.deleteIngredientFromFood(id, request.ingredientId)
+        foodService.deleteIngredientFromFood(id, request.id)
         return ResponseEntity.noContent().build()
     }
 }

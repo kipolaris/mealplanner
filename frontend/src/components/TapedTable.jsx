@@ -38,7 +38,7 @@ const TapedTable = ({
                                     <button className="table-button lobster" onClick={handleReset}>Reset</button>
                                 </th>
                                 {layout === 'horizontal' && columns.map((col, idx) => (
-                                    <th key={idx} className="lobster" onClick={() => navigate(`/day/${col}`)}>
+                                    <th key={idx} className="day-name lobster" onClick={() => navigate(`/day/${col}`)}>
                                         {col}
                                     </th>
 

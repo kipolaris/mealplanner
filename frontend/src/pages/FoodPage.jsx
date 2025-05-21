@@ -75,6 +75,8 @@ const FoodPage = () => {
         a.ingredient?.name?.localeCompare(b.ingredient?.name || '') || 0
     );
 
+    console.log(sortedFoodIngredients);
+
     return (
         <div className="app-container">
             <div className="food-header">
@@ -148,7 +150,7 @@ const FoodPage = () => {
                                                 src={require('../assets/images/trashcan.png')}
                                                 alt="Delete"
                                                 className="edit-button"
-                                                onClick={() => handleDeleteFoodIngredient(fi.id)}
+                                                onClick={() => handleDeleteFoodIngredient(fi)}
                                             />
                                         </div>
                                     </div>

@@ -15,7 +15,9 @@ const MealTimePage = () => {
         savedFoods,
         isModalOpen,
         setIsModalOpen,
+        selectedCell,
         setSelectedCell,
+        resetMeal,
         handleSaveFood,
         handleDeleteFood,
         updateMealPlan,
@@ -65,7 +67,11 @@ const MealTimePage = () => {
                         layout="vertical"
                         columns={['Meals']}
                         rows={mealPlan.days}
-                        renderRowLabel={(day) => day.name}
+                        renderRowLabel={(day) => (
+                            <span className="day-name lobster" onClick={() => navigate(`/day/${day.name}`)}>
+                                {day.name}
+                            </span>
+                        )}
                         renderCell={(rowIndex) => {
                             const day = mealPlan.days[rowIndex];
                             const meal = day.meals.find(m => m.mealTime.name === mealTime);
@@ -82,6 +88,8 @@ const MealTimePage = () => {
                         isOpen={isModalOpen}
                         onClose={() => setIsModalOpen(false)}
                         onSave={handleSaveFood}
+                        onClearMeal={resetMeal}
+                        meal={selectedCell.meal}
                         savedFoods={savedFoods}
                         onDeleteFood={handleDeleteFood}
                     />
