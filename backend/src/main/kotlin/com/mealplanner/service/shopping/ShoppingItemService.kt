@@ -14,6 +14,9 @@ class ShoppingItemService(
     private val unitOfMeasureRepository: UnitOfMeasureRepository,
     private val currencyRepository: CurrencyRepository
 ) {
+    fun getAllShoppingItems(): List<ShoppingItem> {
+        return shoppingItemRepository.findAll()
+    }
     fun createShoppingItem(ingredientId: Long, amount: Double, unitId: Long, price: Double, currencyId: Long): ShoppingItem {
         val ingredient = ingredientRepository.findById(ingredientId).orElseThrow { RuntimeException("Ingredient not found") }
         val unit = unitOfMeasureRepository.findById(unitId).orElseThrow { RuntimeException("Unit of measure not found") }

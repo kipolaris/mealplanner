@@ -35,6 +35,15 @@ class ShoppingListService(
     @Transactional
     fun addShoppingItemToList(ingredientId: Long, amount: Double, unitId: Long, price: Double, currencyId: Long): ShoppingList {
         val shoppingList = getShoppingList()
+        val unit = unitOfMeasureService.getUnitById(unitId)
+
+        val existing = shoppingItemService.getAllShoppingItems().find {
+            it.ingredient.id == ingredientId && it.unit.type == unit.type && it.currency.id == currencyId
+        }
+
+        if (existing != null) {
+            throw RuntimeException("Shopping item already exists with same unit type and currency")
+        }
 
         val newItem = shoppingItemService.createShoppingItem(
             ingredientId,

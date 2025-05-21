@@ -5,20 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="394f1832-2bd8-4dcd-b968-3262c9a548d2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/src/hooks/useCurrency.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/hooks/useShoppingList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/FoodController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/FoodController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/MealPlanController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/MealPlanController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/MealPlanService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/MealPlanService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/components/modal.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/components/modal.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/components/taped-table.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/components/taped-table.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/TapedTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/TapedTable.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/modals/AddFoodModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/modals/AddFoodModal.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useFoodIngredient.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useFoodIngredient.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useMealPlan.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useMealPlan.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/DayPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/DayPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/FoodPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/FoodPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MealPlanPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MealPlanPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MealTimePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MealTimePage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/shopping/ShoppingItemService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/shopping/ShoppingItemService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/shopping/ShoppingListService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/shopping/ShoppingListService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useFoods.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useFoods.js" afterDir="false" />
     </list>
     <list id="542fc26d-9e25-4b21-8122-007167c71aa5" name="Changes by Lili" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -75,10 +67,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Kotlin Data Class" />
-        <option value="JavaScript File" />
         <option value="CSS File" />
         <option value="Kotlin Interface" />
         <option value="Kotlin Class" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -344,7 +336,7 @@
       <workItem from="1746709746190" duration="30148000" />
       <workItem from="1747121148727" duration="8182000" />
       <workItem from="1747154301197" duration="33750000" />
-      <workItem from="1747511052916" duration="32279000" />
+      <workItem from="1747511052916" duration="37022000" />
     </task>
     <servers />
   </component>

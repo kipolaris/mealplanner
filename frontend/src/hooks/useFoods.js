@@ -5,7 +5,6 @@ export const useFoods = () => {
     const [foods, setFoods] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingFood, setEditingFood] = useState(null);
-    const [editingFoodDescription, setEditingFoodDescription] = useState('');
 
     useEffect(() => {
         fetch(`${BackendUrl}/api/foods`)
