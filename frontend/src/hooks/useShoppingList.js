@@ -45,7 +45,7 @@ export const useShoppingList = () => {
                 }
             })
             .then(async (data) => {
-                const shoppingList = data.json()
+                const shoppingList = data
                 if (shoppingList) {
                     console.log('Fetched shopping list data:', data);
                     setShoppingList(await shoppingList);
@@ -107,11 +107,11 @@ export const useShoppingList = () => {
         setIsEditModalOpen(true);
     };
 
-    const handleSaveEditedShoppingItem = (id, newAmount, unitId, price, currencyId, checked) => {
+    const handleSaveEditedShoppingItem = (id, newAmount, unitId, price, currencyId, checked = false) => {
         if (!editingShoppingItem) return;
 
         const shoppingItem = {
-            ingredientId: editingShoppingItem.ingredientId,
+            ingredientId: editingShoppingItem.ingredient.id,
             amount: newAmount,
             unitId: unitId,
             price: price,
@@ -136,8 +136,10 @@ export const useShoppingList = () => {
         fetch(`${BackendUrl}/api/shopping-list/${shoppingItemId}`, {method: 'DELETE'})
             .then(response => {
                 if (response.ok) {
-                    shoppingList.items = shoppingList.items.filter(si => si.id !== shoppingItemId);
-                    setShoppingList(shoppingList);
+                    setShoppingList(prev => ({
+                        ...prev,
+                        items: prev.items.filter(item => item.id !== shoppingItemId)
+                    }));
                 }
             })
             .catch(error => console.error(`Error deleting shopping item with id ${shoppingItemId}:`, error));

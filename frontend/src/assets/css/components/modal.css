@@ -156,3 +156,18 @@
     height: 38px;
 }
 
+.price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.price input,
+.price .custom-dropdown {
+    flex: 1;
+    min-width: 0;
+    box-sizing: border-box;
+    height: 38px;
+}
+

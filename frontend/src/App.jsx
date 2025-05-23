@@ -11,6 +11,7 @@ import IngredientsAtHomePage from "./pages/IngredientsAtHomePage";
 import DayPage from "./pages/DayPage";
 import FoodsPage from "./pages/FoodsPage";
 import FoodPage from "./pages/FoodPage";
+import ShoppingListPage from "./pages/ShoppingListPage";
 
 function App() {
     return (
@@ -26,6 +27,7 @@ function App() {
                 <Route path="/ingredients-at-home" element={<IngredientsAtHomePage />}/>
                 <Route path="/foods" element={<FoodsPage />} />
                 <Route path="/food/:foodName" element={<FoodPage />} />
+                <Route path="/shopping-list" element={<ShoppingListPage /> } />
             </Routes>
         </Router>
     );

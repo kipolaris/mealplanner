@@ -43,8 +43,7 @@ class ShoppingListController(private val shoppingListService: ShoppingListServic
 
     @DeleteMapping("/{id}")
     fun deleteShoppingItemFromList(
-        @PathVariable id: Long,
-        @RequestBody request: ShoppingItemRequest
+        @PathVariable id: Long
     ): ResponseEntity<Unit> {
         shoppingListService.deleteShoppingItemFromList(id)
         return ResponseEntity.noContent().build()

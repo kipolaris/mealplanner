@@ -8,7 +8,6 @@ import TapedTable from "../components/TapedTable";
 import {useHomeIngredients} from "../hooks/useHomeIngredient";
 import {useUnitOfMeasure} from "../hooks/useUnitOfMeasure";
 import AddIngredientModal from "../components/modals/AddIngredientModal";
-import NewNameModal from "../components/modals/NewNameModal";
 import MergeAmountModal from "../components/modals/MergeAmountModal";
 import EditQuantityModal from "../components/modals/EditQuantityModal";
 

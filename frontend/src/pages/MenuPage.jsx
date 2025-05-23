@@ -14,8 +14,7 @@ const MenuPage = () => {
         { label: 'Foods', onClick: () => navigate('/foods') },
         { label: 'Ingredients', onClick: () => navigate('/ingredients') },
         { label: 'Ingredients at home', onClick: () => navigate('/ingredients-at-home')},
-        { label: 'Shopping list', onClick: () => {} }
-        //{ label: 'Calendar', onClick: () => {} }
+        { label: 'Shopping list', onClick: () => navigate('/shopping-list') }
     ];
 
     return (

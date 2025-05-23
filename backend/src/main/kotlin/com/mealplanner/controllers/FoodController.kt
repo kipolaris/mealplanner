@@ -18,12 +18,9 @@ class FoodController(val foodService: FoodService) {
     )
 
     @GetMapping
-    fun getAllFoods(): List<Map<String, Any>> {
-        return foodService.getAllFoods().map { food ->
-            mapOf("id" to (food.id ?: "none"), "name" to food.name)
-        }
+    fun getAllFoods(): List<Food> {
+        return foodService.getAllFoods()
     }
-
 
     @GetMapping("/{id}")
     fun getFoodById(@PathVariable id: Long): ResponseEntity<Food> {

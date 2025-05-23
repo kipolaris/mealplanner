@@ -55,9 +55,9 @@ const TapedTable = ({
                             <td className="lobster meal-time-cell">
                                 <div className="meal-time-container">
                                     {renderRowLabel ? (
-                                        <span className="meal-time-name">
+                                        <div className="meal-time-name">
                                             {renderRowLabel(row, rowIndex)}
-                                        </span>
+                                        </div>
                                     ) : (
                                         <span className="meal-time-name" onClick={() => navigate(`/meal/${row.name}`)}>
                                             {row.name}

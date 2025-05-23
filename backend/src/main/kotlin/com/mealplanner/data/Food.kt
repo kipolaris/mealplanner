@@ -9,11 +9,11 @@ import jakarta.persistence.*
 data class Food(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long?,
-    val name: String,
+    var name: String,
 
     @Lob
     @Column(columnDefinition = "TEXT")
-    val description: String? = null,
+    var description: String? = null,
 
     @OneToMany(mappedBy = "foodId", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     var ingredients: MutableList<FoodIngredient> = mutableListOf()
