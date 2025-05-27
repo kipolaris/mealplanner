@@ -37,7 +37,7 @@ class ShoppingListService(
         val shoppingList = getShoppingList()
         val unit = unitOfMeasureService.getUnitById(unitId)
 
-        val existing = shoppingItemService.getAllShoppingItems().find {
+        val existing = shoppingList.items.find {
             it.ingredient.id == ingredientId && it.unit.type == unit.type && it.currency.id == currencyId
         }
 

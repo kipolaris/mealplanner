@@ -10,26 +10,35 @@ import TapeButton from "../components/TapeButton";
 import TapedTable from "../components/TapedTable";
 import AddShoppingItemModal from "../components/modals/AddShoppingItemModal";
 import EditShoppingItemModal from "../components/modals/EditShoppingItemModal";
+import MergeShoppingItemModal from "../components/modals/MergeShoppingItemModal";
 
 const ShoppingListPage = () => {
     const navigate = useNavigate();
-    const { ingredients } = useIngredient();
+    const {
+        ingredients,
+        setIngredients
+    } = useIngredient();
+
     const unitsOfMeasure = useUnitOfMeasure();
     const currencies = useCurrency();
     const {
         shoppingList,
-        setShoppingList,
         editingShoppingItem,
         isAddModalOpen,
         isEditModalOpen,
         setIsEditModalOpen,
         setIsAddModalOpen,
+        isMergeModalOpen,
+        setIsMergeModalOpen,
+        pendingMerge,
+        confirmMergeShoppingItem,
         handleAddNewShoppingItem,
         handleAddShoppingItem,
         handleEditShoppingItem,
         handleSaveEditedShoppingItem,
-        handleDeleteShoppingItem
-    } = useShoppingList();
+        handleDeleteShoppingItem,
+        resetShoppingList
+    } = useShoppingList({ingredients, setIngredients});
 
     const navigateToMenu = () => navigate('/menu');
 
@@ -50,8 +59,9 @@ const ShoppingListPage = () => {
     return (
         <div className="app-container">
             <div className="shopping-list-header">
-                <div className="menu-button">
+                <div className="menu-buttons">
                     <TapeButton text="Menu" onClick={navigateToMenu} />
+                    <TapeButton text="Reset" onClick={resetShoppingList} />
                 </div>
                 <PageTitle text="Shopping list" />
             </div>
@@ -121,6 +131,15 @@ const ShoppingListPage = () => {
                 shoppingItem={editingShoppingItem}
                 unitsOfMeasure={unitsOfMeasure}
                 currencies={currencies}
+            />
+            <MergeShoppingItemModal
+                isOpen={isMergeModalOpen}
+                onClose={() => setIsMergeModalOpen(false)}
+                onSave={confirmMergeShoppingItem}
+                amount={pendingMerge?.amount}
+                unit={pendingMerge?.unit}
+                price={pendingMerge?.price}
+                currency={pendingMerge?.currency}
             />
         </div>
     )

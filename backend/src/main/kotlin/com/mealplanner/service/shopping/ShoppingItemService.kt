@@ -47,8 +47,6 @@ class ShoppingItemService(
     }
 
     fun deleteShoppingItem(id: Long) {
-        val shoppingItem = shoppingItemRepository.findById(id).orElseThrow { RuntimeException("Shopping item not found") }
-
-        shoppingItemRepository.delete(shoppingItem)
+        shoppingItemRepository.deleteById(id)
     }
 }

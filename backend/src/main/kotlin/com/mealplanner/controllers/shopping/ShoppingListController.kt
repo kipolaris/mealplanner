@@ -31,14 +31,19 @@ class ShoppingListController(private val shoppingListService: ShoppingListServic
     }
 
     @PostMapping
-    fun addShoppingItemToList(@RequestBody request: ShoppingItemRequest): ResponseEntity<ShoppingList> {
-        return ResponseEntity.ok(shoppingListService.addShoppingItemToList(
-            request.ingredientId,
-            request.amount,
-            request.unitId,
-            request.price,
-            request.currencyId
-        ))
+    fun addShoppingItemToList(@RequestBody request: ShoppingItemRequest): ResponseEntity<Any> {
+        return try {
+            val result = shoppingListService.addShoppingItemToList(
+                request.ingredientId,
+                request.amount,
+                request.unitId,
+                request.price,
+                request.currencyId
+            )
+            ResponseEntity.ok(result)
+        } catch (e: RuntimeException) {
+            ResponseEntity.badRequest().body(mapOf("error" to e.message))
+        }
     }
 
     @DeleteMapping("/{id}")

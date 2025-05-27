@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {useUnitOfMeasure} from "./useUnitOfMeasure";
 import {useCurrency} from "./useCurrency";
 
-export const useShoppingList = () => {
+export const useShoppingList = ({ingredients, setIngredients}) => {
     const [shoppingList, setShoppingList] = useState({items: []});
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -33,10 +33,11 @@ export const useShoppingList = () => {
             .then( async (response) => {
                 if (!response.ok) {
                     const error = await response.json();
-                    if (error.error?.includes("same unit type")) {
+                    if (error.error?.includes("same unit type and currency")) {
                         const unit = unitsOfMeasure.find(u => u.id === unitId);
                         const currency = currencies.find(c => c.id === currencyId);
                         setPendingMerge( {ingredientId, amount, unit, price, currency });
+                        setIsMergeModalOpen(true);
                     } else {
                         throw new Error(error.error || "Unknown error");
                     }
@@ -59,9 +60,9 @@ export const useShoppingList = () => {
         const newPendingMerge = {
             ingredientId: pendingMerge.ingredientId,
             amount: pendingMerge.amount,
-            unitId: pendingMerge.unitId,
+            unitId: pendingMerge.unit.id,
             price: pendingMerge.price,
-            currencyId: pendingMerge.currencyId
+            currencyId: pendingMerge.currency.id
         }
 
         fetch(`${BackendUrl}/api/shopping-list/merge`, {
@@ -88,6 +89,14 @@ export const useShoppingList = () => {
             });
 
             const newIngredient = await ingredientResponse.json();
+            await fetch(`${BackendUrl}/api/ingredients`)
+                .then(
+                    response => response.json()
+                )
+                .then(newIngredients => {
+                    setIngredients(newIngredients);
+                });
+
 
             const shoppingListResponse = await fetch(`${BackendUrl}/api/shopping-list`, {
                 method: 'POST',

@@ -2,14 +2,14 @@
 Forkcast is a website which  gives you the ability to plan your meals ahead for each day of the week.
 
 ## Features
-- You can add, remove and reorder meals, foods and ingredients.
-- You can assign foods to each meal.
-- You can reset the meal plan and the foods of the selected day or meal.
+- You can add, remove and reorder meal times, foods and ingredients.
+- You can assign foods to each meal (combination of a day and a meal time).
+- You can reset the meal plan, the foods of the selected day or meal time, and the shopping list.
 - You can view a selected day and its foods for each meal.
-- You can view a selected meal and its foods for each day.
+- You can view a selected meal time and its foods for each day.
 - You can assign ingredients to each food with quantities.
 - You can add ingredients to your shopping list with quantities and prices.
-- You can save ingredients you have at home.
+- You can save ingredients you have at home with quantities.
 
 ## Structure
 - Landing page: The first page of the website which, for now, contains placeholder text for logging in or registering account.

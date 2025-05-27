@@ -135,6 +135,12 @@ const FoodPage = () => {
                                         </div>
                                         <div className="ingredient-icons">
                                             <img
+                                                src={require('../assets/images/shoppingcart.png')}
+                                                alt="Add to shopping list"
+                                                className="edit-button"
+                                                onClick={() => {}}
+                                            />
+                                            <img
                                                 src={require('../assets/images/pencil.png')}
                                                 alt="Edit"
                                                 className="edit-button"
