@@ -1,6 +1,7 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
-import '../assets/css/pages/shopping-list-page.css'
+import '../assets/css/shopping-list-page.css'
+import '../assets/css/ingredients.css'
 import { useIngredient} from "../hooks/useIngredient";
 import {useUnitOfMeasure} from "../hooks/useUnitOfMeasure";
 import {useCurrency} from "../hooks/useCurrency";
@@ -58,8 +59,8 @@ const ShoppingListPage = () => {
 
     return (
         <div className="app-container">
-            <div className="shopping-list-header">
-                <div className="menu-buttons">
+            <div className="page-header">
+                <div className="header-buttons">
                     <TapeButton text="Menu" onClick={navigateToMenu} />
                     <TapeButton text="Reset" onClick={resetShoppingList} />
                 </div>
@@ -73,30 +74,32 @@ const ShoppingListPage = () => {
                         renderRowLabel={(shoppingItem) => (
                             <div className="shopping-item-label">
                                 <span className="shopping-item-name lobster">{shoppingItem.ingredient?.name}</span>
-                                <div className="shopping-item-icons">
-                                    <img
-                                        src={require('../assets/images/pencil.png')}
-                                        alt="Edit"
-                                        className="edit-button"
-                                        onClick={() => handleEditShoppingItem(shoppingItem)}
-                                    />
-                                    <img
-                                        src={require('../assets/images/trashcan.png')}
-                                        alt="Delete"
-                                        className="edit-button"
-                                        onClick={() => handleDeleteShoppingItem(shoppingItem.id)}
-                                    />
+                                <div className="cell-icons">
+                                    <div className="edit-buttons">
+                                        <img
+                                            src={require('../assets/images/pencil.png')}
+                                            alt="Edit"
+                                            className="edit-button"
+                                            onClick={() => handleEditShoppingItem(shoppingItem)}
+                                        />
+                                        <img
+                                            src={require('../assets/images/trashcan.png')}
+                                            alt="Delete"
+                                            className="edit-button"
+                                            onClick={() => handleDeleteShoppingItem(shoppingItem.id)}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         )}
                         renderCell={(rowIndex) => {
                             const item = sortedShoppingList[rowIndex];
                             return (
-                                <div className="shopping-item-row">
-                                    <div className="shopping-item-amount">
+                                <div className="ingredient-row">
+                                    <div className="shopping-item-param">
                                         {item.amount} {item.unit?.name}
                                     </div>
-                                    <div className="shopping-item-price">
+                                    <div className="shopping-item-param">
                                         {item.price} {item.currency?.symbol}
                                     </div>
                                 </div>

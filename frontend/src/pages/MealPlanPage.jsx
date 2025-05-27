@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import AddFoodModal from '../components/modals/AddFoodModal';
-import '../assets/css/pages/meal-plan-page.css';
+import '../assets/css/meal-plan-page.css';
 
 import { useMealPlan } from "../hooks/useMealPlan";
 import { useMealTime } from "../hooks/useMealTime";
@@ -51,8 +51,8 @@ const MealPlanPage = () => {
 
     return (
         <div className="app-container">
-            <div className="meal-plan-header">
-                <div className="meal-plan-buttons">
+            <div className="page-header">
+                <div className="header-buttons">
                     <TapeButton text="Menu" onClick={navigateToMenu}/>
                 </div>
                 <PageTitle text="Meal Plan" />

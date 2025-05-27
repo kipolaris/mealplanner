@@ -4,7 +4,8 @@ import { useIngredient } from "../hooks/useIngredient";
 import { useFoodIngredient } from "../hooks/useFoodIngredient";
 import { useUnitOfMeasure } from "../hooks/useUnitOfMeasure";
 import { useNavigate, useParams } from "react-router-dom";
-import '../assets/css/pages/food-page.css'
+import '../assets/css/food-page.css'
+import '../assets/css/ingredients.css'
 import paperBackground from '../assets/images/paperbackground.png'
 import PageTitle from "../components/PageTitle";
 import TapedTable from "../components/TapedTable";
@@ -79,8 +80,8 @@ const FoodPage = () => {
 
     return (
         <div className="app-container">
-            <div className="food-header">
-                <div className="navigation-buttons">
+            <div className="page-header">
+                <div className="header-buttons">
                     <TapeButton text="Menu" onClick={navigateToMenu} />
                     <TapeButton text="Back" onClick={navigateToFoods} />
                 </div>
@@ -119,57 +120,55 @@ const FoodPage = () => {
                         </div>
                     </div>
                 </div>
-                <div className="ingredients-table-wrapper">
-                    <div className="ingredients-table-container">
-                        <TapedTable
-                            layout="vertical"
-                            rows={sortedFoodIngredients}
-                            renderCell={(rowIndex) => {
-                                const fi = sortedFoodIngredients[rowIndex];
-                                console.log("Rendering row:", fi);
-                                return (
-                                    <div className="ingredient-row">
-                                        <div className="ingredient-label-wrapper">
-                                            <span className="ingredient-name patrick">{fi.ingredient?.name || `ingredientId=${fi.ingredient?.id}`}</span>
-                                            <span className="ingredient-quantity">({fi?.amount} {fi?.unit ? fi?.unit.abbreviation : "unit"})</span>
-                                        </div>
-                                        <div className="ingredient-icons">
-                                            <img
-                                                src={require('../assets/images/shoppingcart.png')}
-                                                alt="Add to shopping list"
-                                                className="edit-button"
-                                                onClick={() => {}}
-                                            />
-                                            <img
-                                                src={require('../assets/images/pencil.png')}
-                                                alt="Edit"
-                                                className="edit-button"
-                                                onClick={() => handleEditFoodIngredient(fi)}
-                                            />
-                                            <img
-                                                src={require('../assets/images/trashcan.png')}
-                                                alt="Delete"
-                                                className="edit-button"
-                                                onClick={() => handleDeleteFoodIngredient(fi)}
-                                            />
-                                        </div>
+                <div className="ingredient-table-wrapper">
+                    <TapedTable
+                        layout="vertical"
+                        rows={sortedFoodIngredients}
+                        renderCell={(rowIndex) => {
+                            const fi = sortedFoodIngredients[rowIndex];
+                            console.log("Rendering row:", fi);
+                            return (
+                                <div className="table-row">
+                                    <div className="ingredient-label-wrapper">
+                                        <span className="ingredient-name patrick">{fi.ingredient?.name || `ingredientId=${fi.ingredient?.id}`}</span>
+                                        <span className="ingredient-quantity">({fi?.amount} {fi?.unit ? fi?.unit.abbreviation : "unit"})</span>
                                     </div>
-                                );
-                            }}
-                            allowReorder={false}
-                            showHeader={false}
-                            showRowLabels={false}
-                            extraBottomRow={
-                                <tr>
-                                    <td>
-                                        <button className="table-button lobster" onClick={() => setIsAddIngredientModalOpen(true)}>
-                                            Add ingredient
-                                        </button>
-                                    </td>
-                                </tr>
-                            }
-                        />
-                    </div>
+                                    <div className="cell-icons">
+                                        <img
+                                            src={require('../assets/images/shoppingcart.png')}
+                                            alt="Add to shopping list"
+                                            className="edit-button"
+                                            onClick={() => {}}
+                                        />
+                                        <img
+                                            src={require('../assets/images/pencil.png')}
+                                            alt="Edit"
+                                            className="edit-button"
+                                            onClick={() => handleEditFoodIngredient(fi)}
+                                        />
+                                        <img
+                                            src={require('../assets/images/trashcan.png')}
+                                            alt="Delete"
+                                            className="edit-button"
+                                            onClick={() => handleDeleteFoodIngredient(fi)}
+                                        />
+                                    </div>
+                                </div>
+                            );
+                        }}
+                        allowReorder={false}
+                        showHeader={false}
+                        showRowLabels={false}
+                        extraBottomRow={
+                            <tr>
+                                <td>
+                                    <button className="table-button lobster" onClick={() => setIsAddIngredientModalOpen(true)}>
+                                        Add ingredient
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    />
                 </div>
                 <AddIngredientModal
                     isOpen={isAddIngredientModalOpen}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate} from "react-router-dom";
-import '../assets/css/pages/ingredients-at-home-page.css'
+import '../assets/css/ingredients.css'
 import { useIngredient} from "../hooks/useIngredient";
 import PageTitle from "../components/PageTitle";
 import TapeButton from "../components/TapeButton";
@@ -53,8 +53,8 @@ const IngredientsAtHomePage = () => {
 
     return (
         <div className="app-container">
-            <div className="home-ingredients-header">
-                <div className="menu-button">
+            <div className="page-header">
+                <div className="header-buttons">
                     <TapeButton text="Menu" onClick={navigateToMenu} />
                 </div>
                 <PageTitle text="Ingredients at Home" />
@@ -67,12 +67,12 @@ const IngredientsAtHomePage = () => {
                         renderCell={(rowIndex) => {
                             const hi = sortedHomeIngredients[rowIndex];
                             return (
-                                <div className="home-ingredient-row">
-                                    <div className="home-ingredient-label-wrapper">
-                                        <span className="home-ingredient-name lobster">{hi.ingredient?.name}</span>
-                                        <span className="home-ingredient-quantity">({hi.amount} {hi.unit.abbreviation})</span>
+                                <div className="ingredient-row">
+                                    <div className="ingredient-label-wrapper">
+                                        <span className="ingredient-name lobster">{hi.ingredient?.name}</span>
+                                        <span className="ingredient-quantity">({hi.amount} {hi.unit.abbreviation})</span>
                                     </div>
-                                    <div className="home-ingredient-icons">
+                                    <div className="cell-icons">
                                         <img
                                             src={require('../assets/images/pencil.png')}
                                             alt="Edit"

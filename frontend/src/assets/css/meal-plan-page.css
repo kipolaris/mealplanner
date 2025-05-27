@@ -1,0 +1,32 @@
+.meal-plan-table-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    width: 100%;
+    padding: 20px;
+    max-width: 95vw;
+}
+
+
+@media (max-width: 768px) {
+    .meal-plan-container {
+        width: 95%;
+    }
+
+    .meal-plan-table {
+        border-spacing: 5px;
+        font-size: 14px;
+    }
+
+    .modal-content {
+        width: 90%;
+        margin: 10% auto;
+    }
+}
+
+.meal-plan-container {
+    text-align: center;
+    width: 90%;
+    max-width: 1200px;
+}

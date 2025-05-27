@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../assets/css/pages/landing-page.css';
+import '../assets/css/landing-page.css';
 import PageTitle from "../components/PageTitle";
 import TapeButton from '../components/TapeButton';
 
