@@ -188,7 +188,7 @@ export const useShoppingList = ({ingredients, setIngredients, homeIngredients, s
             setPendingMerge({
                 ingredientId: shoppingItem.ingredient.id,
                 amount: shoppingItem.amount,
-                unitId: shoppingItem.unit.id
+                unit: shoppingItem.unit
             });
             setIsMergeModalOpen(true);
         } else {

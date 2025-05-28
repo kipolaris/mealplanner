@@ -19,10 +19,6 @@ const MenuPage = () => {
     return (
         <div className="app-container">
             <div className="page-header">
-                <div className="header-buttons">
-                    <TapeButton text="Account" onClick={() => {}} />
-                    <TapeButton text="How to" onClick={() => {}} />
-                </div>
                 <PageTitle text="Menu" />
             </div>
 

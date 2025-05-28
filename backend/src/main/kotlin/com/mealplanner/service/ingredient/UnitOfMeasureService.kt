@@ -38,6 +38,9 @@ class UnitOfMeasureService(
             UnitOfMeasure(name = "tablespoon", abbreviation = "tbsp", type = "custom", multiplierToBase = 1.0),
             UnitOfMeasure(name = "carton", abbreviation = "carton", type = "custom", multiplierToBase = 1.0),
             UnitOfMeasure(name = "bottle", abbreviation = "bottle", type = "custom", multiplierToBase = 1.0),
+            UnitOfMeasure(name = "bowl", abbreviation = "bowl", type = "custom", multiplierToBase = 1.0),
+            UnitOfMeasure(name = "slice", abbreviation = "slice", type = "custom", multiplierToBase = 1.0),
+            UnitOfMeasure(name = "piece", abbreviation = "piece", type = "custom", multiplierToBase = 1.0)
         )
 
         return unitOfMeasureRepository.saveAll(predefinedUnits)

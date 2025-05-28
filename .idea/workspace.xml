@@ -5,13 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="394f1832-2bd8-4dcd-b968-3262c9a548d2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/modals/AddFiToShoppingListModal.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/food-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/food-page.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/modals/MergeShoppingItemModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/modals/MergeShoppingItemModal.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useFoodIngredient.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useFoodIngredient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/ingredient/UnitOfMeasureService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/ingredient/UnitOfMeasureService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useHomeIngredient.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useHomeIngredient.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useShoppingList.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useShoppingList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/FoodPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/FoodPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/LandingPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/LandingPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MenuPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MenuPage.jsx" afterDir="false" />
     </list>
     <list id="542fc26d-9e25-4b21-8122-007167c71aa5" name="Changes by Lili" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -340,7 +340,7 @@
       <workItem from="1747511052916" duration="39713000" />
       <workItem from="1747858197922" duration="5435000" />
       <workItem from="1747905185127" duration="5292000" />
-      <workItem from="1748010086160" duration="37538000" />
+      <workItem from="1748010086160" duration="39619000" />
     </task>
     <servers />
   </component>

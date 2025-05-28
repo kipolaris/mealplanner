@@ -7,10 +7,6 @@ import TapeButton from '../components/TapeButton';
 const LandingPage = () => {
     const navigate = useNavigate();
 
-    const navigateToMealPlan = () => {
-        navigate('/meal-plan');
-    };
-
     const navigateToMenu = () => {
         navigate('/menu')
     }
@@ -19,8 +15,7 @@ const LandingPage = () => {
         <div className="landing-page-container">
             <PageTitle text="Welcome to Forkcast!" />
             <div className="button-container">
-                <TapeButton text="Log in" onClick={navigateToMenu}/>
-                <TapeButton text="Sign up" onClick={navigateToMealPlan}/>
+                <TapeButton text="Enter" onClick={navigateToMenu}/>
             </div>
         </div>
     );
