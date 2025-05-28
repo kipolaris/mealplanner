@@ -59,8 +59,8 @@ const IngredientsAtHomePage = () => {
                 </div>
                 <PageTitle text="Ingredients at Home" />
             </div>
-            <div className="home-ingredients-wrapper">
-                <div className="home-ingredients-table-container">
+            <div className="content-wrapper">
+                <div className="content-table-container">
                     <TapedTable
                         layout="vertical"
                         rows={sortedHomeIngredients}

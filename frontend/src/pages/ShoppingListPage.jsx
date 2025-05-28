@@ -12,6 +12,8 @@ import TapedTable from "../components/TapedTable";
 import AddShoppingItemModal from "../components/modals/AddShoppingItemModal";
 import EditShoppingItemModal from "../components/modals/EditShoppingItemModal";
 import MergeShoppingItemModal from "../components/modals/MergeShoppingItemModal";
+import MergeAmountModal from "../components/modals/MergeAmountModal";
+import {useHomeIngredients} from "../hooks/useHomeIngredient";
 
 const ShoppingListPage = () => {
     const navigate = useNavigate();
@@ -22,6 +24,17 @@ const ShoppingListPage = () => {
 
     const unitsOfMeasure = useUnitOfMeasure();
     const currencies = useCurrency();
+
+    const {
+        homeIngredients,
+        pendingMerge,
+        setPendingMerge,
+        handleAddHomeIngredient,
+        isMergeModalOpen,
+        setIsMergeModalOpen,
+        confirmMergeHomeIngredient
+    } = useHomeIngredients();
+
     const {
         shoppingList,
         editingShoppingItem,
@@ -29,17 +42,18 @@ const ShoppingListPage = () => {
         isEditModalOpen,
         setIsEditModalOpen,
         setIsAddModalOpen,
-        isMergeModalOpen,
-        setIsMergeModalOpen,
-        pendingMerge,
+        isShoppingItemMergeModalOpen,
+        setIsShoppingItemMergeModalOpen,
+        pendingShoppingItemMerge,
         confirmMergeShoppingItem,
         handleAddNewShoppingItem,
         handleAddShoppingItem,
         handleEditShoppingItem,
         handleSaveEditedShoppingItem,
         handleDeleteShoppingItem,
-        resetShoppingList
-    } = useShoppingList({ingredients, setIngredients});
+        resetShoppingList,
+        handleCheckShoppingItem
+    } = useShoppingList({ingredients, setIngredients, homeIngredients, setPendingMerge, handleAddHomeIngredient, setIsMergeModalOpen});
 
     const navigateToMenu = () => navigate('/menu');
 
@@ -74,7 +88,7 @@ const ShoppingListPage = () => {
                         renderRowLabel={(shoppingItem) => (
                             <div className="shopping-item-label">
                                 <span className="shopping-item-name lobster">{shoppingItem.ingredient?.name}</span>
-                                <div className="cell-icons">
+                                <div className="shopping-item-cell-icons">
                                     <div className="edit-buttons">
                                         <img
                                             src={require('../assets/images/pencil.png')}
@@ -87,6 +101,12 @@ const ShoppingListPage = () => {
                                             alt="Delete"
                                             className="edit-button"
                                             onClick={() => handleDeleteShoppingItem(shoppingItem.id)}
+                                        />
+                                        <img
+                                            src={require('../assets/images/checkbox.png')}
+                                            alt="Check"
+                                            className="edit-button"
+                                            onClick={() => handleCheckShoppingItem(shoppingItem)}
                                         />
                                     </div>
                                 </div>
@@ -136,13 +156,21 @@ const ShoppingListPage = () => {
                 currencies={currencies}
             />
             <MergeShoppingItemModal
+                isOpen={isShoppingItemMergeModalOpen}
+                onClose={() => setIsShoppingItemMergeModalOpen(false)}
+                onSave={confirmMergeShoppingItem}
+                amount={pendingShoppingItemMerge?.amount}
+                unit={pendingShoppingItemMerge?.unit}
+                price={pendingShoppingItemMerge?.price}
+                currency={pendingShoppingItemMerge?.currency}
+            />
+            <MergeAmountModal
                 isOpen={isMergeModalOpen}
                 onClose={() => setIsMergeModalOpen(false)}
-                onSave={confirmMergeShoppingItem}
+                onSave={confirmMergeHomeIngredient}
+                listName="ingredients at home"
                 amount={pendingMerge?.amount}
                 unit={pendingMerge?.unit}
-                price={pendingMerge?.price}
-                currency={pendingMerge?.currency}
             />
         </div>
     )

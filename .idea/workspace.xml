@@ -6,26 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="394f1832-2bd8-4dcd-b968-3262c9a548d2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/shopping/ShoppingItemService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/shopping/ShoppingItemService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/shopping/ShoppingListService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/shopping/ShoppingListService.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/pages/day-page.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/pages/food-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/pages/food-page.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/pages/foods-page.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/pages/ingredients-at-home-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/pages/ingredients.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/pages/ingredients-page.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/pages/meal-plan-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/pages/meal-plan-page.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/pages/meal-times-page.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/pages/mealtime-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/pages/meal-plan-vertical.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/pages/menu-page.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/pages/shopping-list-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/pages/shopping-list-page.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/DayPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/DayPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/FoodPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/FoodPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/FoodsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/FoodsPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/meal-plan-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/meal-plan-page.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/meal-plan-vertical.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/meal-plan-vertical.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/shopping-list-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/shopping-list-page.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useShoppingList.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useShoppingList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/IngredientsAtHomePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/IngredientsAtHomePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/IngredientsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/IngredientsPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MealPlanPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MealPlanPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/MealTimePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MealTimePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MealTimesPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MealTimesPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MenuPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MenuPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/ShoppingListPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/ShoppingListPage.jsx" afterDir="false" />
     </list>
     <list id="542fc26d-9e25-4b21-8122-007167c71aa5" name="Changes by Lili" comment="" />
@@ -145,11 +134,11 @@
       <recent name="C:\Users\csuto\programming\mealplanner\backend\src\main\kotlin\com\mealplanner\Service" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\csuto\programming\mealplanner\frontend\src\assets\css" />
       <recent name="C:\Users\csuto\programming\mealplanner\frontend\src\assets\css\components" />
       <recent name="C:\Users\csuto\programming\mealplanner\frontend\src\assets\css\pages" />
       <recent name="C:\Users\csuto\programming\mealplanner\frontend\src\assets" />
       <recent name="C:\Users\csuto\programming\mealplanner\frontend\src\utils" />
-      <recent name="C:\Users\csuto\programming\mealplanner\frontend\src" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
       <recent name="com.mealplanner.controllers.shopping" />
@@ -355,7 +344,7 @@
       <workItem from="1747511052916" duration="39713000" />
       <workItem from="1747858197922" duration="5435000" />
       <workItem from="1747905185127" duration="5292000" />
-      <workItem from="1748010086160" duration="26489000" />
+      <workItem from="1748010086160" duration="32378000" />
     </task>
     <servers />
   </component>

@@ -5,6 +5,7 @@ import com.mealplanner.repositories.ingredient.IngredientRepository
 import com.mealplanner.repositories.ingredient.UnitOfMeasureRepository
 import com.mealplanner.repositories.shopping.CurrencyRepository
 import com.mealplanner.repositories.shopping.ShoppingItemRepository
+import com.mealplanner.service.ingredient.HomeIngredientService
 import org.springframework.stereotype.Service
 
 @Service

@@ -2,6 +2,7 @@ package com.mealplanner.service.shopping
 
 import com.mealplanner.data.shopping.ShoppingList
 import com.mealplanner.repositories.shopping.ShoppingListRepository
+import com.mealplanner.service.ingredient.HomeIngredientService
 import com.mealplanner.service.ingredient.UnitOfMeasureService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

@@ -61,7 +61,7 @@ const MealTimePage = () => {
                 </div>
                 <PageTitle text={mealTime} />
             </div>
-            <div className="vertical-table-wrapper">
+            <div className="meal-time-table-wrapper">
                 <div className="vertical-table-container">
                     <TapedTable
                         layout="vertical"

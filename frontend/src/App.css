@@ -139,7 +139,9 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 60px;
+  margin-top: 100px;
+  height: 100%;
+  flex-grow: 1;
 }
 
 .content-table-wrapper {

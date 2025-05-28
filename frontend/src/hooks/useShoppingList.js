@@ -3,13 +3,13 @@ import {useEffect, useState} from "react";
 import {useUnitOfMeasure} from "./useUnitOfMeasure";
 import {useCurrency} from "./useCurrency";
 
-export const useShoppingList = ({ingredients, setIngredients}) => {
+export const useShoppingList = ({ingredients, setIngredients, homeIngredients, setPendingMerge, handleAddHomeIngredient, setIsMergeModalOpen}) => {
     const [shoppingList, setShoppingList] = useState({items: []});
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [editingShoppingItem, setEditingShoppingItem] = useState(null);
-    const [pendingMerge, setPendingMerge] = useState(null);
-    const [isMergeModalOpen, setIsMergeModalOpen] = useState(false);
+    const [pendingShoppingItemMerge, setPendingShoppingItemMerge] = useState(null);
+    const [isShoppingItemMergeModalOpen, setIsShoppingItemMergeModalOpen] = useState(false);
 
     const unitsOfMeasure = useUnitOfMeasure()
     const currencies = useCurrency()
@@ -37,7 +37,7 @@ export const useShoppingList = ({ingredients, setIngredients}) => {
                         const unit = unitsOfMeasure.find(u => u.id === unitId);
                         const currency = currencies.find(c => c.id === currencyId);
                         setPendingMerge( {ingredientId, amount, unit, price, currency });
-                        setIsMergeModalOpen(true);
+                        setIsShoppingItemMergeModalOpen(true);
                     } else {
                         throw new Error(error.error || "Unknown error");
                     }
@@ -56,13 +56,13 @@ export const useShoppingList = ({ingredients, setIngredients}) => {
     };
 
     const confirmMergeShoppingItem = () => {
-        if (!pendingMerge) return;
+        if (!pendingShoppingItemMerge) return;
         const newPendingMerge = {
-            ingredientId: pendingMerge.ingredientId,
-            amount: pendingMerge.amount,
-            unitId: pendingMerge.unit.id,
-            price: pendingMerge.price,
-            currencyId: pendingMerge.currency.id
+            ingredientId: pendingShoppingItemMerge.ingredientId,
+            amount: pendingShoppingItemMerge.amount,
+            unitId: pendingShoppingItemMerge.unit.id,
+            price: pendingShoppingItemMerge.price,
+            currencyId: pendingShoppingItemMerge.currency.id
         }
 
         fetch(`${BackendUrl}/api/shopping-list/merge`, {
@@ -74,8 +74,8 @@ export const useShoppingList = ({ingredients, setIngredients}) => {
             .then(merged => {
                 console.log('Received shopping list from backend:', merged);
                 setShoppingList(merged);
-                setIsMergeModalOpen(false);
-                setPendingMerge(null);
+                setIsShoppingItemMergeModalOpen(false);
+                setPendingShoppingItemMerge(null);
             })
             .catch(error => console.error('Error merging shopping items:', error));
     };
@@ -170,23 +170,44 @@ export const useShoppingList = ({ingredients, setIngredients}) => {
             .catch(error => console.error('Error resetting shopping list:', error));
     };
 
+    const handleCheckShoppingItem = (shoppingItem) => {
+        const existingHomeIngredient = homeIngredients.find(h =>
+            h.ingredient.id === shoppingItem.ingredient.id &&
+            h.unit.type === shoppingItem.unit.type
+        );
+
+        if(existingHomeIngredient) {
+            setPendingMerge({
+                ingredientId: shoppingItem.ingredient.id,
+                amount: shoppingItem.amount,
+                unitId: shoppingItem.unit.id
+            });
+            setIsMergeModalOpen(true);
+        } else {
+            handleAddHomeIngredient(shoppingItem.ingredient.id, shoppingItem.amount, shoppingItem.unit.id);
+        }
+
+        handleDeleteShoppingItem(shoppingItem.id);
+    }
+
     return {
         shoppingList,
         setShoppingList,
         editingShoppingItem,
         isAddModalOpen,
-        isMergeModalOpen,
+        isShoppingItemMergeModalOpen,
         isEditModalOpen,
         setIsEditModalOpen,
-        setIsMergeModalOpen,
+        setIsShoppingItemMergeModalOpen,
         setIsAddModalOpen,
-        pendingMerge,
+        pendingShoppingItemMerge,
         confirmMergeShoppingItem,
         handleAddNewShoppingItem,
         handleAddShoppingItem,
         handleSaveEditedShoppingItem,
         handleEditShoppingItem,
         handleDeleteShoppingItem,
+        handleCheckShoppingItem,
         resetShoppingList
     };
 };

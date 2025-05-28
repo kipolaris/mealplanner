@@ -52,7 +52,7 @@ export const useHomeIngredients = () => {
         const newPendingMerge = {
             ingredientId: pendingMerge.ingredientId,
             amount: pendingMerge.amount,
-            unitId: pendingMerge.unit.id
+            unitId: pendingMerge.unitId
         }
 
         fetch(`${BackendUrl}/api/home-ingredients/merge`, {
@@ -149,6 +149,7 @@ export const useHomeIngredients = () => {
         isMergeModalOpen,
         setIsMergeModalOpen,
         pendingMerge,
+        setPendingMerge,
         confirmMergeHomeIngredient,
         handleAddHomeIngredient,
         handleAddNewHomeIngredient,

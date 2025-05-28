@@ -15,12 +15,6 @@
     max-width: 95vw;
 }
 
-.shopping-item-name {
-    font-size: 1.1rem;
-    display: inline-block;
-    white-space: nowrap;
-}
-
 .shopping-item-param {
     font-size: 0.9rem;
     opacity: 0.8;
@@ -32,5 +26,21 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
     gap: 10px;
+}
+
+.shopping-item-name {
+    flex-grow: 1;
+    text-align: left;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: flex-start;
+    white-space: nowrap;
+}
+
+.cell-icons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
