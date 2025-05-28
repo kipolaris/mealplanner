@@ -5,6 +5,7 @@ import com.mealplanner.repositories.ingredient.IngredientRepository
 import com.mealplanner.repositories.ingredient.UnitOfMeasureRepository
 import com.mealplanner.repositories.shopping.CurrencyRepository
 import com.mealplanner.repositories.shopping.ShoppingItemRepository
+import com.mealplanner.service.ingredient.HomeIngredientService
 import org.springframework.stereotype.Service
 
 @Service
@@ -14,6 +15,9 @@ class ShoppingItemService(
     private val unitOfMeasureRepository: UnitOfMeasureRepository,
     private val currencyRepository: CurrencyRepository
 ) {
+    fun getAllShoppingItems(): List<ShoppingItem> {
+        return shoppingItemRepository.findAll()
+    }
     fun createShoppingItem(ingredientId: Long, amount: Double, unitId: Long, price: Double, currencyId: Long): ShoppingItem {
         val ingredient = ingredientRepository.findById(ingredientId).orElseThrow { RuntimeException("Ingredient not found") }
         val unit = unitOfMeasureRepository.findById(unitId).orElseThrow { RuntimeException("Unit of measure not found") }
@@ -44,8 +48,6 @@ class ShoppingItemService(
     }
 
     fun deleteShoppingItem(id: Long) {
-        val shoppingItem = shoppingItemRepository.findById(id).orElseThrow { RuntimeException("Shopping item not found") }
-
-        shoppingItemRepository.delete(shoppingItem)
+        shoppingItemRepository.deleteById(id)
     }
 }

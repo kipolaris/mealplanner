@@ -1,0 +1,28 @@
+.ingredient-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.ingredient-label-wrapper {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex: 1;
+    white-space: nowrap; /* Prevent wrapping */
+}
+
+.ingredient-name {
+    font-size: 1.1rem;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.ingredient-quantity {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-left: 2px;
+    white-space: nowrap;
+}
+

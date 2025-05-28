@@ -52,13 +52,19 @@ export const useHomeIngredients = () => {
         const newPendingMerge = {
             ingredientId: pendingMerge.ingredientId,
             amount: pendingMerge.amount,
-            unitId: pendingMerge.unit.id
+            unit: pendingMerge.unit
+        }
+
+        const pendingMergeRequest = {
+            ingredientId: newPendingMerge.ingredientId,
+            amount: newPendingMerge.amount,
+            unitId: newPendingMerge.unit.id
         }
 
         fetch(`${BackendUrl}/api/home-ingredients/merge`, {
             method: 'PUT',
             headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify(newPendingMerge)
+            body: JSON.stringify(pendingMergeRequest)
         })
             .then(response => response.json())
             .then(merged => {
@@ -149,6 +155,7 @@ export const useHomeIngredients = () => {
         isMergeModalOpen,
         setIsMergeModalOpen,
         pendingMerge,
+        setPendingMerge,
         confirmMergeHomeIngredient,
         handleAddHomeIngredient,
         handleAddNewHomeIngredient,

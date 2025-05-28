@@ -1,6 +1,6 @@
 import React from 'react';
 import AddFoodModal from '../components/modals/AddFoodModal';
-import '../assets/css/pages/mealtime-page.css';
+import '../assets/css/meal-plan-vertical.css';
 import { useMealPlan } from '../hooks/useMealPlan';
 import {useNavigate, useParams} from "react-router-dom";
 import PageTitle from "../components/PageTitle";
@@ -54,15 +54,15 @@ const MealTimePage = () => {
 
     return (
         <div className="app-container">
-            <div className="mealtime-header">
-                <div className="mealtime-buttons">
+            <div className="meal-plan-item-header">
+                <div className="header-buttons">
                     <TapeButton text="Menu" onClick={navigateToMenu} />
                     <TapeButton text="Back" onClick={navigateToMealPlan} />
                 </div>
                 <PageTitle text={mealTime} />
             </div>
-            <div className="mealtime-table-wrapper">
-                <div className="mealtime-container">
+            <div className="meal-time-table-wrapper">
+                <div className="vertical-table-container">
                     <TapedTable
                         layout="vertical"
                         columns={['Meals']}

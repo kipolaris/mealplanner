@@ -4,7 +4,8 @@ import { useIngredient } from "../hooks/useIngredient";
 import { useFoodIngredient } from "../hooks/useFoodIngredient";
 import { useUnitOfMeasure } from "../hooks/useUnitOfMeasure";
 import { useNavigate, useParams } from "react-router-dom";
-import '../assets/css/pages/food-page.css'
+import '../assets/css/food-page.css'
+import '../assets/css/ingredients.css'
 import paperBackground from '../assets/images/paperbackground.png'
 import PageTitle from "../components/PageTitle";
 import TapedTable from "../components/TapedTable";
@@ -13,6 +14,10 @@ import AddIngredientModal from "../components/modals/AddIngredientModal";
 import EditQuantityModal from "../components/modals/EditQuantityModal";
 import pinkFlowerTape from "../assets/images/pinkflowertape.png";
 import { BackendUrl } from '../utils/constants';
+import {useShoppingList} from "../hooks/useShoppingList";
+import {useCurrency} from "../hooks/useCurrency";
+import MergeShoppingItemModal from "../components/modals/MergeShoppingItemModal";
+import AddFiToShoppingListModal from "../components/modals/AddFiToShoppingListModal";
 
 const FoodPage = () => {
     const { foodName } = useParams();
@@ -20,9 +25,12 @@ const FoodPage = () => {
 
     const { foods, setFoods } = useFoods();
     const { ingredients } = useIngredient();
-    const unitsOfMeasure = useUnitOfMeasure()
+    const unitsOfMeasure = useUnitOfMeasure();
+    const currencies = useCurrency();
 
     const [food, setFood] = useState(null);
+    const [isAddToShoppingListModalOpen, setIsAddToShoppingListModalOpen] = useState(false);
+    const [foodIngredientToShoppingList, setFoodIngredientToShoppingList] = useState(null);
 
     useEffect(() => {
         const found = foods.find(f => f.name === foodName);
@@ -36,6 +44,16 @@ const FoodPage = () => {
     }, [foods, foodName]);
 
     const {
+        shoppingList,
+        pendingShoppingItemMerge,
+        setPendingShoppingItemMerge,
+        isShoppingItemMergeModalOpen,
+        setIsShoppingItemMergeModalOpen,
+        handleAddShoppingItem,
+        confirmMergeShoppingItem
+    } = useShoppingList(ingredients);
+
+    const {
         foodIngredients,
         editingFoodIngredient,
         isAddIngredientModalOpen,
@@ -46,8 +64,9 @@ const FoodPage = () => {
         handleAddNewFoodIngredient,
         handleEditFoodIngredient,
         handleSaveEditedFoodIngredient,
-        handleDeleteFoodIngredient
-    } = useFoodIngredient(food?.id);
+        handleDeleteFoodIngredient,
+        handleAddToShoppingList
+    } = useFoodIngredient(food?.id, shoppingList, setPendingShoppingItemMerge, setIsShoppingItemMergeModalOpen, handleAddShoppingItem);
 
     const navigateToMenu = () => {
         navigate('/menu');
@@ -65,10 +84,19 @@ const FoodPage = () => {
         }
     };
 
+    const handleAddFiToShoppingList = (foodIngredient) => {
+        setFoodIngredientToShoppingList(foodIngredient);
+        setIsAddToShoppingListModalOpen(true);
+    }
+
     if (!food) return <PageTitle text="Loading food..." />
 
     if (!unitsOfMeasure || !Array.isArray(unitsOfMeasure)) {
         return <PageTitle text="Loading units of measure..." />;
+    }
+
+    if (!currencies || !Array.isArray(currencies)) {
+        return <PageTitle text="Loading currencies..." />;
     }
 
     const sortedFoodIngredients = [...foodIngredients].sort((a, b) =>
@@ -79,8 +107,8 @@ const FoodPage = () => {
 
     return (
         <div className="app-container">
-            <div className="food-header">
-                <div className="navigation-buttons">
+            <div className="page-header">
+                <div className="header-buttons">
                     <TapeButton text="Menu" onClick={navigateToMenu} />
                     <TapeButton text="Back" onClick={navigateToFoods} />
                 </div>
@@ -120,56 +148,54 @@ const FoodPage = () => {
                     </div>
                 </div>
                 <div className="ingredients-table-wrapper">
-                    <div className="ingredients-table-container">
-                        <TapedTable
-                            layout="vertical"
-                            rows={sortedFoodIngredients}
-                            renderCell={(rowIndex) => {
-                                const fi = sortedFoodIngredients[rowIndex];
-                                console.log("Rendering row:", fi);
-                                return (
-                                    <div className="ingredient-row">
-                                        <div className="ingredient-label-wrapper">
-                                            <span className="ingredient-name patrick">{fi.ingredient?.name || `ingredientId=${fi.ingredient?.id}`}</span>
-                                            <span className="ingredient-quantity">({fi?.amount} {fi?.unit ? fi?.unit.abbreviation : "unit"})</span>
-                                        </div>
-                                        <div className="ingredient-icons">
-                                            <img
-                                                src={require('../assets/images/shoppingcart.png')}
-                                                alt="Add to shopping list"
-                                                className="edit-button"
-                                                onClick={() => {}}
-                                            />
-                                            <img
-                                                src={require('../assets/images/pencil.png')}
-                                                alt="Edit"
-                                                className="edit-button"
-                                                onClick={() => handleEditFoodIngredient(fi)}
-                                            />
-                                            <img
-                                                src={require('../assets/images/trashcan.png')}
-                                                alt="Delete"
-                                                className="edit-button"
-                                                onClick={() => handleDeleteFoodIngredient(fi)}
-                                            />
-                                        </div>
+                    <TapedTable
+                        layout="vertical"
+                        rows={sortedFoodIngredients}
+                        renderCell={(rowIndex) => {
+                            const fi = sortedFoodIngredients[rowIndex];
+                            console.log("Rendering row:", fi);
+                            return (
+                                <div className="table-row">
+                                    <div className="ingredient-label-wrapper">
+                                        <span className="ingredient-name patrick">{fi.ingredient?.name || `ingredientId=${fi.ingredient?.id}`}</span>
+                                        <span className="ingredient-quantity">({fi?.amount} {fi?.unit ? fi?.unit.abbreviation : "unit"})</span>
                                     </div>
-                                );
-                            }}
-                            allowReorder={false}
-                            showHeader={false}
-                            showRowLabels={false}
-                            extraBottomRow={
-                                <tr>
-                                    <td>
-                                        <button className="table-button lobster" onClick={() => setIsAddIngredientModalOpen(true)}>
-                                            Add ingredient
-                                        </button>
-                                    </td>
-                                </tr>
-                            }
-                        />
-                    </div>
+                                    <div className="cell-icons">
+                                        <img
+                                            src={require('../assets/images/shoppingcart.png')}
+                                            alt="Add to shopping list"
+                                            className="edit-button"
+                                            onClick={() => handleAddFiToShoppingList(fi)}
+                                        />
+                                        <img
+                                            src={require('../assets/images/pencil.png')}
+                                            alt="Edit"
+                                            className="edit-button"
+                                            onClick={() => handleEditFoodIngredient(fi)}
+                                        />
+                                        <img
+                                            src={require('../assets/images/trashcan.png')}
+                                            alt="Delete"
+                                            className="edit-button"
+                                            onClick={() => handleDeleteFoodIngredient(fi)}
+                                        />
+                                    </div>
+                                </div>
+                            );
+                        }}
+                        allowReorder={false}
+                        showHeader={false}
+                        showRowLabels={false}
+                        extraBottomRow={
+                            <tr>
+                                <td>
+                                    <button className="table-button lobster" onClick={() => setIsAddIngredientModalOpen(true)}>
+                                        Add ingredient
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    />
                 </div>
                 <AddIngredientModal
                     isOpen={isAddIngredientModalOpen}
@@ -184,6 +210,23 @@ const FoodPage = () => {
                     onSave={handleSaveEditedFoodIngredient}
                     ingredient={editingFoodIngredient}
                     unitsOfMeasure={unitsOfMeasure}
+                />
+                <AddFiToShoppingListModal
+                    isOpen={isAddToShoppingListModalOpen}
+                    onClose={() => setIsAddToShoppingListModalOpen(false)}
+                    onSave={handleAddToShoppingList}
+                    foodIngredient={foodIngredientToShoppingList}
+                    currencies={currencies}
+                />
+
+                <MergeShoppingItemModal
+                    isOpen={isShoppingItemMergeModalOpen}
+                    onClose={() => setIsShoppingItemMergeModalOpen(false)}
+                    onSave={confirmMergeShoppingItem}
+                    amount={pendingShoppingItemMerge?.amount}
+                    unit={pendingShoppingItemMerge?.unit}
+                    price={pendingShoppingItemMerge?.price}
+                    currency={pendingShoppingItemMerge?.currency}
                 />
             </div>
         </div>

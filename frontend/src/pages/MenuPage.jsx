@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import TapeButton from '../components/TapeButton';
 import PageTitle from '../components/PageTitle';
 import TapedTable from '../components/TapedTable';
-import '../assets/css/pages/menu-page.css';
 
 const MenuPage = () => {
     const navigate = useNavigate();
@@ -14,22 +13,17 @@ const MenuPage = () => {
         { label: 'Foods', onClick: () => navigate('/foods') },
         { label: 'Ingredients', onClick: () => navigate('/ingredients') },
         { label: 'Ingredients at home', onClick: () => navigate('/ingredients-at-home')},
-        { label: 'Shopping list', onClick: () => {} }
-        //{ label: 'Calendar', onClick: () => {} }
+        { label: 'Shopping list', onClick: () => navigate('/shopping-list') }
     ];
 
     return (
         <div className="app-container">
-            <div className="menu-header">
-                <div className="menu-buttons">
-                    <TapeButton text="Account" onClick={() => {}} />
-                    <TapeButton text="How to" onClick={() => {}} />
-                </div>
+            <div className="page-header">
                 <PageTitle text="Menu" />
             </div>
 
-            <div className="menu-wrapper">
-                <div className="menu-table-container">
+            <div className="content-wrapper">
+                <div className="content-table-container">
                     <TapedTable
                         layout="vertical"
                         rows={rows}

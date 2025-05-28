@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../assets/css/pages/meal-times-page.css'
 import {useMealTime} from "../hooks/useMealTime";
 import TapeButton from "../components/TapeButton";
 import PageTitle from "../components/PageTitle";
@@ -33,15 +32,15 @@ const MealTimesPage = () => {
 
     return (
         <div className="app-container">
-            <div className="meal-times-header">
-                <div className="menu-button">
+            <div className="page-header">
+                <div className="header-buttons">
                     <TapeButton text="Menu" onClick={navigateToMenu} />
                 </div>
                 <PageTitle text="Meal Times"/>
             </div>
 
-            <div className="meal-times-wrapper">
-                <div className="meal-times-table-container">
+            <div className="content-wrapper">
+                <div className="content-table-container">
                     <TapedTable
                         layout="vertical"
                         rows={mealTimes.slice().sort((a, b) => a.order - b.order)}
@@ -49,9 +48,9 @@ const MealTimesPage = () => {
                             const sortedMealTimes = mealTimes.slice().sort((a, b) => a.order - b.order);
                             const mt = sortedMealTimes[rowIndex];
                             return (
-                                <div className="meal-time-row">
-                                    <span className="meal-times-name">{mt.name}</span>
-                                    <div className="meal-time-icons">
+                                <div className="table-row">
+                                    <span className="cell-name">{mt.name}</span>
+                                    <div className="cell-icons">
                                         <div className="arrow-buttons">
                                             {rowIndex > 0 && (
                                                 <img

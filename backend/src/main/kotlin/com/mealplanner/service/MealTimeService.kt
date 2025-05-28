@@ -35,6 +35,7 @@ class MealTimeService(
         return if (mealTime != null) {
             mealRepository.findAll().forEach { meal ->
                 if (meal.mealTime.id == id) {
+                    meal.food = null
                     mealRepository.delete(meal)
                 }
             }

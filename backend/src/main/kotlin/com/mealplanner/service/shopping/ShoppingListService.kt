@@ -2,6 +2,7 @@ package com.mealplanner.service.shopping
 
 import com.mealplanner.data.shopping.ShoppingList
 import com.mealplanner.repositories.shopping.ShoppingListRepository
+import com.mealplanner.service.ingredient.HomeIngredientService
 import com.mealplanner.service.ingredient.UnitOfMeasureService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -35,6 +36,15 @@ class ShoppingListService(
     @Transactional
     fun addShoppingItemToList(ingredientId: Long, amount: Double, unitId: Long, price: Double, currencyId: Long): ShoppingList {
         val shoppingList = getShoppingList()
+        val unit = unitOfMeasureService.getUnitById(unitId)
+
+        val existing = shoppingList.items.find {
+            it.ingredient.id == ingredientId && it.unit.type == unit.type && it.currency.id == currencyId
+        }
+
+        if (existing != null) {
+            throw RuntimeException("Shopping item already exists with same unit type and currency")
+        }
 
         val newItem = shoppingItemService.createShoppingItem(
             ingredientId,

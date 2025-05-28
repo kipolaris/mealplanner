@@ -64,3 +64,100 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-height: 80vh;
+  padding-top: 120px;
+}
+
+.page-header {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
+}
+
+.header-buttons {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.loading {
+  alignment: center;
+}
+
+.table-row {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.cell-name {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.cell-icons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.edit-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.edit-button {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.content-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  height: 100%;
+  flex-grow: 1;
+}
+
+.content-table-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  width: 100%;
+  padding: 20px;
+  max-width: 95vw;
+}
+
+.content-table-container {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+}

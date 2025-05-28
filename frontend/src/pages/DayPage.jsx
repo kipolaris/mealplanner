@@ -6,7 +6,7 @@ import { useNavigate, useParams} from "react-router-dom";
 import PageTitle from "../components/PageTitle";
 import TapedTable from "../components/TapedTable";
 import TapeButton from "../components/TapeButton";
-import '../assets/css/pages/day-page.css';
+import '../assets/css/meal-plan-vertical.css';
 import NewNameModal from "../components/modals/NewNameModal";
 
 const DayPage = () => {
@@ -69,15 +69,15 @@ const DayPage = () => {
 
     return (
         <div className="app-container">
-            <div className="day-header">
-                <div className="day-buttons">
+            <div className="meal-plan-item-header">
+                <div className="header-buttons">
                     <TapeButton text="Menu" onClick={navigateToMenu} />
                     <TapeButton text="Back" onClick={navigateToMealPlan} />
                 </div>
                 <PageTitle text={day} />
             </div>
-            <div className="day-table-wrapper">
-                <div className="day-container">
+            <div className="vertical-table-wrapper">
+                <div className="vertical-table-container">
                     <TapedTable
                         layout="vertical"
                         columns={['Meals']}

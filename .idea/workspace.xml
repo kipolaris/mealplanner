@@ -6,19 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="394f1832-2bd8-4dcd-b968-3262c9a548d2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/FoodController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/FoodController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/MealPlanController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/MealPlanController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/MealPlanService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/MealPlanService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/components/modal.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/components/modal.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/components/taped-table.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/components/taped-table.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/TapedTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/TapedTable.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/modals/AddFoodModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/modals/AddFoodModal.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useFoodIngredient.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useFoodIngredient.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useMealPlan.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useMealPlan.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/DayPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/DayPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/FoodPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/FoodPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MealPlanPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MealPlanPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MealTimePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MealTimePage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/ingredient/UnitOfMeasureService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/ingredient/UnitOfMeasureService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useHomeIngredient.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useHomeIngredient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useShoppingList.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useShoppingList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/LandingPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/LandingPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MenuPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MenuPage.jsx" afterDir="false" />
     </list>
     <list id="542fc26d-9e25-4b21-8122-007167c71aa5" name="Changes by Lili" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -75,10 +68,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Kotlin Data Class" />
-        <option value="JavaScript File" />
-        <option value="CSS File" />
         <option value="Kotlin Interface" />
         <option value="Kotlin Class" />
+        <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -137,11 +130,11 @@
       <recent name="C:\Users\csuto\programming\mealplanner\backend\src\main\kotlin\com\mealplanner\Service" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\csuto\programming\mealplanner\frontend\src\assets\css" />
       <recent name="C:\Users\csuto\programming\mealplanner\frontend\src\assets\css\components" />
       <recent name="C:\Users\csuto\programming\mealplanner\frontend\src\assets\css\pages" />
       <recent name="C:\Users\csuto\programming\mealplanner\frontend\src\assets" />
       <recent name="C:\Users\csuto\programming\mealplanner\frontend\src\utils" />
-      <recent name="C:\Users\csuto\programming\mealplanner\frontend\src" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
       <recent name="com.mealplanner.controllers.shopping" />
@@ -344,7 +337,10 @@
       <workItem from="1746709746190" duration="30148000" />
       <workItem from="1747121148727" duration="8182000" />
       <workItem from="1747154301197" duration="33750000" />
-      <workItem from="1747511052916" duration="32279000" />
+      <workItem from="1747511052916" duration="39713000" />
+      <workItem from="1747858197922" duration="5435000" />
+      <workItem from="1747905185127" duration="5292000" />
+      <workItem from="1748010086160" duration="39619000" />
     </task>
     <servers />
   </component>

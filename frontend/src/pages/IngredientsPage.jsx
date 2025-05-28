@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../assets/css/pages/ingredients-page.css';
 import { useIngredient } from "../hooks/useIngredient";
 import PageTitle from "../components/PageTitle";
 import TapeButton from "../components/TapeButton";
@@ -34,55 +33,53 @@ const IngredientsPage = () => {
 
     return (
         <div className="app-container">
-            <div className="ingredients-header">
-                <div className="menu-button">
+            <div className="page-header">
+                <div className="header-buttons">
                     <TapeButton text="Menu" onClick={navigateToMenu} />
                 </div>
                 <PageTitle text="Ingredients"/>
             </div>
-            <div className="ingredients-wrapper">
-                <div className="ingredients-table-container">
-                    <TapedTable
-                        layout="vertical"
-                        rows={sortedIngredients}
-                        renderCell={(rowIndex) => {
-                            const i = sortedIngredients[rowIndex];
-                            return (
-                                <div className="ingredient-row">
-                                    <span className="ingredient-name">{i.name}</span>
-                                    <div className="ingredient-icons">
-                                        <div className="edit-buttons">
-                                            <img
-                                                src={require('../assets/images/pencil.png')}
-                                                alt="Edit"
-                                                className="edit-button"
-                                                onClick={() => handleEditIngredient(i)}
-                                            />
-                                            <img
-                                                src={require('../assets/images/trashcan.png')}
-                                                alt="Delete"
-                                                className="edit-button"
-                                                onClick={() => handleDeleteIngredient(i.id)}
-                                            />
-                                        </div>
+            <div className="content-wrapper">
+                <TapedTable
+                    layout="vertical"
+                    rows={sortedIngredients}
+                    renderCell={(rowIndex) => {
+                        const i = sortedIngredients[rowIndex];
+                        return (
+                            <div className="table-row">
+                                <span className="cell-name">{i.name}</span>
+                                <div className="cell-icons">
+                                    <div className="edit-buttons">
+                                        <img
+                                            src={require('../assets/images/pencil.png')}
+                                            alt="Edit"
+                                            className="edit-button"
+                                            onClick={() => handleEditIngredient(i)}
+                                        />
+                                        <img
+                                            src={require('../assets/images/trashcan.png')}
+                                            alt="Delete"
+                                            className="edit-button"
+                                            onClick={() => handleDeleteIngredient(i.id)}
+                                        />
                                     </div>
                                 </div>
-                            );
-                        }}
-                        allowReorder={false}
-                        showHeader={false}
-                        showRowLabels={false}
-                        extraBottomRow={
-                            <tr>
-                                <td>
-                                    <button className="table-button lobster" onClick={() => setIsNameModalOpen(true)}>
-                                        Add new ingredient
-                                    </button>
-                                </td>
-                            </tr>
-                        }
-                    />
-                </div>
+                            </div>
+                        );
+                    }}
+                    allowReorder={false}
+                    showHeader={false}
+                    showRowLabels={false}
+                    extraBottomRow={
+                        <tr>
+                            <td>
+                                <button className="table-button lobster" onClick={() => setIsNameModalOpen(true)}>
+                                    Add new ingredient
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                />
             </div>
             <NewNameModal
                 isOpen={isNameModalOpen}

@@ -1,7 +1,7 @@
 import { useEffect, useState} from "react";
 import { BackendUrl } from "../utils/constants";
 
-export const useFoodIngredient = (foodId) => {
+export const useFoodIngredient = (foodId, shoppingList, setPendingShoppingItemMerge, setIsShoppingItemMergeModalOpen, handleAddShoppingItem) => {
     const [foodIngredients, setFoodIngredients] = useState([]);
     const [editingFoodIngredient, setEditingFoodIngredient] = useState(null);
     const [isAddIngredientModalOpen, setIsAddIngredientModalOpen] = useState(false);
@@ -123,6 +123,28 @@ export const useFoodIngredient = (foodId) => {
             .catch(error => console.error(`Error deleting food ingredient with id ${foodIngredient.id} from food with id ${foodId}:`,error));
     };
 
+    const handleAddToShoppingList = (foodIngredient, price, currency) => {
+        const existingShoppingItem = shoppingList.items.find(si =>
+            si.ingredient.id === foodIngredient.ingredient.id &&
+            si.unit.type === foodIngredient.unit.type &&
+            si.currency.type === currency.type
+        );
+
+        if(existingShoppingItem) {
+            setPendingShoppingItemMerge({
+                ingredientId: foodIngredient.ingredient.id,
+                amount: foodIngredient.amount,
+                unit: foodIngredient.unit,
+                price: price,
+                currency: currency,
+                checked: false
+            });
+            setIsShoppingItemMergeModalOpen(true);
+        } else {
+            handleAddShoppingItem(foodIngredient.ingredient.id,foodIngredient.amount,foodIngredient.unit.id,price,currency.id);
+        }
+    }
+
     return {
         foodIngredients,
         editingFoodIngredient,
@@ -131,6 +153,7 @@ export const useFoodIngredient = (foodId) => {
         setIsAddIngredientModalOpen,
         isQuantityModalOpen,
         setIsQuantityModalOpen,
+        handleAddToShoppingList,
         handleAddFoodIngredient,
         handleAddNewFoodIngredient,
         handleEditFoodIngredient,

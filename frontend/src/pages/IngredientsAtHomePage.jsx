@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate} from "react-router-dom";
-import '../assets/css/pages/ingredients-at-home-page.css'
+import '../assets/css/ingredients.css'
 import { useIngredient} from "../hooks/useIngredient";
 import PageTitle from "../components/PageTitle";
 import TapeButton from "../components/TapeButton";
@@ -8,7 +8,6 @@ import TapedTable from "../components/TapedTable";
 import {useHomeIngredients} from "../hooks/useHomeIngredient";
 import {useUnitOfMeasure} from "../hooks/useUnitOfMeasure";
 import AddIngredientModal from "../components/modals/AddIngredientModal";
-import NewNameModal from "../components/modals/NewNameModal";
 import MergeAmountModal from "../components/modals/MergeAmountModal";
 import EditQuantityModal from "../components/modals/EditQuantityModal";
 
@@ -54,26 +53,26 @@ const IngredientsAtHomePage = () => {
 
     return (
         <div className="app-container">
-            <div className="home-ingredients-header">
-                <div className="menu-button">
+            <div className="page-header">
+                <div className="header-buttons">
                     <TapeButton text="Menu" onClick={navigateToMenu} />
                 </div>
                 <PageTitle text="Ingredients at Home" />
             </div>
-            <div className="home-ingredients-wrapper">
-                <div className="home-ingredients-table-container">
+            <div className="content-wrapper">
+                <div className="content-table-container">
                     <TapedTable
                         layout="vertical"
                         rows={sortedHomeIngredients}
                         renderCell={(rowIndex) => {
                             const hi = sortedHomeIngredients[rowIndex];
                             return (
-                                <div className="home-ingredient-row">
-                                    <div className="home-ingredient-label-wrapper">
-                                        <span className="home-ingredient-name lobster">{hi.ingredient?.name}</span>
-                                        <span className="home-ingredient-quantity">({hi.amount} {hi.unit.abbreviation})</span>
+                                <div className="ingredient-row">
+                                    <div className="ingredient-label-wrapper">
+                                        <span className="ingredient-name lobster">{hi.ingredient?.name}</span>
+                                        <span className="ingredient-quantity">({hi.amount} {hi.unit.abbreviation})</span>
                                     </div>
-                                    <div className="home-ingredient-icons">
+                                    <div className="cell-icons">
                                         <img
                                             src={require('../assets/images/pencil.png')}
                                             alt="Edit"
