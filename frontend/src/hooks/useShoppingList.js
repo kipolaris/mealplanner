@@ -36,7 +36,7 @@ export const useShoppingList = ({ingredients, setIngredients, homeIngredients, s
                     if (error.error?.includes("same unit type and currency")) {
                         const unit = unitsOfMeasure.find(u => u.id === unitId);
                         const currency = currencies.find(c => c.id === currencyId);
-                        setPendingMerge( {ingredientId, amount, unit, price, currency });
+                        setPendingShoppingItemMerge( {ingredientId, amount, unit, price, currency });
                         setIsShoppingItemMergeModalOpen(true);
                     } else {
                         throw new Error(error.error || "Unknown error");
@@ -60,15 +60,23 @@ export const useShoppingList = ({ingredients, setIngredients, homeIngredients, s
         const newPendingMerge = {
             ingredientId: pendingShoppingItemMerge.ingredientId,
             amount: pendingShoppingItemMerge.amount,
-            unitId: pendingShoppingItemMerge.unit.id,
+            unit: pendingShoppingItemMerge.unit,
             price: pendingShoppingItemMerge.price,
-            currencyId: pendingShoppingItemMerge.currency.id
+            currency: pendingShoppingItemMerge.currency
+        }
+
+        const pendingMergeRequest = {
+            ingredientId: newPendingMerge.ingredientId,
+            amount: newPendingMerge.amount,
+            unitId: newPendingMerge.unit.id,
+            price: newPendingMerge.price,
+            currencyId: newPendingMerge.currency.id
         }
 
         fetch(`${BackendUrl}/api/shopping-list/merge`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newPendingMerge)
+            body: JSON.stringify(pendingMergeRequest)
         })
             .then(response => response.json())
             .then(merged => {
@@ -186,7 +194,6 @@ export const useShoppingList = ({ingredients, setIngredients, homeIngredients, s
         } else {
             handleAddHomeIngredient(shoppingItem.ingredient.id, shoppingItem.amount, shoppingItem.unit.id);
         }
-
         handleDeleteShoppingItem(shoppingItem.id);
     }
 
@@ -201,6 +208,7 @@ export const useShoppingList = ({ingredients, setIngredients, homeIngredients, s
         setIsShoppingItemMergeModalOpen,
         setIsAddModalOpen,
         pendingShoppingItemMerge,
+        setPendingShoppingItemMerge,
         confirmMergeShoppingItem,
         handleAddNewShoppingItem,
         handleAddShoppingItem,

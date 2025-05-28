@@ -23,7 +23,7 @@ const MergeShoppingItemModal = ({
     return (
         <div className={`modal-overlay ${isOpen ? 'open' : ''}`}>
             <div className="modal-content" style={ {backgroundImage: `url(${paperBackground})`} }>
-                <span>A shopping item like this already exists in the Shopping list, do you want to add {amount} {unit?.abbreviation} and {price} {currency.symbol} to the original item?</span>
+                <span>A shopping item like this already exists in the Shopping list, do you want to add {amount} {unit.name} and {price} {currency.symbol} to the original item?</span>
                 <div className="modal-buttons">
                     <button className="save-button" onClick={handleSave}>Yes</button>
                     <button className="cancel-button" onClick={onClose}>No</button>

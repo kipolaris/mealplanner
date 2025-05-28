@@ -14,6 +14,10 @@ import AddIngredientModal from "../components/modals/AddIngredientModal";
 import EditQuantityModal from "../components/modals/EditQuantityModal";
 import pinkFlowerTape from "../assets/images/pinkflowertape.png";
 import { BackendUrl } from '../utils/constants';
+import {useShoppingList} from "../hooks/useShoppingList";
+import {useCurrency} from "../hooks/useCurrency";
+import MergeShoppingItemModal from "../components/modals/MergeShoppingItemModal";
+import AddFiToShoppingListModal from "../components/modals/AddFiToShoppingListModal";
 
 const FoodPage = () => {
     const { foodName } = useParams();
@@ -21,9 +25,12 @@ const FoodPage = () => {
 
     const { foods, setFoods } = useFoods();
     const { ingredients } = useIngredient();
-    const unitsOfMeasure = useUnitOfMeasure()
+    const unitsOfMeasure = useUnitOfMeasure();
+    const currencies = useCurrency();
 
     const [food, setFood] = useState(null);
+    const [isAddToShoppingListModalOpen, setIsAddToShoppingListModalOpen] = useState(false);
+    const [foodIngredientToShoppingList, setFoodIngredientToShoppingList] = useState(null);
 
     useEffect(() => {
         const found = foods.find(f => f.name === foodName);
@@ -37,6 +44,16 @@ const FoodPage = () => {
     }, [foods, foodName]);
 
     const {
+        shoppingList,
+        pendingShoppingItemMerge,
+        setPendingShoppingItemMerge,
+        isShoppingItemMergeModalOpen,
+        setIsShoppingItemMergeModalOpen,
+        handleAddShoppingItem,
+        confirmMergeShoppingItem
+    } = useShoppingList(ingredients);
+
+    const {
         foodIngredients,
         editingFoodIngredient,
         isAddIngredientModalOpen,
@@ -47,8 +64,9 @@ const FoodPage = () => {
         handleAddNewFoodIngredient,
         handleEditFoodIngredient,
         handleSaveEditedFoodIngredient,
-        handleDeleteFoodIngredient
-    } = useFoodIngredient(food?.id);
+        handleDeleteFoodIngredient,
+        handleAddToShoppingList
+    } = useFoodIngredient(food?.id, shoppingList, setPendingShoppingItemMerge, setIsShoppingItemMergeModalOpen, handleAddShoppingItem);
 
     const navigateToMenu = () => {
         navigate('/menu');
@@ -66,10 +84,19 @@ const FoodPage = () => {
         }
     };
 
+    const handleAddFiToShoppingList = (foodIngredient) => {
+        setFoodIngredientToShoppingList(foodIngredient);
+        setIsAddToShoppingListModalOpen(true);
+    }
+
     if (!food) return <PageTitle text="Loading food..." />
 
     if (!unitsOfMeasure || !Array.isArray(unitsOfMeasure)) {
         return <PageTitle text="Loading units of measure..." />;
+    }
+
+    if (!currencies || !Array.isArray(currencies)) {
+        return <PageTitle text="Loading currencies..." />;
     }
 
     const sortedFoodIngredients = [...foodIngredients].sort((a, b) =>
@@ -120,7 +147,7 @@ const FoodPage = () => {
                         </div>
                     </div>
                 </div>
-                <div className="ingredient-table-wrapper">
+                <div className="ingredients-table-wrapper">
                     <TapedTable
                         layout="vertical"
                         rows={sortedFoodIngredients}
@@ -138,7 +165,7 @@ const FoodPage = () => {
                                             src={require('../assets/images/shoppingcart.png')}
                                             alt="Add to shopping list"
                                             className="edit-button"
-                                            onClick={() => {}}
+                                            onClick={() => handleAddFiToShoppingList(fi)}
                                         />
                                         <img
                                             src={require('../assets/images/pencil.png')}
@@ -183,6 +210,23 @@ const FoodPage = () => {
                     onSave={handleSaveEditedFoodIngredient}
                     ingredient={editingFoodIngredient}
                     unitsOfMeasure={unitsOfMeasure}
+                />
+                <AddFiToShoppingListModal
+                    isOpen={isAddToShoppingListModalOpen}
+                    onClose={() => setIsAddToShoppingListModalOpen(false)}
+                    onSave={handleAddToShoppingList}
+                    foodIngredient={foodIngredientToShoppingList}
+                    currencies={currencies}
+                />
+
+                <MergeShoppingItemModal
+                    isOpen={isShoppingItemMergeModalOpen}
+                    onClose={() => setIsShoppingItemMergeModalOpen(false)}
+                    onSave={confirmMergeShoppingItem}
+                    amount={pendingShoppingItemMerge?.amount}
+                    unit={pendingShoppingItemMerge?.unit}
+                    price={pendingShoppingItemMerge?.price}
+                    currency={pendingShoppingItemMerge?.currency}
                 />
             </div>
         </div>
