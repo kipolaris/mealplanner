@@ -1,6 +1,6 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
-import '../assets/css/shopping-list-page.css'
+import '../assets/css/shopping-list.css'
 import '../assets/css/ingredients.css'
 import { useIngredient} from "../hooks/useIngredient";
 import {useUnitOfMeasure} from "../hooks/useUnitOfMeasure";

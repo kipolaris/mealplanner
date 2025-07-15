@@ -11,8 +11,6 @@ data class Food(
     val id: Long?,
     var name: String,
 
-    @Lob
-    @Column(columnDefinition = "TEXT")
     var description: String? = null,
 
     @OneToMany(mappedBy = "foodId", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)

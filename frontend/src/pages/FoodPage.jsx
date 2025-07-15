@@ -4,7 +4,7 @@ import { useIngredient } from "../hooks/useIngredient";
 import { useFoodIngredient } from "../hooks/useFoodIngredient";
 import { useUnitOfMeasure } from "../hooks/useUnitOfMeasure";
 import { useNavigate, useParams } from "react-router-dom";
-import '../assets/css/food-page.css'
+import '../assets/css/food.css'
 import '../assets/css/ingredients.css'
 import paperBackground from '../assets/images/paperbackground.png'
 import PageTitle from "../components/PageTitle";
@@ -24,7 +24,7 @@ const FoodPage = () => {
     const navigate = useNavigate();
 
     const { foods, setFoods } = useFoods();
-    const { ingredients } = useIngredient();
+    const { ingredients, setIngredients } = useIngredient();
     const unitsOfMeasure = useUnitOfMeasure();
     const currencies = useCurrency();
 
@@ -66,7 +66,7 @@ const FoodPage = () => {
         handleSaveEditedFoodIngredient,
         handleDeleteFoodIngredient,
         handleAddToShoppingList
-    } = useFoodIngredient(food?.id, shoppingList, setPendingShoppingItemMerge, setIsShoppingItemMergeModalOpen, handleAddShoppingItem);
+    } = useFoodIngredient(food?.id, shoppingList, setPendingShoppingItemMerge, setIsShoppingItemMergeModalOpen, handleAddShoppingItem, setIngredients);
 
     const navigateToMenu = () => {
         navigate('/menu');

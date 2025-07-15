@@ -1,7 +1,7 @@
 import { useEffect, useState} from "react";
 import { BackendUrl } from "../utils/constants";
 
-export const useFoodIngredient = (foodId, shoppingList, setPendingShoppingItemMerge, setIsShoppingItemMergeModalOpen, handleAddShoppingItem) => {
+export const useFoodIngredient = (foodId, shoppingList, setPendingShoppingItemMerge, setIsShoppingItemMergeModalOpen, handleAddShoppingItem, setIngredients) => {
     const [foodIngredients, setFoodIngredients] = useState([]);
     const [editingFoodIngredient, setEditingFoodIngredient] = useState(null);
     const [isAddIngredientModalOpen, setIsAddIngredientModalOpen] = useState(false);
@@ -47,6 +47,11 @@ export const useFoodIngredient = (foodId, shoppingList, setPendingShoppingItemMe
             });
 
             const newIngredient = await ingredientResponse.json();
+
+            fetch(`${BackendUrl}/api/ingredients`)
+                .then(response => response.json())
+                .then(data => setIngredients(data))
+                .catch(error => console.log('Error fetching ingredients:',error));
 
             const foodIngredientData = {
                 id: undefined,
