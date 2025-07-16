@@ -49,6 +49,10 @@ const MealPlanPage = () => {
         return <PageTitle className="loading" text="Loading Meal Plan..." />;
     }
 
+    const sortedSavedFoods = [...savedFoods].sort((a, b) =>
+        a.name?.localeCompare(b.name || '') || 0
+    );
+
     return (
         <div className="app-container">
             <div className="page-header">
@@ -61,28 +65,26 @@ const MealPlanPage = () => {
                 <div className="meal-plan-container">
                     <TapedTable
                         layout="horizontal"
-                        columns={mealPlan.days.map(day => day.name)}
                         rows={mealTimes.slice().sort((a, b) => a.order - b.order)}
+                        columns={mealPlan.days.map(day => ({
+                            header: day.name,
+                            render: (mealTime) => {
+                                const mealForDay = day.meals.find(m => m.mealTime.name === mealTime.name);
+                                return (
+                                    <button
+                                        className="meal-button"
+                                        onClick={() => handleCellClick(day, mealForDay, mealTime.name)}
+                                    >
+                                        {mealForDay?.food?.name || ""}
+                                    </button>
+                                );
+                            },
+                        }))}
                         renderRowLabel={(mealTime) => (
                             <span className="meal-time-name" onClick={() => navigate(`/meal/${mealTime.name}`)}>
-                                {mealTime.name}
+                              {mealTime.name}
                             </span>
                         )}
-                        renderCell={(rowIndex, colIndex) => {
-                            const sortedMealTimes = mealTimes.slice().sort((a, b) => a.order - b.order);
-                            const mt = sortedMealTimes[rowIndex];
-                            const day = mealPlan.days[colIndex];
-                            const mealForDay = day.meals.find(m => m.mealTime.name === mt.name);
-
-                            return (
-                                <button
-                                    className="meal-button"
-                                    onClick={() => handleCellClick(day, mealForDay, mt.name)}
-                                >
-                                    {mealForDay?.food?.name || ""}
-                                </button>
-                            );
-                        }}
                         extraBottomRow={
                             <tr>
                                 <td colSpan={mealPlan.days.length + 1}>
@@ -92,9 +94,10 @@ const MealPlanPage = () => {
                                 </td>
                             </tr>
                         }
-                        handleReset={resetMealPlan}
-                        handleReorder={handleReorder}
-                        navigate={navigate}
+                        onReset={resetMealPlan}
+                        onReorder={handleReorder}
+                        showHeader={true}
+                        showRowLabels={true}
                     />
                 </div>
             </div>
@@ -105,7 +108,7 @@ const MealPlanPage = () => {
                 onSave={handleSaveFood}
                 onClearMeal={resetMeal}
                 meal={selectedCell.meal}
-                savedFoods={savedFoods}
+                savedFoods={sortedSavedFoods}
                 onDeleteFood={handleDeleteFood}
             />
             <NewNameModal

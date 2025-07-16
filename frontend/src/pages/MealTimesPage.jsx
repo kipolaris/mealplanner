@@ -30,6 +30,8 @@ const MealTimesPage = () => {
 
     if (!mealTimes) return <PageTitle text="Loading meal times..."/>;
 
+    const sortedMealTimes = mealTimes.slice().sort((a, b) => a.order - b.order);
+
     return (
         <div className="app-container">
             <div className="page-header">
@@ -43,56 +45,65 @@ const MealTimesPage = () => {
                 <div className="content-table-container">
                     <TapedTable
                         layout="vertical"
-                        rows={mealTimes.slice().sort((a, b) => a.order - b.order)}
-                        renderCell={(rowIndex) => {
-                            const sortedMealTimes = mealTimes.slice().sort((a, b) => a.order - b.order);
-                            const mt = sortedMealTimes[rowIndex];
-                            return (
-                                <div className="table-row">
-                                    <span className="cell-name">{mt.name}</span>
-                                    <div className="cell-icons">
-                                        <div className="arrow-buttons">
-                                            {rowIndex > 0 && (
-                                                <img
-                                                    src={require('../assets/images/arrowup.png')}
-                                                    alt="Move up"
-                                                    className="arrow-button"
-                                                    onClick={() => handleReorder(mt.order, sortedMealTimes[rowIndex - 1].order)}
-                                                />
-                                            )}
-                                            {rowIndex < sortedMealTimes.length - 1 && (
-                                                <img
-                                                    src={require('../assets/images/arrowdown.png')}
-                                                    alt="Move down"
-                                                    className="arrow-button"
-                                                    onClick={() => handleReorder(mt.order, sortedMealTimes[rowIndex + 1].order)}
-                                                />
-                                            )}
-                                        </div>
-                                        <div className="edit-buttons">
+                        rows={sortedMealTimes}
+                        columns={[
+                            {
+                                header: "Reorder",
+                                render: (_, rowIndex) => (
+                                    <div className="arrow-buttons">
+                                        {rowIndex > 0 && (
                                             <img
-                                                src={require('../assets/images/pencil.png')}
-                                                alt="Edit"
-                                                className="edit-button"
-                                                onClick={() => handleEditMealTime(mt)}
+                                                src={require('../assets/images/arrowup.png')}
+                                                alt="Move up"
+                                                className="arrow-button"
+                                                onClick={() =>
+                                                    handleReorder(sortedMealTimes[rowIndex].order, sortedMealTimes[rowIndex - 1].order)
+                                                }
                                             />
+                                        )}
+                                        {rowIndex < sortedMealTimes.length - 1 && (
                                             <img
-                                                src={require('../assets/images/trashcan.png')}
-                                                alt="Delete"
-                                                className="edit-button"
-                                                onClick={() => handleDeleteMealTime(mt.id)}
+                                                src={require('../assets/images/arrowdown.png')}
+                                                alt="Move down"
+                                                className="arrow-button"
+                                                onClick={() =>
+                                                    handleReorder(sortedMealTimes[rowIndex].order, sortedMealTimes[rowIndex + 1].order)
+                                                }
                                             />
-                                        </div>
+                                        )}
                                     </div>
-                                </div>
-                            );
-                        }}
+                                ),
+                            },
+                            {
+                                header: "Actions",
+                                render: (mt) => (
+                                    <div className="edit-buttons">
+                                        <img
+                                            src={require('../assets/images/pencil.png')}
+                                            alt="Edit"
+                                            className="edit-button"
+                                            onClick={() => handleEditMealTime(mt)}
+                                        />
+                                        <img
+                                            src={require('../assets/images/trashcan.png')}
+                                            alt="Delete"
+                                            className="edit-button"
+                                            onClick={() => handleDeleteMealTime(mt.id)}
+                                        />
+                                    </div>
+                                ),
+                            },
+                        ]}
+                        renderRowLabel={(mt) => (
+                            <span className="meal-time-name">{mt.name}</span>
+                        )}
+                        showHeader={true}
+                        showRowLabels={true}
+                        rowLabelHeader="Meal Time"
                         allowReorder={false}
-                        showHeader={false}
-                        showRowLabels={false}
                         extraBottomRow={
                             <tr>
-                                <td>
+                                <td colSpan={3}>
                                     <button className="table-button lobster" onClick={() => setIsNameModalOpen(true)}>
                                         Add new meal time
                                     </button>

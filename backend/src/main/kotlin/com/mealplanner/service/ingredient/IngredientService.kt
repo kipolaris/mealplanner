@@ -2,11 +2,15 @@ package com.mealplanner.service.ingredient
 
 import com.mealplanner.data.ingredient.Ingredient
 import com.mealplanner.repositories.ingredient.IngredientRepository
+import com.mealplanner.service.shopping.ShoppingItemService
 import org.springframework.stereotype.Service
 
 @Service
 class IngredientService(
-    private val ingredientRepository: IngredientRepository
+    private val ingredientRepository: IngredientRepository,
+    private val foodIngredientService: FoodIngredientService,
+    private val homeIngredientService: HomeIngredientService,
+    private val shoppingItemService: ShoppingItemService
 ) {
     fun getAllIngredients(): List<Ingredient> {
         return ingredientRepository.findAll()
@@ -32,7 +36,9 @@ class IngredientService(
         val ingredient = ingredientRepository.findById(id).orElseThrow {
             throw RuntimeException("Ingredient not found")
         }
-
+        foodIngredientService.deleteFoodIngredient(id)
+        homeIngredientService.deleteHomeIngredient(id)
+        shoppingItemService.deleteShoppingItem(id)
         ingredientRepository.delete(ingredient)
     }
 }

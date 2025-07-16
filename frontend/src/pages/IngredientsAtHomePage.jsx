@@ -14,7 +14,7 @@ import EditQuantityModal from "../components/modals/EditQuantityModal";
 const IngredientsAtHomePage = () => {
     const navigate = useNavigate();
 
-    const { ingredients } = useIngredient();
+    const { ingredients, setIngredients } = useIngredient();
     const {
         homeIngredients,
         setIsAddIngredientModalOpen,
@@ -31,7 +31,7 @@ const IngredientsAtHomePage = () => {
         handleDeleteHomeIngredient,
         handleEditHomeIngredient,
         handleSaveEditedHomeIngredient,
-    } = useHomeIngredients();
+    } = useHomeIngredients(setIngredients);
 
     const unitsOfMeasure = useUnitOfMeasure()
 
@@ -64,15 +64,23 @@ const IngredientsAtHomePage = () => {
                     <TapedTable
                         layout="vertical"
                         rows={sortedHomeIngredients}
-                        renderCell={(rowIndex) => {
-                            const hi = sortedHomeIngredients[rowIndex];
-                            return (
-                                <div className="ingredient-row">
-                                    <div className="ingredient-label-wrapper">
-                                        <span className="ingredient-name lobster">{hi.ingredient?.name}</span>
-                                        <span className="ingredient-quantity">({hi.amount} {hi.unit.abbreviation})</span>
-                                    </div>
-                                    <div className="cell-icons">
+                        columns={[
+                            {
+                                header: 'Ingredients at home',
+                                render: (hi) => (
+                                    <span className="ingredient-name">{hi.ingredient?.name}</span>
+                                )
+                            },
+                            {
+                                header: 'Quantity',
+                                render: (hi) => (
+                                    <span className="ingredient-quantity">{hi.amount} {hi.unit.abbreviation}</span>
+                                )
+                            },
+                            {
+                                header: 'Actions',
+                                render: (hi) => (
+                                    <div className="edit-buttons">
                                         <img
                                             src={require('../assets/images/pencil.png')}
                                             alt="Edit"
@@ -86,15 +94,15 @@ const IngredientsAtHomePage = () => {
                                             onClick={() => handleDeleteHomeIngredient(hi.id)}
                                         />
                                     </div>
-                                </div>
-                            );
-                        }}
+                                )
+                            }
+                        ]}
                         allowReorder={false}
-                        showHeader={false}
+                        showHeader={true}
                         showRowLabels={false}
                         extraBottomRow={
                             <tr>
-                                <td>
+                                <td colSpan={3}>
                                     <button className="table-button lobster" onClick={() => setIsAddIngredientModalOpen(true)}>
                                         Add ingredient at home
                                     </button>

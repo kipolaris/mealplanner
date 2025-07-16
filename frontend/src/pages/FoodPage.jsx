@@ -151,16 +151,23 @@ const FoodPage = () => {
                     <TapedTable
                         layout="vertical"
                         rows={sortedFoodIngredients}
-                        renderCell={(rowIndex) => {
-                            const fi = sortedFoodIngredients[rowIndex];
-                            console.log("Rendering row:", fi);
-                            return (
-                                <div className="table-row">
-                                    <div className="ingredient-label-wrapper">
-                                        <span className="ingredient-name patrick">{fi.ingredient?.name || `ingredientId=${fi.ingredient?.id}`}</span>
-                                        <span className="ingredient-quantity">({fi?.amount} {fi?.unit ? fi?.unit.abbreviation : "unit"})</span>
-                                    </div>
-                                    <div className="cell-icons">
+                        columns={[
+                            {
+                                header: 'Ingredient',
+                                render: (fi) => (
+                                    <span className="ingredient-name">{fi.ingredient.name}</span>
+                                )
+                            },
+                            {
+                                header: 'Quantity',
+                                render: (fi) => (
+                                    <span className="ingredient-quantity">{fi?.amount} {fi?.unit ? fi?.unit.abbreviation : "unit"}</span>
+                                )
+                            },
+                            {
+                                header: "Actions",
+                                render: (fi) => (
+                                    <div className="edit-buttons">
                                         <img
                                             src={require('../assets/images/shoppingcart.png')}
                                             alt="Add to shopping list"
@@ -180,15 +187,15 @@ const FoodPage = () => {
                                             onClick={() => handleDeleteFoodIngredient(fi)}
                                         />
                                     </div>
-                                </div>
-                            );
-                        }}
+                                )
+                            }
+                        ]}
                         allowReorder={false}
-                        showHeader={false}
+                        showHeader={true}
                         showRowLabels={false}
                         extraBottomRow={
                             <tr>
-                                <td>
+                                <td colSpan={3}>
                                     <button className="table-button lobster" onClick={() => setIsAddIngredientModalOpen(true)}>
                                         Add ingredient
                                     </button>

@@ -85,51 +85,57 @@ const ShoppingListPage = () => {
                     <TapedTable
                         layout="vertical"
                         rows={sortedShoppingList}
-                        renderRowLabel={(shoppingItem) => (
-                            <div className="shopping-item-label">
-                                <span className="shopping-item-name lobster">{shoppingItem.ingredient?.name}</span>
-                                <div className="shopping-item-cell-icons">
+                        columns={[
+                            {
+                                header: 'Shopping item',
+                                render: (si) => (
+                                    <span className="ingredient-name">{si.ingredient.name}</span>
+                                )
+                            },
+                            {
+                                header: 'Quantity',
+                                render: (si) => (
+                                    <span className="ingredient-quantity">{si.amount} {si.unit ? si.unit.abbreviation : "unit"}</span>
+                                )
+                            },
+                            {
+                                header: 'Price',
+                                render: (si) => (
+                                    <span className="ingredient-quantity">{si.price} {si.currency.symbol}</span>
+                                )
+                            },
+                            {
+                                header: 'Actions',
+                                render: (si) => (
                                     <div className="edit-buttons">
                                         <img
                                             src={require('../assets/images/pencil.png')}
                                             alt="Edit"
                                             className="edit-button"
-                                            onClick={() => handleEditShoppingItem(shoppingItem)}
+                                            onClick={() => handleEditShoppingItem(si)}
                                         />
                                         <img
                                             src={require('../assets/images/trashcan.png')}
                                             alt="Delete"
                                             className="edit-button"
-                                            onClick={() => handleDeleteShoppingItem(shoppingItem.id)}
+                                            onClick={() => handleDeleteShoppingItem(si.id)}
                                         />
                                         <img
                                             src={require('../assets/images/checkbox.png')}
                                             alt="Check"
                                             className="edit-button"
-                                            onClick={() => handleCheckShoppingItem(shoppingItem)}
+                                            onClick={() => handleCheckShoppingItem(si)}
                                         />
                                     </div>
-                                </div>
-                            </div>
-                        )}
-                        renderCell={(rowIndex) => {
-                            const item = sortedShoppingList[rowIndex];
-                            return (
-                                <div className="ingredient-row">
-                                    <div className="shopping-item-param">
-                                        {item.amount} {item.unit?.name}
-                                    </div>
-                                    <div className="shopping-item-param">
-                                        {item.price} {item.currency?.symbol}
-                                    </div>
-                                </div>
-                            );
-                        }}
+                                )
+                            }
+                        ]}
                         allowReorder={false}
-                        showHeader={false}
+                        showHeader={true}
+                        showRowLabels={false}
                         extraBottomRow={
                             <tr>
-                                <td colSpan={2}>
+                                <td colSpan={4}>
                                     <button className="table-button lobster" onClick={() => setIsAddModalOpen(true)}>
                                         Add shopping item
                                     </button>

@@ -16,6 +16,17 @@ const MenuPage = () => {
         { label: 'Shopping list', onClick: () => navigate('/shopping-list') }
     ];
 
+    const columns = [
+        {
+            header: '',
+            render: (row) => (
+                <button className="meal-button lobster" onClick={row.onClick}>
+                    {row.label}
+                </button>
+            ),
+        },
+    ];
+
     return (
         <div className="app-container">
             <div className="page-header">
@@ -27,15 +38,7 @@ const MenuPage = () => {
                     <TapedTable
                         layout="vertical"
                         rows={rows}
-                        renderCell={(rowIndex) => {
-                            const row = rows[rowIndex];
-                            return (
-                                <button className="meal-button lobster" onClick={row.onClick}>
-                                    {row.label}
-                                </button>
-                            );
-                        }}
-                        handleReset={() => {}}
+                        columns={columns}
                         allowReorder={false}
                         showRowLabels={false}
                         showHeader={false}

@@ -6,70 +6,71 @@ import upArrow from '../assets/images/arrowup.png';
 import downArrow from '../assets/images/arrowdown.png';
 
 const TapedTable = ({
-                        columns,
-                        rows,
-                        renderCell,
-                        extraBottomRow,
-                        handleReset,
-                        handleReorder,
-                        navigate,
                         layout = 'horizontal',
-                        renderRowLabel,
+                        columns = [],
+                        rows = [],
+                        renderHeaderCell = null,
+                        renderRowLabel = null,
+                        renderCell = null,
+                        extraBottomRow = null,
+                        onReset = null,
+                        onReorder = null,
                         allowReorder = true,
+                        showHeader = true,
                         showRowLabels = true,
-                        showHeader = true
+                        rowLabelHeader = ''
                     }) => {
-
     return (
-        <div className={`taped-table-wrapper ${layout === 'vertical' ? 'vertical-layout' : 'horizontal-layout'}`}
-             style={{ backgroundImage: `url(${paperBackground})` }}>
-            {/* Tapes on corners */}
+        <div
+            className={`taped-table-wrapper ${layout === 'vertical' ? 'vertical-layout' : 'horizontal-layout'}`}
+            style={{ backgroundImage: `url(${paperBackground})` }}
+        >
             <img src={pinkFlowerTape} alt="tape" className="tape top-left" />
             <img src={pinkFlowerTape} alt="tape" className="tape top-right" />
             <img src={pinkFlowerTape} alt="tape" className="tape bottom-left" />
             <img src={pinkFlowerTape} alt="tape" className="tape bottom-right" />
 
             <table className="taped-table">
-                <thead>
+                {showHeader && (
+                    <thead>
                     <tr>
-                        {showHeader && (
-                            <>
-                                <th>
-                                    <button className="table-button lobster" onClick={handleReset}>Reset</button>
-                                </th>
-                                {layout === 'horizontal' && columns.map((col, idx) => (
-                                    <th key={idx} className="day-name lobster" onClick={() => navigate(`/day/${col}`)}>
-                                        {col}
-                                    </th>
-
-                                ))}
-                                {layout === 'vertical' && <th className="lobster">Meals</th>}
-                            </>
+                        {showRowLabels && (
+                            <th>
+                                {onReset ? (
+                                    <button className="table-button lobster" onClick={onReset}>
+                                        Reset
+                                    </button>
+                                ) : (
+                                    <span className="lobster" style={{ fontSize: 'clamp(12px, 2vw, 18px)' }}>{rowLabelHeader || ''}</span>
+                                )}
+                            </th>
                         )}
+                        {columns.map((col, idx) => (
+                            <th key={idx} className="lobster">
+                                {renderHeaderCell ? renderHeaderCell(col, idx) : col.header || ''}
+                            </th>
+                        ))}
                     </tr>
-                </thead>
+                    </thead>
+                )}
+
                 <tbody>
                 {rows.map((row, rowIndex) => (
                     <tr key={row.id || rowIndex}>
                         {showRowLabels && (
                             <td className="lobster meal-time-cell">
                                 <div className="meal-time-container">
-                                    {renderRowLabel ? (
-                                        <div className="meal-time-name">
-                                            {renderRowLabel(row, rowIndex)}
-                                        </div>
-                                    ) : (
-                                        <span className="meal-time-name" onClick={() => navigate(`/meal/${row.name}`)}>
-                                            {row.name}
-                                        </span>)}
-                                    {allowReorder && (
+                                    <div className="meal-time-name">
+                                        {renderRowLabel ? renderRowLabel(row, rowIndex) : row.name}
+                                    </div>
+                                    {allowReorder && onReorder && (
                                         <div className="arrow-buttons">
                                             {rowIndex > 0 && (
                                                 <img
                                                     src={upArrow}
                                                     alt="Move up"
                                                     className="arrow-button"
-                                                    onClick={() => handleReorder(rowIndex, rowIndex - 1)}
+                                                    onClick={() => onReorder(rowIndex, rowIndex - 1)}
                                                 />
                                             )}
                                             {rowIndex < rows.length - 1 && (
@@ -77,7 +78,7 @@ const TapedTable = ({
                                                     src={downArrow}
                                                     alt="Move down"
                                                     className="arrow-button"
-                                                    onClick={() => handleReorder(rowIndex, rowIndex + 1)}
+                                                    onClick={() => onReorder(rowIndex, rowIndex + 1)}
                                                 />
                                             )}
                                         </div>
@@ -85,18 +86,17 @@ const TapedTable = ({
                                 </div>
                             </td>
                         )}
-                        {layout === 'horizontal' && columns.map((col, colIndex) => (
-                            <td key={colIndex} className="patrick" >
-                                {renderCell(rowIndex, colIndex)}
+
+                        {columns.map((col, colIndex) => (
+                            <td key={colIndex} className="patrick">
+                                {col.render
+                                    ? col.render(row, rowIndex, colIndex)
+                                    : renderCell?.(rowIndex, colIndex) || null}
                             </td>
                         ))}
-                        {layout === 'vertical' && (
-                            <td className="patrick">
-                                {renderCell(rowIndex, 0)}
-                            </td>
-                        )}
                     </tr>
                 ))}
+
                 {extraBottomRow}
                 </tbody>
             </table>

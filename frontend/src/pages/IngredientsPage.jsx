@@ -43,36 +43,39 @@ const IngredientsPage = () => {
                 <TapedTable
                     layout="vertical"
                     rows={sortedIngredients}
-                    renderCell={(rowIndex) => {
-                        const i = sortedIngredients[rowIndex];
-                        return (
-                            <div className="table-row">
-                                <span className="cell-name">{i.name}</span>
-                                <div className="cell-icons">
-                                    <div className="edit-buttons">
-                                        <img
-                                            src={require('../assets/images/pencil.png')}
-                                            alt="Edit"
-                                            className="edit-button"
-                                            onClick={() => handleEditIngredient(i)}
-                                        />
-                                        <img
-                                            src={require('../assets/images/trashcan.png')}
-                                            alt="Delete"
-                                            className="edit-button"
-                                            onClick={() => handleDeleteIngredient(i.id)}
-                                        />
-                                    </div>
+                    columns={[
+                        {
+                            header: "Ingredient",
+                            render: (i) => (
+                                <span className="ingredient-name">{i.name}</span>
+                            )
+                        },
+                        {
+                            header: "Actions",
+                            render: (i) => (
+                                <div className="edit-buttons">
+                                    <img
+                                        src={require('../assets/images/pencil.png')}
+                                        alt="Edit"
+                                        className="edit-button"
+                                        onClick={() => handleEditIngredient(i)}
+                                    />
+                                    <img
+                                        src={require('../assets/images/trashcan.png')}
+                                        alt="Delete"
+                                        className="edit-button"
+                                        onClick={() => handleDeleteIngredient(i.id)}
+                                    />
                                 </div>
-                            </div>
-                        );
-                    }}
+                            )
+                        }
+                    ]}
                     allowReorder={false}
-                    showHeader={false}
+                    showHeader={true}
                     showRowLabels={false}
                     extraBottomRow={
                         <tr>
-                            <td>
+                            <td colSpan={2}>
                                 <button className="table-button lobster" onClick={() => setIsNameModalOpen(true)}>
                                     Add new ingredient
                                 </button>

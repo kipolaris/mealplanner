@@ -42,36 +42,45 @@ const FoodsPage = () => {
                 <TapedTable
                     layout="vertical"
                     rows={sortedFoods}
-                    renderCell={(rowIndex) => {
-                        const f = sortedFoods[rowIndex];
-                        return (
-                            <div className="table-row">
-                                <span className="cell-name" onClick={() => navigate(`/food/${encodeURIComponent(f.name)}`)}>{f.name}</span>
-                                <div className="cell-icons">
-                                    <div className="edit-buttons">
-                                        <img
-                                            src={require('../assets/images/pencil.png')}
-                                            alt="Edit"
-                                            className="edit-button"
-                                            onClick={() => handleEditFood(f)}
-                                        />
-                                        <img
-                                            src={require('../assets/images/trashcan.png')}
-                                            alt="Delete"
-                                            className="edit-button"
-                                            onClick={() => handleDeleteFood(f.id)}
-                                        />
-                                    </div>
+                    columns={[
+                        {
+                            header: "Food",
+                            render: (f) => (
+                                <span
+                                    className="patrick"
+                                    style={{ fontSize: 'clamp(12px, 2vw, 18px)', cursor: 'pointer'}}
+                                    onClick={() => navigate(`/food/${encodeURIComponent(f.name)}`)}
+                                >
+                                    {f.name}
+                                </span>
+                            ),
+                        },
+                        {
+                            header: "Actions",
+                            render: (f) => (
+                                <div className="edit-buttons">
+                                    <img
+                                        src={require('../assets/images/pencil.png')}
+                                        alt="Edit"
+                                        className="edit-button"
+                                        onClick={() => handleEditFood(f)}
+                                    />
+                                    <img
+                                        src={require('../assets/images/trashcan.png')}
+                                        alt="Delete"
+                                        className="edit-button"
+                                        onClick={() => handleDeleteFood(f.id)}
+                                    />
                                 </div>
-                            </div>
-                        );
-                    }}
-                    allowReorder={false}
-                    showHeader={false}
+                            ),
+                        },
+                    ]}
+                    showHeader={true}
                     showRowLabels={false}
+                    allowReorder={false}
                     extraBottomRow={
                         <tr>
-                            <td>
+                            <td colSpan={2}>
                                 <button className="table-button lobster" onClick={() => setIsModalOpen(true)}>
                                     Add new food
                                 </button>

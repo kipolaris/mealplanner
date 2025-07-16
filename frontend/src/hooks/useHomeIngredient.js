@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { BackendUrl } from "../utils/constants";
 import {useUnitOfMeasure} from "./useUnitOfMeasure";
 
-export const useHomeIngredients = () => {
+export const useHomeIngredients = (setIngredients) => {
     const [homeIngredients, setHomeIngredients] = useState([]);
     const [editingHomeIngredient, setEditingHomeIngredient] = useState(null);
     const [isAddIngredientModalOpen, setIsAddIngredientModalOpen] = useState(false);
@@ -85,6 +85,11 @@ export const useHomeIngredients = () => {
             });
 
             const newIngredient = await ingredientResponse.json();
+
+            fetch(`${BackendUrl}/api/ingredients`)
+                .then(response => response.json())
+                .then(data => setIngredients(data))
+                .catch(error => console.log('Error fetching ingredients:',error));
 
             const homeIngredientResponse = await fetch(`${BackendUrl}/api/home-ingredients`, {
                 method: 'POST',
