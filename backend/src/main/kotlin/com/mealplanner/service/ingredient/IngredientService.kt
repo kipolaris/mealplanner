@@ -36,9 +36,10 @@ class IngredientService(
         val ingredient = ingredientRepository.findById(id).orElseThrow {
             throw RuntimeException("Ingredient not found")
         }
-        foodIngredientService.deleteFoodIngredient(id)
-        homeIngredientService.deleteHomeIngredient(id)
-        shoppingItemService.deleteShoppingItem(id)
+
+        foodIngredientService.deleteByIngredientId(id)
+        homeIngredientService.deleteByIngredientId(id)
+        shoppingItemService.deleteByIngredientId(id)
         ingredientRepository.delete(ingredient)
     }
 }

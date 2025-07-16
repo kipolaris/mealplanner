@@ -16,7 +16,7 @@ export const useFoods = () => {
             .catch(error => console.error('Error fetching foods:',error));
     }, []);
 
-    const handleAddFood = (newName) => {
+    const addFood = (newName) => {
         const foodData = { name: newName, id: undefined, description: undefined, ingredients: [] };
         fetch(`${BackendUrl}/api/foods`, {
             method: 'POST',
@@ -31,7 +31,7 @@ export const useFoods = () => {
             .catch(error => console.error('Error adding food:', error));
     };
 
-    const handleDeleteFood = (foodId) => {
+    const deleteFood = (foodId) => {
         fetch(`${BackendUrl}/api/foods/${foodId}`, { method: 'DELETE' })
             .then(response => {
                 if (response.ok) {
@@ -47,12 +47,12 @@ export const useFoods = () => {
             .catch(error => console.error(`Error deleting food with id ${foodId}:`, error));
     };
 
-    const handleEditFood = (food) => {
+    const editFood = (food) => {
         setEditingFood(food);
         setIsModalOpen(true);
     }
 
-    const handleSaveEditedFood = (newName) => {
+    const saveEditedFood = (newName) => {
         if(!editingFood) return;
 
         const food = {
@@ -84,9 +84,9 @@ export const useFoods = () => {
         isModalOpen,
         setIsModalOpen,
         editingFood,
-        handleAddFood,
-        handleDeleteFood,
-        handleEditFood,
-        handleSaveEditedFood
+        addFood,
+        deleteFood,
+        editFood,
+        saveEditedFood
     }
 }

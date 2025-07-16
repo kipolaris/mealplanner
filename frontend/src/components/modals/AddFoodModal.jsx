@@ -3,7 +3,7 @@ import trashIcon from '../../assets/images/trashcan.png';
 import paperBackground from '../../assets/images/paperbackground.png'
 import '../../assets/css/components/modal.css'
 
-const AddFoodModal = ({ isOpen, onClose, onSave, onClearMeal, meal, savedFoods = [], onDeleteFood }) => {
+const AddFoodModal = ({ isOpen, onClose, onSave, onClearMeal, meal, savedFoods = [] }) => {
     const [selectedFood, setSelectedFood] = useState('');
     const [newFood, setNewFood] = useState('');
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -22,15 +22,6 @@ const AddFoodModal = ({ isOpen, onClose, onSave, onClearMeal, meal, savedFoods =
             onSave(food);
             onClose();
         }
-    };
-
-    const handleDelete = (food) => {
-        if (!food || !food.id) {
-            console.error("Food object does not have an ID:", food);
-            return;
-        }
-        onDeleteFood(food.id);
-        setSelectedFood(prev => (prev === food.name ? '' : prev));
     };
 
     const handleClear = () => {
@@ -74,15 +65,6 @@ const AddFoodModal = ({ isOpen, onClose, onSave, onClearMeal, meal, savedFoods =
                             {savedFoods.map(food => (
                                 <div key={food.id} className="dropdown-item" onClick={() => handleSelectFood(food)}>
                                     <span>{food.name}</span>
-                                    <img
-                                        src={trashIcon}
-                                        alt="Delete"
-                                        className="trash-icon"
-                                        onClick={(e) => {
-                                            e.stopPropagation(); // Prevent triggering the parent onClick
-                                            handleDelete(food);
-                                        }}
-                                    />
                                 </div>
                             ))}
                         </div>

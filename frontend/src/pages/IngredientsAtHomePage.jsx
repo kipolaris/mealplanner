@@ -10,6 +10,8 @@ import {useUnitOfMeasure} from "../hooks/useUnitOfMeasure";
 import AddIngredientModal from "../components/modals/AddIngredientModal";
 import MergeAmountModal from "../components/modals/MergeAmountModal";
 import EditQuantityModal from "../components/modals/EditQuantityModal";
+import {useConfirm} from "../hooks/useConfirm";
+import ConfirmModal from "../components/modals/ConfirmModal";
 
 const IngredientsAtHomePage = () => {
     const navigate = useNavigate();
@@ -26,12 +28,20 @@ const IngredientsAtHomePage = () => {
         setIsMergeModalOpen,
         pendingMerge,
         confirmMergeHomeIngredient,
-        handleAddHomeIngredient,
-        handleAddNewHomeIngredient,
-        handleDeleteHomeIngredient,
-        handleEditHomeIngredient,
-        handleSaveEditedHomeIngredient,
+        addHomeIngredient,
+        addNewHomeIngredient,
+        deleteHomeIngredient,
+        editHomeIngredient,
+        saveEditedHomeIngredient,
     } = useHomeIngredients(setIngredients);
+
+    const {
+        isConfirmModalOpen,
+        setIsConfirmModalOpen,
+        confirmText,
+        confirmAction,
+        confirm
+    } = useConfirm();
 
     const unitsOfMeasure = useUnitOfMeasure()
 
@@ -39,11 +49,13 @@ const IngredientsAtHomePage = () => {
 
     const handleSave = async (selectedIngredient, newIngredientName, amount, unitId, expirationDate) => {
         if (selectedIngredient) {
-            await handleAddHomeIngredient(selectedIngredient.id, amount, unitId, expirationDate);
+            await addHomeIngredient(selectedIngredient.id, amount, unitId, expirationDate);
         } else if (newIngredientName.trim()) {
-            await handleAddNewHomeIngredient(newIngredientName.trim(), amount, unitId, expirationDate);
+            await addNewHomeIngredient(newIngredientName.trim(), amount, unitId, expirationDate);
         }
     };
+
+    const handleDeleteHomeIngredient = (homeIngredient) => confirm(`Are you sure you want to delete ${homeIngredient.ingredient.name}?`,() => deleteHomeIngredient(homeIngredient.id))
 
     if (!Array.isArray(homeIngredients)) return <PageTitle text="Loading ingredients..." />;
 
@@ -99,13 +111,13 @@ const IngredientsAtHomePage = () => {
                                             src={require('../assets/images/pencil.png')}
                                             alt="Edit"
                                             className="edit-button"
-                                            onClick={() => handleEditHomeIngredient(hi)}
+                                            onClick={() => editHomeIngredient(hi)}
                                         />
                                         <img
                                             src={require('../assets/images/trashcan.png')}
                                             alt="Delete"
                                             className="edit-button"
-                                            onClick={() => handleDeleteHomeIngredient(hi.id)}
+                                            onClick={() => handleDeleteHomeIngredient(hi)}
                                         />
                                     </div>
                                 )
@@ -138,7 +150,7 @@ const IngredientsAtHomePage = () => {
             <EditQuantityModal
                 isOpen={isQuantityModalOpen}
                 onClose={() => setIsQuantityModalOpen(false)}
-                onSave={handleSaveEditedHomeIngredient}
+                onSave={saveEditedHomeIngredient}
                 ingredient={editingHomeIngredient}
                 unitsOfMeasure={unitsOfMeasure}
                 showExpirationInput={true}
@@ -150,6 +162,12 @@ const IngredientsAtHomePage = () => {
                 listName="home ingredients"
                 amount={pendingMerge?.amount}
                 unit={pendingMerge?.unit}
+            />
+            <ConfirmModal
+                isOpen={isConfirmModalOpen}
+                onClose={() => setIsConfirmModalOpen(false)}
+                onSave={confirmAction}
+                text={confirmText}
             />
         </div>
     );

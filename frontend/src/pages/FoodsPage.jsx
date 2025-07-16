@@ -5,6 +5,8 @@ import PageTitle from "../components/PageTitle";
 import TapeButton from "../components/TapeButton";
 import TapedTable from "../components/TapedTable";
 import NewNameModal from "../components/modals/NewNameModal";
+import {useConfirm} from "../hooks/useConfirm";
+import ConfirmModal from "../components/modals/ConfirmModal";
 
 const FoodsPage = () => {
     const navigate = useNavigate();
@@ -14,15 +16,25 @@ const FoodsPage = () => {
         isModalOpen,
         setIsModalOpen,
         editingFood,
-        handleAddFood,
-        handleDeleteFood,
-        handleEditFood,
-        handleSaveEditedFood
+        addFood,
+        deleteFood,
+        editFood,
+        saveEditedFood
     } = useFoods();
+
+    const {
+        isConfirmModalOpen,
+        setIsConfirmModalOpen,
+        confirmText,
+        confirmAction,
+        confirm
+    } = useConfirm();
 
     const navigateToMenu = () => {
         navigate('/menu');
     };
+
+    const handleDeleteFood = (food) => confirm(`Are you sure you want to delete ${food.name}?`, () => deleteFood(food.id));
 
     if (!Array.isArray(foods)) return <PageTitle text="Loading foods..." />;
 
@@ -63,13 +75,13 @@ const FoodsPage = () => {
                                         src={require('../assets/images/pencil.png')}
                                         alt="Edit"
                                         className="edit-button"
-                                        onClick={() => handleEditFood(f)}
+                                        onClick={() => editFood(f)}
                                     />
                                     <img
                                         src={require('../assets/images/trashcan.png')}
                                         alt="Delete"
                                         className="edit-button"
-                                        onClick={() => handleDeleteFood(f.id)}
+                                        onClick={() => handleDeleteFood(f)}
                                     />
                                 </div>
                             ),
@@ -93,13 +105,19 @@ const FoodsPage = () => {
                     onClose={() => setIsModalOpen(false)}
                     onSave={(name) => {
                         if (editingFood) {
-                            handleSaveEditedFood(name);
+                            saveEditedFood(name);
                         } else {
-                            handleAddFood(name);
+                            addFood(name);
                         }
                     }}
                     itemName="food"
                     defaultName={editingFood?.name}
+                />
+                <ConfirmModal
+                    isOpen={isConfirmModalOpen}
+                    onClose={() => setIsConfirmModalOpen(false)}
+                    onSave={confirmAction}
+                    text={confirmText}
                 />
             </div>
         </div>

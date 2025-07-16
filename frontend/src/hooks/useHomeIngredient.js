@@ -19,7 +19,7 @@ export const useHomeIngredients = (setIngredients) => {
             .catch(error => console.error("Failed to fetch home ingredients", error));
     }, []);
 
-    const handleAddHomeIngredient = (ingredientId, amount, unitId, expirationDate) => {
+    const addHomeIngredient = (ingredientId, amount, unitId, expirationDate) => {
         fetch(`${BackendUrl}/api/home-ingredients`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -73,7 +73,7 @@ export const useHomeIngredients = (setIngredients) => {
             .catch(error => console.error("Merge failed:", error));
     };
 
-    const handleAddNewHomeIngredient = async (newName, newAmount, unitId, expirationDate) => {
+    const addNewHomeIngredient = async (newName, newAmount, unitId, expirationDate) => {
         try {
             const ingredientResponse = await fetch(`${BackendUrl}/api/ingredients`, {
                 method: 'POST',
@@ -102,12 +102,12 @@ export const useHomeIngredients = (setIngredients) => {
         }
     };
 
-    const handleEditHomeIngredient = (ingredient) => {
+    const editHomeIngredient = (ingredient) => {
         setEditingHomeIngredient(ingredient);
         setIsQuantityModalOpen(true);
     };
 
-    const handleSaveEditedHomeIngredient = (newAmount, unitId, expirationDate) => {
+    const saveEditedHomeIngredient = (newAmount, unitId, expirationDate) => {
         if(!editingHomeIngredient) return;
 
         const homeIngredient = {
@@ -134,7 +134,7 @@ export const useHomeIngredients = (setIngredients) => {
             .catch(error => console.error('Error editing home ingredient:',error));
     };
 
-    const handleDeleteHomeIngredient = (homeIngredientId) => {
+    const deleteHomeIngredient = (homeIngredientId) => {
         fetch(`${BackendUrl}/api/home-ingredients/${homeIngredientId}`, {
             method: 'DELETE'
         })
@@ -160,10 +160,10 @@ export const useHomeIngredients = (setIngredients) => {
         pendingMerge,
         setPendingMerge,
         confirmMergeHomeIngredient,
-        handleAddHomeIngredient,
-        handleAddNewHomeIngredient,
-        handleEditHomeIngredient,
-        handleSaveEditedHomeIngredient,
-        handleDeleteHomeIngredient
+        addHomeIngredient,
+        addNewHomeIngredient,
+        editHomeIngredient,
+        saveEditedHomeIngredient,
+        deleteHomeIngredient
     };
 };

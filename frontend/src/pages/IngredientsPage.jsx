@@ -5,6 +5,8 @@ import PageTitle from "../components/PageTitle";
 import TapeButton from "../components/TapeButton";
 import TapedTable from "../components/TapedTable";
 import NewNameModal from "../components/modals/NewNameModal";
+import {useConfirm} from "../hooks/useConfirm";
+import ConfirmModal from "../components/modals/ConfirmModal";
 
 const IngredientsPage = () => {
     const navigate = useNavigate();
@@ -15,15 +17,25 @@ const IngredientsPage = () => {
         isNameModalOpen,
         setIsNameModalOpen,
         editingIngredient,
-        handleAddIngredient,
-        handleEditIngredient,
-        handleSaveEditedIngredient,
-        handleDeleteIngredient
+        addIngredient,
+        editIngredient,
+        saveEditedIngredient,
+        deleteIngredient
     } = useIngredient();
+
+    const {
+        isConfirmModalOpen,
+        setIsConfirmModalOpen,
+        confirmText,
+        confirmAction,
+        confirm
+    } = useConfirm();
 
     const navigateToMenu = () => {
         navigate('/menu');
     }
+
+    const handleDeleteIngredient = (ingredient) => confirm(`Are you sure you want to delete ${ingredient.name}?`,() => deleteIngredient(ingredient.id));
 
     if (!Array.isArray(ingredients)) return <PageTitle text="Loading ingredients..." />;
 
@@ -58,13 +70,13 @@ const IngredientsPage = () => {
                                         src={require('../assets/images/pencil.png')}
                                         alt="Edit"
                                         className="edit-button"
-                                        onClick={() => handleEditIngredient(i)}
+                                        onClick={() => editIngredient(i)}
                                     />
                                     <img
                                         src={require('../assets/images/trashcan.png')}
                                         alt="Delete"
                                         className="edit-button"
-                                        onClick={() => handleDeleteIngredient(i.id)}
+                                        onClick={() => handleDeleteIngredient(i)}
                                     />
                                 </div>
                             )
@@ -89,13 +101,19 @@ const IngredientsPage = () => {
                 onClose={() => setIsNameModalOpen(false)}
                 onSave={(name) => {
                     if (editingIngredient) {
-                        handleSaveEditedIngredient(name);
+                        saveEditedIngredient(name);
                     } else {
-                        handleAddIngredient(name);
+                        addIngredient(name);
                     }
                 }}
                 itemName="ingredient"
                 defaultName={editingIngredient?.name}
+            />
+            <ConfirmModal
+                isOpen={isConfirmModalOpen}
+                onClose={() => setIsConfirmModalOpen(false)}
+                onSave={confirmAction}
+                text={confirmText}
             />
         </div>
     );

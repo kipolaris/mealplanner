@@ -14,6 +14,8 @@ import EditShoppingItemModal from "../components/modals/EditShoppingItemModal";
 import MergeShoppingItemModal from "../components/modals/MergeShoppingItemModal";
 import MergeAmountModal from "../components/modals/MergeAmountModal";
 import {useHomeIngredients} from "../hooks/useHomeIngredient";
+import ConfirmModal from "../components/modals/ConfirmModal";
+import {useConfirm} from "../hooks/useConfirm";
 
 const ShoppingListPage = () => {
     const navigate = useNavigate();
@@ -55,6 +57,22 @@ const ShoppingListPage = () => {
         handleCheckShoppingItem
     } = useShoppingList({ingredients, setIngredients, homeIngredients, setPendingMerge, handleAddHomeIngredient, setIsMergeModalOpen});
 
+    const {
+        isConfirmModalOpen : isDeleteConfirmModalOpen,
+        setIsConfirmModalOpen : setIsDeleteConfirmModalOpen,
+        confirmText : deleteConfirmText,
+        confirmAction : deleteConfirmAction,
+        confirm : confirmDelete
+    } = useConfirm();
+
+    const {
+        isConfirmModalOpen : isResetConfirmModalOpen,
+        setIsConfirmModalOpen : setIsResetConfirmModalOpen,
+        confirmText : resetConfirmText,
+        confirmAction : resetConfirmAction,
+        confirm : confirmReset
+    } = useConfirm();
+
     const navigateToMenu = () => navigate('/menu');
 
     const handleSave = async (selectedIngredient, newIngredientName, amount, unitId, price, currencyId) => {
@@ -64,6 +82,10 @@ const ShoppingListPage = () => {
             await  handleAddNewShoppingItem(newIngredientName.trim(), amount, unitId, price, currencyId);
         }
     };
+
+    const handleDelete = (shoppingItem) => confirmDelete(`Are you sure you want to delete ${shoppingItem.ingredient.name} from the shopping list?`,() => handleDeleteShoppingItem(shoppingItem.id));
+
+    const handleResetShoppingList = () => confirmReset(`Are you sure you want to reset the shopping list?`,() => resetShoppingList())
 
     if (!Array.isArray(shoppingList.items)) return <PageTitle text="Loading shopping list..."/>;
 
@@ -76,7 +98,7 @@ const ShoppingListPage = () => {
             <div className="page-header">
                 <div className="header-buttons">
                     <TapeButton text="Menu" onClick={navigateToMenu} />
-                    <TapeButton text="Reset" onClick={resetShoppingList} />
+                    <TapeButton text="Reset" onClick={handleResetShoppingList} />
                 </div>
                 <PageTitle text="Shopping list" />
             </div>
@@ -118,7 +140,7 @@ const ShoppingListPage = () => {
                                             src={require('../assets/images/trashcan.png')}
                                             alt="Delete"
                                             className="edit-button"
-                                            onClick={() => handleDeleteShoppingItem(si.id)}
+                                            onClick={() => handleDelete(si)}
                                         />
                                         <img
                                             src={require('../assets/images/checkbox.png')}
@@ -177,6 +199,18 @@ const ShoppingListPage = () => {
                 listName="ingredients at home"
                 amount={pendingMerge?.amount}
                 unit={pendingMerge?.unit}
+            />
+            <ConfirmModal
+                isOpen={isDeleteConfirmModalOpen}
+                onClose={() => setIsDeleteConfirmModalOpen(false)}
+                onSave={deleteConfirmAction}
+                text={deleteConfirmText}
+            />
+            <ConfirmModal
+                isOpen={isResetConfirmModalOpen}
+                onClose={() => setIsResetConfirmModalOpen(false)}
+                onSave={resetConfirmAction}
+                text={resetConfirmText}
             />
         </div>
     )

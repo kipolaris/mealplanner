@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import AddFoodModal from '../components/modals/AddFoodModal';
@@ -10,6 +10,8 @@ import PageTitle from "../components/PageTitle";
 import TapedTable from "../components/TapedTable";
 import TapeButton from "../components/TapeButton";
 import NewNameModal from "../components/modals/NewNameModal";
+import {useConfirm} from "../hooks/useConfirm";
+import ConfirmModal from "../components/modals/ConfirmModal";
 
 const MealPlanPage = () => {
     const {
@@ -28,14 +30,21 @@ const MealPlanPage = () => {
 
     const {
         mealTimes,
-        handleAddMealTime,
+        addMealTime,
         handleReorder,
         isNameModalOpen,
         setIsNameModalOpen
     } = useMealTime(mealPlan, updateMealPlan);
 
-    const navigate = useNavigate();
+    const {
+        isConfirmModalOpen,
+        setIsConfirmModalOpen,
+        confirmText,
+        confirmAction,
+        confirm
+    } = useConfirm();
 
+    const navigate = useNavigate();
     const navigateToMenu = () => {
         navigate('/menu')
     }
@@ -44,6 +53,10 @@ const MealPlanPage = () => {
         setSelectedCell({ day: day, meal: meal, mealtime: mealtime });
         setIsModalOpen(true);
     };
+
+    const handleResetMealPlan = () => {
+        confirm('Are you sure you want to reset the meal plan?', () => resetMealPlan())
+    }
 
     if (!mealPlan?.days || mealPlan.days.length === 0) {
         return <PageTitle className="loading" text="Loading Meal Plan..." />;
@@ -102,7 +115,7 @@ const MealPlanPage = () => {
                                 </td>
                             </tr>
                         }
-                        onReset={resetMealPlan}
+                        onReset={handleResetMealPlan}
                         onReorder={handleReorder}
                         showHeader={true}
                         showRowLabels={true}
@@ -117,13 +130,18 @@ const MealPlanPage = () => {
                 onClearMeal={resetMeal}
                 meal={selectedCell.meal}
                 savedFoods={sortedSavedFoods}
-                onDeleteFood={handleDeleteFood}
             />
             <NewNameModal
                 isOpen={isNameModalOpen}
                 onClose={() => setIsNameModalOpen(false)}
-                onSave={handleAddMealTime}
+                onSave={addMealTime}
                 itemName="meal time"
+            />
+            <ConfirmModal
+                isOpen={isConfirmModalOpen}
+                onClose={() => setIsConfirmModalOpen(false)}
+                onSave={confirmAction}
+                text={confirmText}
             />
         </div>
     );

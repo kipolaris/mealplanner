@@ -5,18 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="394f1832-2bd8-4dcd-b968-3262c9a548d2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/modals/ConfirmModal.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/hooks/useConfirm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/ingredient/HomeIngredientController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/controllers/ingredient/HomeIngredientController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/data/ingredient/HomeIngredient.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/data/ingredient/HomeIngredient.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/ingredient/FoodIngredientService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/ingredient/FoodIngredientService.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/ingredient/HomeIngredientService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/ingredient/HomeIngredientService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/assets/css/ingredients.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/css/ingredients.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/modals/AddIngredientModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/modals/AddIngredientModal.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/modals/EditQuantityModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/modals/EditQuantityModal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/ingredient/IngredientService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/ingredient/IngredientService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/shopping/ShoppingItemService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/mealplanner/service/shopping/ShoppingItemService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/modals/AddFoodModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/modals/AddFoodModal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/modals/MergeAmountModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/modals/MergeAmountModal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useFoodIngredient.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useFoodIngredient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useFoods.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useFoods.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useHomeIngredient.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useHomeIngredient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useIngredient.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useIngredient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useMealTime.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useMealTime.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/DayPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/DayPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/FoodPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/FoodPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/FoodsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/FoodsPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/IngredientsAtHomePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/IngredientsAtHomePage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/IngredientsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/IngredientsPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/MealPlanPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MealPlanPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/MealTimePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MealTimePage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/MealTimesPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/MealTimesPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/ShoppingListPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/ShoppingListPage.jsx" afterDir="false" />
     </list>
     <list id="542fc26d-9e25-4b21-8122-007167c71aa5" name="Changes by Lili" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -75,8 +86,8 @@
         <option value="Kotlin Data Class" />
         <option value="Kotlin Interface" />
         <option value="Kotlin Class" />
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -355,7 +366,7 @@
       <workItem from="1749431050520" duration="641000" />
       <workItem from="1750456787616" duration="217000" />
       <workItem from="1751897773938" duration="606000" />
-      <workItem from="1752519079986" duration="17612000" />
+      <workItem from="1752519079986" duration="24940000" />
     </task>
     <servers />
   </component>

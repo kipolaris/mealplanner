@@ -18,6 +18,8 @@ import {useShoppingList} from "../hooks/useShoppingList";
 import {useCurrency} from "../hooks/useCurrency";
 import MergeShoppingItemModal from "../components/modals/MergeShoppingItemModal";
 import AddFiToShoppingListModal from "../components/modals/AddFiToShoppingListModal";
+import {useConfirm} from "../hooks/useConfirm";
+import ConfirmModal from "../components/modals/ConfirmModal";
 
 const FoodPage = () => {
     const { foodName } = useParams();
@@ -60,13 +62,21 @@ const FoodPage = () => {
         setIsAddIngredientModalOpen,
         isQuantityModalOpen,
         setIsQuantityModalOpen,
-        handleAddFoodIngredient,
-        handleAddNewFoodIngredient,
-        handleEditFoodIngredient,
-        handleSaveEditedFoodIngredient,
-        handleDeleteFoodIngredient,
+        addFoodIngredient,
+        addNewFoodIngredient,
+        editFoodIngredient,
+        saveEditedFoodIngredient,
+        deleteFoodIngredient,
         handleAddToShoppingList
     } = useFoodIngredient(food?.id, shoppingList, setPendingShoppingItemMerge, setIsShoppingItemMergeModalOpen, handleAddShoppingItem, setIngredients);
+
+    const {
+        isConfirmModalOpen,
+        setIsConfirmModalOpen,
+        confirmText,
+        confirmAction,
+        confirm
+    } = useConfirm();
 
     const navigateToMenu = () => {
         navigate('/menu');
@@ -78,9 +88,9 @@ const FoodPage = () => {
 
     const handleSave = async (selectedIngredient, newIngredientName, amount, unitId) => {
         if (selectedIngredient) {
-            await handleAddFoodIngredient(selectedIngredient.id, amount, unitId);
+            await addFoodIngredient(selectedIngredient.id, amount, unitId);
         } else if (newIngredientName.trim()) {
-            await handleAddNewFoodIngredient(newIngredientName.trim(), amount, unitId);
+            await addNewFoodIngredient(newIngredientName.trim(), amount, unitId);
         }
     };
 
@@ -88,6 +98,8 @@ const FoodPage = () => {
         setFoodIngredientToShoppingList(foodIngredient);
         setIsAddToShoppingListModalOpen(true);
     }
+
+    const handleDeleteFoodIngredient = (foodIngredient) => confirm(`Are you sure you want to delete ${foodIngredient.ingredient.name} from ${foodName}?`,() => deleteFoodIngredient(foodIngredient));
 
     if (!food) return <PageTitle text="Loading food..." />
 
@@ -178,7 +190,7 @@ const FoodPage = () => {
                                             src={require('../assets/images/pencil.png')}
                                             alt="Edit"
                                             className="edit-button"
-                                            onClick={() => handleEditFoodIngredient(fi)}
+                                            onClick={() => editFoodIngredient(fi)}
                                         />
                                         <img
                                             src={require('../assets/images/trashcan.png')}
@@ -214,7 +226,7 @@ const FoodPage = () => {
                 <EditQuantityModal
                     isOpen={isQuantityModalOpen}
                     onClose={() => setIsQuantityModalOpen(false)}
-                    onSave={handleSaveEditedFoodIngredient}
+                    onSave={saveEditedFoodIngredient}
                     ingredient={editingFoodIngredient}
                     unitsOfMeasure={unitsOfMeasure}
                 />
@@ -225,7 +237,6 @@ const FoodPage = () => {
                     foodIngredient={foodIngredientToShoppingList}
                     currencies={currencies}
                 />
-
                 <MergeShoppingItemModal
                     isOpen={isShoppingItemMergeModalOpen}
                     onClose={() => setIsShoppingItemMergeModalOpen(false)}
@@ -234,6 +245,12 @@ const FoodPage = () => {
                     unit={pendingShoppingItemMerge?.unit}
                     price={pendingShoppingItemMerge?.price}
                     currency={pendingShoppingItemMerge?.currency}
+                />
+                <ConfirmModal
+                    isOpen={isConfirmModalOpen}
+                    onClose={() => setIsConfirmModalOpen(false)}
+                    onSave={confirmAction}
+                    text={confirmText}
                 />
             </div>
         </div>

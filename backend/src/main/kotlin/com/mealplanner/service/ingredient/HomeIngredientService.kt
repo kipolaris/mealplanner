@@ -26,6 +26,13 @@ class HomeIngredientService(
         return homeIngredientRepository.findAll().find { it.ingredient?.id == ingredientId }
     }
 
+    fun deleteByIngredientId(ingredientId: Long) {
+        val hi = getByIngredientId(ingredientId)
+        if (hi != null) {
+            hi.id?.let { deleteHomeIngredient(it) }
+        }
+    }
+
     fun createHomeIngredient(ingredientId: Long, amount: Double, unitId: Long, expirationDate: LocalDate?): HomeIngredient {
         val ingredient = ingredientRepository.findById(ingredientId).orElseThrow { RuntimeException("Ingredient not found")}
         val unit = unitOfMeasureService.getUnitById(unitId)

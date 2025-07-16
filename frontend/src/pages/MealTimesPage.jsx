@@ -6,6 +6,8 @@ import PageTitle from "../components/PageTitle";
 import TapedTable from "../components/TapedTable";
 import {useMealPlan} from "../hooks/useMealPlan";
 import NewNameModal from "../components/modals/NewNameModal";
+import {useConfirm} from "../hooks/useConfirm";
+import ConfirmModal from "../components/modals/ConfirmModal";
 
 const MealTimesPage = () => {
     const navigate = useNavigate();
@@ -14,19 +16,29 @@ const MealTimesPage = () => {
 
     const {
         mealTimes,
-        handleAddMealTime,
-        handleEditMealTime,
-        handleDeleteMealTime,
+        addMealTime,
+        editMealTime,
+        deleteMealTime,
         handleReorder,
         isNameModalOpen,
         setIsNameModalOpen,
-        handleSaveEditedMealTime,
+        saveEditedMealTime,
         editingMealTime
     } = useMealTime(mealPlan, updateMealPlan);
+
+    const {
+        isConfirmModalOpen,
+        setIsConfirmModalOpen,
+        confirmText,
+        confirmAction,
+        confirm
+    } = useConfirm();
 
     const navigateToMenu = () => {
         navigate('/menu');
     }
+
+    const handleDeleteMealTime = (mealTime) => confirm(`Are you sure you want to delete ${mealTime.name}?`,() => deleteMealTime(mealTime.id));
 
     if (!mealTimes) return <PageTitle text="Loading meal times..."/>;
 
@@ -82,13 +94,13 @@ const MealTimesPage = () => {
                                             src={require('../assets/images/pencil.png')}
                                             alt="Edit"
                                             className="edit-button"
-                                            onClick={() => handleEditMealTime(mt)}
+                                            onClick={() => editMealTime(mt)}
                                         />
                                         <img
                                             src={require('../assets/images/trashcan.png')}
                                             alt="Delete"
                                             className="edit-button"
-                                            onClick={() => handleDeleteMealTime(mt.id)}
+                                            onClick={() => handleDeleteMealTime(mt)}
                                         />
                                     </div>
                                 ),
@@ -118,13 +130,19 @@ const MealTimesPage = () => {
                 onClose={() => setIsNameModalOpen(false)}
                 onSave={(name) => {
                     if (editingMealTime) {
-                        handleSaveEditedMealTime(name);
+                        saveEditedMealTime(name);
                     } else {
-                        handleAddMealTime(name);
+                        addMealTime(name);
                     }
                 }}
                 itemName="meal time"
                 defaultName={editingMealTime?.name}
+            />
+            <ConfirmModal
+                isOpen={isConfirmModalOpen}
+                onClose={() => setIsConfirmModalOpen(false)}
+                onSave={confirmAction}
+                text={confirmText}
             />
         </div>
     );
