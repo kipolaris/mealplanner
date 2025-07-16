@@ -65,13 +65,20 @@ const MealTimePage = () => {
                 <div className="vertical-table-container">
                     <TapedTable
                         layout="vertical"
-                        columns={['Meals']}
+                        columns={[
+                            {
+                                header: 'Meals'
+                            }
+                        ]}
                         rows={mealPlan.days}
                         renderRowLabel={(day) => (
                             <span className="day-name lobster" onClick={() => navigate(`/day/${day.name}`)}>
                                 {day.name}
                             </span>
                         )}
+                        rowLabelHeader={
+                            <span className='table-button' onClick={handleResetMealTime}>Reset</span>
+                        }
                         renderCell={(rowIndex) => {
                             const day = mealPlan.days[rowIndex];
                             const meal = day.meals.find(m => m.mealTime.name === mealTime);
@@ -83,6 +90,7 @@ const MealTimePage = () => {
                         }}
                         handleReset={handleResetMealTime}
                         allowReorder={false}
+                        showHeader={true}
                     />
                     <AddFoodModal
                         isOpen={isModalOpen}

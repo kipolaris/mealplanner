@@ -67,7 +67,15 @@ const MealPlanPage = () => {
                         layout="horizontal"
                         rows={mealTimes.slice().sort((a, b) => a.order - b.order)}
                         columns={mealPlan.days.map(day => ({
-                            header: day.name,
+                            header: (
+                                <span
+                                    className="lobster"
+                                    onClick={() => navigate(`/day/${day.name}`)}
+                                    style={{ cursor: 'pointer' }}
+                                >
+                                    {day.name}
+                                </span>
+                            ),
                             render: (mealTime) => {
                                 const mealForDay = day.meals.find(m => m.mealTime.name === mealTime.name);
                                 return (

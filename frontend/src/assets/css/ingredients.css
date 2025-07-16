@@ -25,3 +25,30 @@
     white-space: nowrap;
 }
 
+.expiration-date {
+    font-size: 1.1rem;
+    white-space: nowrap;
+    text-align: left;
+    padding-left: 8px;
+}
+
+.date-picker {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.date-picker label {
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.date-picker input[type="date"] {
+    padding: 6px 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+    font-family: inherit;
+}

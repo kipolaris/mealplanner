@@ -19,18 +19,18 @@ export const useHomeIngredients = (setIngredients) => {
             .catch(error => console.error("Failed to fetch home ingredients", error));
     }, []);
 
-    const handleAddHomeIngredient = (ingredientId, amount, unitId) => {
+    const handleAddHomeIngredient = (ingredientId, amount, unitId, expirationDate) => {
         fetch(`${BackendUrl}/api/home-ingredients`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ingredientId, amount, unitId })
+            body: JSON.stringify({ ingredientId, amount, unitId, expirationDate })
         })
             .then(async (response) => {
                 if (!response.ok) {
                     const error = await response.json();
                     if (error.error?.includes("same unit type")) {
                         const unit = unitsOfMeasure.find(u => u.id === unitId);
-                        setPendingMerge({ ingredientId, amount, unit });
+                        setPendingMerge({ ingredientId, amount, unit, expirationDate });
                         setIsMergeModalOpen(true);
                     } else {
                         throw new Error(error.error || "Unknown error");
@@ -49,16 +49,12 @@ export const useHomeIngredients = (setIngredients) => {
 
     const confirmMergeHomeIngredient = () => {
         if (!pendingMerge) return;
-        const newPendingMerge = {
-            ingredientId: pendingMerge.ingredientId,
-            amount: pendingMerge.amount,
-            unit: pendingMerge.unit
-        }
 
         const pendingMergeRequest = {
-            ingredientId: newPendingMerge.ingredientId,
-            amount: newPendingMerge.amount,
-            unitId: newPendingMerge.unit.id
+            ingredientId: pendingMerge.ingredientId,
+            amount: pendingMerge.amount,
+            unitId: pendingMerge.unit.id,
+            expirationDate: pendingMerge.expirationDate ?? null
         }
 
         fetch(`${BackendUrl}/api/home-ingredients/merge`, {
@@ -74,9 +70,10 @@ export const useHomeIngredients = (setIngredients) => {
                 setIsMergeModalOpen(false);
                 setPendingMerge(null);
             })
-    }
+            .catch(error => console.error("Merge failed:", error));
+    };
 
-    const handleAddNewHomeIngredient = async (newName, newAmount, unitId) => {
+    const handleAddNewHomeIngredient = async (newName, newAmount, unitId, expirationDate) => {
         try {
             const ingredientResponse = await fetch(`${BackendUrl}/api/ingredients`, {
                 method: 'POST',
@@ -94,7 +91,7 @@ export const useHomeIngredients = (setIngredients) => {
             const homeIngredientResponse = await fetch(`${BackendUrl}/api/home-ingredients`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ingredientId: newIngredient.id, amount: newAmount, unitId: unitId })
+                body: JSON.stringify({ ingredientId: newIngredient.id, amount: newAmount, unitId: unitId, expirationDate: expirationDate ?? null })
             });
 
             const newHomeIngredient = await homeIngredientResponse.json();
@@ -110,14 +107,15 @@ export const useHomeIngredients = (setIngredients) => {
         setIsQuantityModalOpen(true);
     };
 
-    const handleSaveEditedHomeIngredient = (newAmount, unitId) => {
+    const handleSaveEditedHomeIngredient = (newAmount, unitId, expirationDate) => {
         if(!editingHomeIngredient) return;
 
         const homeIngredient = {
             id: editingHomeIngredient.id,
             name: editingHomeIngredient.name,
             amount: newAmount,
-            unitId: unitId
+            unitId: unitId,
+            expirationDate: expirationDate ?? null
         }
 
         fetch(`${BackendUrl}/api/home-ingredients/${editingHomeIngredient.id}`, {

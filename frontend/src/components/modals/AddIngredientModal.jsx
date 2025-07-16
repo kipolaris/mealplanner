@@ -7,6 +7,7 @@ const AddIngredientModal = ({
     onClose,
     onSave,
     unitsOfMeasure,
+    showExpirationInput = false,
     savedIngredients = []
 }) => {
     const [selectedIngredient, setSelectedIngredient] = useState(null);
@@ -15,6 +16,8 @@ const AddIngredientModal = ({
     const [amount, setAmount] = useState(0);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isUnitDropdownOpen, setIsUnitDropdownOpen] = useState(false);
+    const [expirationDate, setExpirationDate] = useState(null);
+
 
     useEffect(() => {
         if (!isOpen) {
@@ -24,12 +27,13 @@ const AddIngredientModal = ({
             setAmount(0);
             setIsDropdownOpen(false);
             setIsUnitDropdownOpen(false);
+            setExpirationDate(null);
         }
     }, [isOpen]);
 
     const handleSave = () => {
         if ((selectedIngredient || newIngredient.trim()) && amount && selectedUnit) {
-            onSave(selectedIngredient, newIngredient.trim(), amount, selectedUnit.id);
+            onSave(selectedIngredient, newIngredient.trim(), amount, selectedUnit.id, expirationDate);
             onClose();
         }
     };
@@ -106,6 +110,16 @@ const AddIngredientModal = ({
                         )}
                     </div>
                 </div>
+                {showExpirationInput && (
+                    <div className="date-picker">
+                        <label className="lobster">Expiration date (optional):</label>
+                        <input
+                            type="date"
+                            value={expirationDate ?? ""}
+                            onChange={(e) => setExpirationDate(e.target.value)}
+                        />
+                    </div>
+                )}
                 <div className="modal-buttons">
                     <button
                         className="save-button"

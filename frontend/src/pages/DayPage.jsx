@@ -80,13 +80,21 @@ const DayPage = () => {
                 <div className="vertical-table-container">
                     <TapedTable
                         layout="vertical"
-                        columns={['Meals']}
+                        columns={[
+                            {
+                                header: 'Meals'
+                            }
+                        ]}
                         rows={mealTimes.slice().sort((a, b) => a.order - b.order)}
-                        renderRowLabel={(mealTime) => (
-                            <span className="meal-time-name" onClick={() => navigate(`/meal/${mealTime.name}`)}>
-                                {mealTime.name}
-                            </span>
+                        renderRowLabel={
+                            (mealTime) => (
+                                <span className="meal-time-name" onClick={() => navigate(`/meal/${mealTime.name}`)}>
+                                    {mealTime.name}
+                                </span>
                         )}
+                        rowLabelHeader={
+                            <span className='table-button' onClick={handleResetDay}>Reset</span>
+                        }
                         renderCell={(rowIndex) => {
                             const sortedMealTimes = mealTimes.slice().sort((a, b) => a.order - b.order);
                             const mt = sortedMealTimes[rowIndex];
@@ -108,6 +116,7 @@ const DayPage = () => {
                         }
                         handleReset={handleResetDay}
                         handleReorder={handleReorder}
+                        showHeader={true}
                         navigate={navigate}
                     />
                 </div>

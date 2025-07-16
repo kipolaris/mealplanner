@@ -37,11 +37,11 @@ const IngredientsAtHomePage = () => {
 
     const navigateToMenu = () => navigate('/menu');
 
-    const handleSave = async (selectedIngredient, newIngredientName, amount, unitId) => {
+    const handleSave = async (selectedIngredient, newIngredientName, amount, unitId, expirationDate) => {
         if (selectedIngredient) {
-            await handleAddHomeIngredient(selectedIngredient.id, amount, unitId);
+            await handleAddHomeIngredient(selectedIngredient.id, amount, unitId, expirationDate);
         } else if (newIngredientName.trim()) {
-            await handleAddNewHomeIngredient(newIngredientName.trim(), amount, unitId);
+            await handleAddNewHomeIngredient(newIngredientName.trim(), amount, unitId, expirationDate);
         }
     };
 
@@ -66,7 +66,7 @@ const IngredientsAtHomePage = () => {
                         rows={sortedHomeIngredients}
                         columns={[
                             {
-                                header: 'Ingredients at home',
+                                header: 'Ingredients',
                                 render: (hi) => (
                                     <span className="ingredient-name">{hi.ingredient?.name}</span>
                                 )
@@ -75,6 +75,20 @@ const IngredientsAtHomePage = () => {
                                 header: 'Quantity',
                                 render: (hi) => (
                                     <span className="ingredient-quantity">{hi.amount} {hi.unit.abbreviation}</span>
+                                )
+                            },
+                            {
+                                header: 'Expiration date',
+                                render: (hi) => (
+                                    <span className="expiration-date">
+                                      {hi.expirationDate
+                                          ? new Date(hi.expirationDate).toLocaleDateString(undefined, {
+                                              year: 'numeric',
+                                              month: 'short',
+                                              day: 'numeric'
+                                          })
+                                          : '—'}
+                                    </span>
                                 )
                             },
                             {
@@ -102,7 +116,7 @@ const IngredientsAtHomePage = () => {
                         showRowLabels={false}
                         extraBottomRow={
                             <tr>
-                                <td colSpan={3}>
+                                <td colSpan={4}>
                                     <button className="table-button lobster" onClick={() => setIsAddIngredientModalOpen(true)}>
                                         Add ingredient at home
                                     </button>
@@ -119,6 +133,7 @@ const IngredientsAtHomePage = () => {
                 onSave={handleSave}
                 unitsOfMeasure={unitsOfMeasure}
                 savedIngredients={ingredients}
+                showExpirationInput={true}
             />
             <EditQuantityModal
                 isOpen={isQuantityModalOpen}
@@ -126,6 +141,7 @@ const IngredientsAtHomePage = () => {
                 onSave={handleSaveEditedHomeIngredient}
                 ingredient={editingHomeIngredient}
                 unitsOfMeasure={unitsOfMeasure}
+                showExpirationInput={true}
             />
             <MergeAmountModal
                 isOpen={isMergeModalOpen}

@@ -7,16 +7,20 @@ const EditQuantityModal = ({
     onClose,
     onSave,
     ingredient,
-    unitsOfMeasure
+    unitsOfMeasure,
+    showExpirationInput = false
 }) => {
     const [amount, setAmount] = useState(null);
     const [selectedUnit, setSelectedUnit] = useState(null);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [expirationDate, setExpirationDate] = useState(null);
+
 
     useEffect(() => {
         if (isOpen) {
             setAmount(ingredient.amount);
             setSelectedUnit(ingredient.unit);
+            setExpirationDate(ingredient.expirationDate ?? null);
         } else {
             setIsDropdownOpen(false);
         }
@@ -24,7 +28,7 @@ const EditQuantityModal = ({
 
     const handleSave = () => {
         if (amount && selectedUnit) {
-            onSave(amount, selectedUnit.id);
+            onSave(amount, selectedUnit.id, expirationDate);
             onClose();
         }
     };
@@ -65,6 +69,16 @@ const EditQuantityModal = ({
                         )}
                     </div>
                 </div>
+                {showExpirationInput && (
+                    <div className="date-picker">
+                        <label className="lobster">Expiration date (optional):</label>
+                        <input
+                            type="date"
+                            value={expirationDate ?? ""}
+                            onChange={(e) => setExpirationDate(e.target.value)}
+                        />
+                    </div>
+                )}
                 <div className="modal-buttons">
                     <button className="save-button" onClick={handleSave}>Save</button>
                     <button className="cancel-button" onClick={onClose}>No</button>
