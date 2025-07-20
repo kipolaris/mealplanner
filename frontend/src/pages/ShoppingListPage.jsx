@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import {useNavigate} from "react-router-dom";
 import '../assets/css/shopping-list.css'
 import '../assets/css/ingredients.css'
@@ -31,7 +32,7 @@ const ShoppingListPage = () => {
         homeIngredients,
         pendingMerge,
         setPendingMerge,
-        handleAddHomeIngredient,
+        addHomeIngredient,
         isMergeModalOpen,
         setIsMergeModalOpen,
         confirmMergeHomeIngredient
@@ -54,8 +55,9 @@ const ShoppingListPage = () => {
         handleSaveEditedShoppingItem,
         handleDeleteShoppingItem,
         resetShoppingList,
-        handleCheckShoppingItem
-    } = useShoppingList({ingredients, setIngredients, homeIngredients, setPendingMerge, handleAddHomeIngredient, setIsMergeModalOpen});
+        handleCheckShoppingItem,
+        getTotal
+    } = useShoppingList({ingredients, setIngredients, homeIngredients, setPendingMerge, addHomeIngredient, setIsMergeModalOpen});
 
     const {
         isConfirmModalOpen : isDeleteConfirmModalOpen,
@@ -72,6 +74,12 @@ const ShoppingListPage = () => {
         confirmAction : resetConfirmAction,
         confirm : confirmReset
     } = useConfirm();
+
+    useEffect(() => {
+        if (Array.isArray(shoppingList.items) && shoppingList.items.length > 0) {
+            getTotal();
+        }
+    }, [shoppingList.items]);
 
     const navigateToMenu = () => navigate('/menu');
 
@@ -117,7 +125,7 @@ const ShoppingListPage = () => {
                             {
                                 header: 'Quantity',
                                 render: (si) => (
-                                    <span className="ingredient-quantity">{si.amount} {si.unit ? si.unit.abbreviation : "unit"}</span>
+                                    <span className="ingredient-quantity">{si.amount} {si.unit ? si.unit.name : "unit"}</span>
                                 )
                             },
                             {
@@ -156,13 +164,25 @@ const ShoppingListPage = () => {
                         showHeader={true}
                         showRowLabels={false}
                         extraBottomRow={
-                            <tr>
-                                <td colSpan={4}>
-                                    <button className="table-button lobster" onClick={() => setIsAddModalOpen(true)}>
-                                        Add shopping item
-                                    </button>
-                                </td>
-                            </tr>
+                            <>
+                                {shoppingList.items.length > 0 && (
+                                    <tr>
+                                        <td colSpan={4} className="lobster">
+                                            {shoppingList.totalError
+                                                ? <span>Total unavailable</span>
+                                                : <>Total:&nbsp;{shoppingList.total}&nbsp;{shoppingList.items[0]?.currency?.symbol}</>
+                                            }
+                                        </td>
+                                    </tr>
+                                )}
+                                <tr>
+                                    <td colSpan={4}>
+                                        <button className="table-button lobster" onClick={() => setIsAddModalOpen(true)}>
+                                            Add shopping item
+                                        </button>
+                                    </td>
+                                </tr>
+                            </>
                         }
                     />
                 </div>

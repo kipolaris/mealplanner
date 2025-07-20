@@ -3,8 +3,8 @@ import {useEffect, useState} from "react";
 import {useUnitOfMeasure} from "./useUnitOfMeasure";
 import {useCurrency} from "./useCurrency";
 
-export const useShoppingList = ({ingredients, setIngredients, homeIngredients, setPendingMerge, handleAddHomeIngredient, setIsMergeModalOpen}) => {
-    const [shoppingList, setShoppingList] = useState({items: []});
+export const useShoppingList = ({ingredients, setIngredients, homeIngredients, setPendingMerge, addHomeIngredient, setIsMergeModalOpen}) => {
+    const [shoppingList, setShoppingList] = useState({items: [], total: 0.0});
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [editingShoppingItem, setEditingShoppingItem] = useState(null);
@@ -192,10 +192,38 @@ export const useShoppingList = ({ingredients, setIngredients, homeIngredients, s
             });
             setIsMergeModalOpen(true);
         } else {
-            handleAddHomeIngredient(shoppingItem.ingredient.id, shoppingItem.amount, shoppingItem.unit.id);
+            addHomeIngredient(shoppingItem.ingredient.id, shoppingItem.amount, shoppingItem.unit.id);
         }
         handleDeleteShoppingItem(shoppingItem.id);
     }
+
+    const getTotal = () => {
+        fetch(`${BackendUrl}/api/shopping-list/total`)
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(error => {
+                        throw new Error(error.error || "Error calculating total");
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                setShoppingList(prev => ({
+                    ...prev,
+                    total: data,
+                    totalError: null
+                }));
+            })
+            .catch(error => {
+                console.error('Fetching total unsuccessful:', error);
+                setShoppingList(prev => ({
+                    ...prev,
+                    total: null,
+                    totalError: error.message
+                }));
+            });
+    };
+
 
     return {
         shoppingList,
@@ -216,6 +244,7 @@ export const useShoppingList = ({ingredients, setIngredients, homeIngredients, s
         handleEditShoppingItem,
         handleDeleteShoppingItem,
         handleCheckShoppingItem,
-        resetShoppingList
+        resetShoppingList,
+        getTotal
     };
 };

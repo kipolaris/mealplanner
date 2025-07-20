@@ -95,4 +95,18 @@ class ShoppingListService(
 
         return updateShoppingItemInList(existing.id!!, existing.ingredient.id, newTotal, existing.unit.id, newPrice, currencyId, false)
     }
+
+    fun calculateTotal(): Double {
+        val shoppingList = getShoppingList()
+
+        val currencies = shoppingList.items.map { it.currency.name }.toSet()
+        if (currencies.size > 1) {
+            throw IllegalStateException("Can't calculate a total because of differing currencies.")
+        }
+
+        val total = shoppingList.items.sumOf { it.price ?: 0.0 }
+        shoppingList.total = total
+
+        return total
+    }
 }
