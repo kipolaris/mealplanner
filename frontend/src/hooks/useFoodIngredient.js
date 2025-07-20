@@ -1,11 +1,12 @@
 import { useEffect, useState} from "react";
 import { BackendUrl } from "../utils/constants";
 
-export const useFoodIngredient = (foodId, shoppingList, setPendingShoppingItemMerge, setIsShoppingItemMergeModalOpen, handleAddShoppingItem) => {
+export const useFoodIngredient = (foodId, shoppingList, setPendingShoppingItemMerge, setIsShoppingItemMergeModalOpen, handleAddShoppingItem, setIngredients) => {
     const [foodIngredients, setFoodIngredients] = useState([]);
     const [editingFoodIngredient, setEditingFoodIngredient] = useState(null);
     const [isAddIngredientModalOpen, setIsAddIngredientModalOpen] = useState(false);
     const [isQuantityModalOpen, setIsQuantityModalOpen] = useState(false);
+
 
     useEffect(() => {
         if (!foodId) return;
@@ -18,7 +19,7 @@ export const useFoodIngredient = (foodId, shoppingList, setPendingShoppingItemMe
             .catch(error => console.error("Failed to load food ingredients", error));
     }, [foodId]);
 
-    const handleAddFoodIngredient = (ingredientId, amount, unitId) => {
+    const addFoodIngredient = (ingredientId, amount, unitId) => {
         const foodIngredientData = {
             id: undefined,
             ingredientId: ingredientId,
@@ -38,7 +39,7 @@ export const useFoodIngredient = (foodId, shoppingList, setPendingShoppingItemMe
             })
     };
 
-    const handleAddNewFoodIngredient = async (newName, newAmount, unitId) => {
+    const addNewFoodIngredient = async (newName, newAmount, unitId) => {
         try {
             const ingredientResponse = await fetch(`${BackendUrl}/api/ingredients`, {
                 method: 'POST',
@@ -47,6 +48,11 @@ export const useFoodIngredient = (foodId, shoppingList, setPendingShoppingItemMe
             });
 
             const newIngredient = await ingredientResponse.json();
+
+            fetch(`${BackendUrl}/api/ingredients`)
+                .then(response => response.json())
+                .then(data => setIngredients(data))
+                .catch(error => console.log('Error fetching ingredients:',error));
 
             const foodIngredientData = {
                 id: undefined,
@@ -71,12 +77,12 @@ export const useFoodIngredient = (foodId, shoppingList, setPendingShoppingItemMe
         }
     };
 
-    const handleEditFoodIngredient = (ingredient) => {
+    const editFoodIngredient = (ingredient) => {
         setEditingFoodIngredient(ingredient);
         setIsQuantityModalOpen(true);
     };
 
-    const handleSaveEditedFoodIngredient = (newAmount, unitId) => {
+    const saveEditedFoodIngredient = (newAmount, unitId) => {
         if(!editingFoodIngredient) return;
 
         const foodIngredient = {
@@ -100,7 +106,7 @@ export const useFoodIngredient = (foodId, shoppingList, setPendingShoppingItemMe
             .catch(error => console.error('Error editing food ingredient:', error));
     };
 
-    const handleDeleteFoodIngredient = (foodIngredient) => {
+    const deleteFoodIngredient = (foodIngredient) => {
         const requestBody = {
             id: foodIngredient.id,
             ingredientId: foodIngredient.ingredient.id,
@@ -154,10 +160,10 @@ export const useFoodIngredient = (foodId, shoppingList, setPendingShoppingItemMe
         isQuantityModalOpen,
         setIsQuantityModalOpen,
         handleAddToShoppingList,
-        handleAddFoodIngredient,
-        handleAddNewFoodIngredient,
-        handleEditFoodIngredient,
-        handleSaveEditedFoodIngredient,
-        handleDeleteFoodIngredient
+        addFoodIngredient,
+        addNewFoodIngredient,
+        editFoodIngredient,
+        saveEditedFoodIngredient,
+        deleteFoodIngredient
     };
 };

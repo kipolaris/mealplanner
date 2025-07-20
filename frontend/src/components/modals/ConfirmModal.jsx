@@ -2,14 +2,13 @@ import React from "react";
 import paperBackground from '../../assets/images/paperbackground.png'
 import '../../assets/css/components/modal.css'
 
-const MergeAmountModal = ({
+const ConfirmModal = ({
     isOpen,
     onClose,
     onSave,
-    listName,
-    amount,
-    unit
+    text
 }) => {
+
     if (!isOpen) return null;
 
     return (
@@ -17,7 +16,7 @@ const MergeAmountModal = ({
             <div className="modal-content" style={
                 {backgroundImage: `url(${paperBackground})`}
             }>
-                <span>An ingredient like this already exists in {listName}, do you want to add {amount} {unit?.abbreviation} to the original amount?</span>
+                <span className="patrick">{text}</span>
                 <div className="modal-buttons">
                     <button className="save-button" onClick={onSave}>Yes</button>
                     <button className="cancel-button" onClick={onClose}>No</button>
@@ -27,4 +26,4 @@ const MergeAmountModal = ({
     )
 }
 
-export default MergeAmountModal
+export default ConfirmModal

@@ -16,12 +16,12 @@ export const useIngredient = () => {
             .catch(error => console.error('Error fetching ingredients:',error));
     },[]);
 
-    const handleEditIngredient = (ingredient) => {
+    const editIngredient = (ingredient) => {
         setEditingIngredient(ingredient);
         setIsNameModalOpen(true);
     }
 
-    const handleSaveEditedIngredient = (newName) => {
+    const saveEditedIngredient = (newName) => {
         if(!editingIngredient) return;
 
         const ingredient = {
@@ -45,7 +45,7 @@ export const useIngredient = () => {
             .catch(error => console.error('Error editing ingredient:', error));
     };
 
-    const handleAddIngredient = (newName) => {
+    const addIngredient = (newName) => {
         const ingredientData = { name: newName };
 
         fetch(`${BackendUrl}/api/ingredients`, {
@@ -61,7 +61,7 @@ export const useIngredient = () => {
             .catch(error => console.error('Error adding ingredient:', error));
     };
 
-    const handleDeleteIngredient = (ingredientId) => {
+    const deleteIngredient = (ingredientId) => {
         fetch(`${BackendUrl}/api/ingredients/${ingredientId}`, { method: 'DELETE'})
             .then(response => {
                 if (response.ok) {
@@ -78,9 +78,9 @@ export const useIngredient = () => {
         isNameModalOpen,
         setIsNameModalOpen,
         editingIngredient,
-        handleAddIngredient,
-        handleEditIngredient,
-        handleSaveEditedIngredient,
-        handleDeleteIngredient
+        addIngredient,
+        editIngredient,
+        saveEditedIngredient,
+        deleteIngredient
     }
 }

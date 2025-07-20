@@ -18,6 +18,17 @@ class ShoppingItemService(
     fun getAllShoppingItems(): List<ShoppingItem> {
         return shoppingItemRepository.findAll()
     }
+
+    fun getByIngredientId(ingredientId: Long): ShoppingItem? {
+        return shoppingItemRepository.findAll().find { it.ingredient.id == ingredientId }
+    }
+
+    fun deleteByIngredientId(ingredientId: Long) {
+        val si = getByIngredientId(ingredientId)
+        if (si != null) {
+            si.id?.let { deleteShoppingItem(it) }
+        }
+    }
     fun createShoppingItem(ingredientId: Long, amount: Double, unitId: Long, price: Double, currencyId: Long): ShoppingItem {
         val ingredient = ingredientRepository.findById(ingredientId).orElseThrow { RuntimeException("Ingredient not found") }
         val unit = unitOfMeasureRepository.findById(unitId).orElseThrow { RuntimeException("Unit of measure not found") }

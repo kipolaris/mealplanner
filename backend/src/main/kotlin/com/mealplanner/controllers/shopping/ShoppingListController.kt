@@ -75,4 +75,13 @@ class ShoppingListController(private val shoppingListService: ShoppingListServic
             ResponseEntity.badRequest().body(mapOf("error" to e.message))
         }
     }
+
+    @GetMapping("/total")
+    fun getTotal(): ResponseEntity<Any> {
+        return try {
+            ResponseEntity.ok(shoppingListService.calculateTotal())
+        } catch (e: IllegalStateException) {
+            ResponseEntity.badRequest().body(mapOf("error" to e.message))
+        }
+    }
 }

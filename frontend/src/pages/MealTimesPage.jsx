@@ -6,6 +6,8 @@ import PageTitle from "../components/PageTitle";
 import TapedTable from "../components/TapedTable";
 import {useMealPlan} from "../hooks/useMealPlan";
 import NewNameModal from "../components/modals/NewNameModal";
+import {useConfirm} from "../hooks/useConfirm";
+import ConfirmModal from "../components/modals/ConfirmModal";
 
 const MealTimesPage = () => {
     const navigate = useNavigate();
@@ -14,21 +16,33 @@ const MealTimesPage = () => {
 
     const {
         mealTimes,
-        handleAddMealTime,
-        handleEditMealTime,
-        handleDeleteMealTime,
+        addMealTime,
+        editMealTime,
+        deleteMealTime,
         handleReorder,
         isNameModalOpen,
         setIsNameModalOpen,
-        handleSaveEditedMealTime,
+        saveEditedMealTime,
         editingMealTime
     } = useMealTime(mealPlan, updateMealPlan);
+
+    const {
+        isConfirmModalOpen,
+        setIsConfirmModalOpen,
+        confirmText,
+        confirmAction,
+        confirm
+    } = useConfirm();
 
     const navigateToMenu = () => {
         navigate('/menu');
     }
 
+    const handleDeleteMealTime = (mealTime) => confirm(`Are you sure you want to delete ${mealTime.name}?`,() => deleteMealTime(mealTime.id));
+
     if (!mealTimes) return <PageTitle text="Loading meal times..."/>;
+
+    const sortedMealTimes = mealTimes.slice().sort((a, b) => a.order - b.order);
 
     return (
         <div className="app-container">
@@ -43,56 +57,65 @@ const MealTimesPage = () => {
                 <div className="content-table-container">
                     <TapedTable
                         layout="vertical"
-                        rows={mealTimes.slice().sort((a, b) => a.order - b.order)}
-                        renderCell={(rowIndex) => {
-                            const sortedMealTimes = mealTimes.slice().sort((a, b) => a.order - b.order);
-                            const mt = sortedMealTimes[rowIndex];
-                            return (
-                                <div className="table-row">
-                                    <span className="cell-name">{mt.name}</span>
-                                    <div className="cell-icons">
-                                        <div className="arrow-buttons">
-                                            {rowIndex > 0 && (
-                                                <img
-                                                    src={require('../assets/images/arrowup.png')}
-                                                    alt="Move up"
-                                                    className="arrow-button"
-                                                    onClick={() => handleReorder(mt.order, sortedMealTimes[rowIndex - 1].order)}
-                                                />
-                                            )}
-                                            {rowIndex < sortedMealTimes.length - 1 && (
-                                                <img
-                                                    src={require('../assets/images/arrowdown.png')}
-                                                    alt="Move down"
-                                                    className="arrow-button"
-                                                    onClick={() => handleReorder(mt.order, sortedMealTimes[rowIndex + 1].order)}
-                                                />
-                                            )}
-                                        </div>
-                                        <div className="edit-buttons">
+                        rows={sortedMealTimes}
+                        columns={[
+                            {
+                                header: "Reorder",
+                                render: (_, rowIndex) => (
+                                    <div className="arrow-buttons">
+                                        {rowIndex > 0 && (
                                             <img
-                                                src={require('../assets/images/pencil.png')}
-                                                alt="Edit"
-                                                className="edit-button"
-                                                onClick={() => handleEditMealTime(mt)}
+                                                src={require('../assets/images/arrowup.png')}
+                                                alt="Move up"
+                                                className="arrow-button"
+                                                onClick={() =>
+                                                    handleReorder(sortedMealTimes[rowIndex].order, sortedMealTimes[rowIndex - 1].order)
+                                                }
                                             />
+                                        )}
+                                        {rowIndex < sortedMealTimes.length - 1 && (
                                             <img
-                                                src={require('../assets/images/trashcan.png')}
-                                                alt="Delete"
-                                                className="edit-button"
-                                                onClick={() => handleDeleteMealTime(mt.id)}
+                                                src={require('../assets/images/arrowdown.png')}
+                                                alt="Move down"
+                                                className="arrow-button"
+                                                onClick={() =>
+                                                    handleReorder(sortedMealTimes[rowIndex].order, sortedMealTimes[rowIndex + 1].order)
+                                                }
                                             />
-                                        </div>
+                                        )}
                                     </div>
-                                </div>
-                            );
-                        }}
+                                ),
+                            },
+                            {
+                                header: "Actions",
+                                render: (mt) => (
+                                    <div className="edit-buttons">
+                                        <img
+                                            src={require('../assets/images/pencil.png')}
+                                            alt="Edit"
+                                            className="edit-button"
+                                            onClick={() => editMealTime(mt)}
+                                        />
+                                        <img
+                                            src={require('../assets/images/trashcan.png')}
+                                            alt="Delete"
+                                            className="edit-button"
+                                            onClick={() => handleDeleteMealTime(mt)}
+                                        />
+                                    </div>
+                                ),
+                            },
+                        ]}
+                        renderRowLabel={(mt) => (
+                            <span className="meal-time-name">{mt.name}</span>
+                        )}
+                        showHeader={true}
+                        showRowLabels={true}
+                        rowLabelHeader="Meal Time"
                         allowReorder={false}
-                        showHeader={false}
-                        showRowLabels={false}
                         extraBottomRow={
                             <tr>
-                                <td>
+                                <td colSpan={3}>
                                     <button className="table-button lobster" onClick={() => setIsNameModalOpen(true)}>
                                         Add new meal time
                                     </button>
@@ -107,13 +130,19 @@ const MealTimesPage = () => {
                 onClose={() => setIsNameModalOpen(false)}
                 onSave={(name) => {
                     if (editingMealTime) {
-                        handleSaveEditedMealTime(name);
+                        saveEditedMealTime(name);
                     } else {
-                        handleAddMealTime(name);
+                        addMealTime(name);
                     }
                 }}
                 itemName="meal time"
                 defaultName={editingMealTime?.name}
+            />
+            <ConfirmModal
+                isOpen={isConfirmModalOpen}
+                onClose={() => setIsConfirmModalOpen(false)}
+                onSave={confirmAction}
+                text={confirmText}
             />
         </div>
     );

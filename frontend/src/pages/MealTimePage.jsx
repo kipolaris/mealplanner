@@ -6,6 +6,8 @@ import {useNavigate, useParams} from "react-router-dom";
 import PageTitle from "../components/PageTitle";
 import TapedTable from "../components/TapedTable";
 import TapeButton from "../components/TapeButton";
+import {useConfirm} from "../hooks/useConfirm";
+import ConfirmModal from "../components/modals/ConfirmModal";
 
 const MealTimePage = () => {
     const { mealTime } = useParams();
@@ -23,6 +25,14 @@ const MealTimePage = () => {
         updateMealPlan,
         resetMealTime
     } = useMealPlan();
+
+    const {
+        isConfirmModalOpen,
+        setIsConfirmModalOpen,
+        confirmText,
+        confirmAction,
+        confirm
+    } = useConfirm();
 
     const navigate = useNavigate();
 
@@ -44,13 +54,17 @@ const MealTimePage = () => {
             console.error(`MealTime "${mealTime}" not found`);
             return;
         }
-        resetMealTime(mt);
+        confirm(`Are you sure you want to reset ${mealTime} for every day?`, () => resetMealTime(mt));
     };
 
 
     if (!mealPlan?.days || mealPlan.days.length === 0) {
         return <h1 className="loading">Loading meal plan...</h1>;
     }
+
+    const sortedSavedFoods = [...savedFoods].sort((a,b) =>
+        a.name?.localeCompare(b.name || '') || 0
+    );
 
     return (
         <div className="app-container">
@@ -65,13 +79,20 @@ const MealTimePage = () => {
                 <div className="vertical-table-container">
                     <TapedTable
                         layout="vertical"
-                        columns={['Meals']}
+                        columns={[
+                            {
+                                header: 'Meals'
+                            }
+                        ]}
                         rows={mealPlan.days}
                         renderRowLabel={(day) => (
                             <span className="day-name lobster" onClick={() => navigate(`/day/${day.name}`)}>
                                 {day.name}
                             </span>
                         )}
+                        rowLabelHeader={
+                            <span className='table-button' onClick={handleResetMealTime}>Reset</span>
+                        }
                         renderCell={(rowIndex) => {
                             const day = mealPlan.days[rowIndex];
                             const meal = day.meals.find(m => m.mealTime.name === mealTime);
@@ -83,6 +104,7 @@ const MealTimePage = () => {
                         }}
                         handleReset={handleResetMealTime}
                         allowReorder={false}
+                        showHeader={true}
                     />
                     <AddFoodModal
                         isOpen={isModalOpen}
@@ -90,8 +112,13 @@ const MealTimePage = () => {
                         onSave={handleSaveFood}
                         onClearMeal={resetMeal}
                         meal={selectedCell.meal}
-                        savedFoods={savedFoods}
-                        onDeleteFood={handleDeleteFood}
+                        savedFoods={sortedSavedFoods}
+                    />
+                    <ConfirmModal
+                        isOpen={isConfirmModalOpen}
+                        onClose={() => setIsConfirmModalOpen(false)}
+                        onSave={confirmAction}
+                        text={confirmText}
                     />
                 </div>
             </div>

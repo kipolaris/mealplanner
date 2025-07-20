@@ -14,6 +14,16 @@ class FoodIngredientService(
     private val foodRepository: FoodRepository,
     private val unitOfMeasureRepository: UnitOfMeasureRepository
 ) {
+    fun getByIngredientId(ingredientId: Long): FoodIngredient? {
+        return foodIngredientRepository.findAll().find { it.ingredient?.id == ingredientId }
+    }
+
+    fun deleteByIngredientId(ingredientId: Long) {
+        val fi = getByIngredientId(ingredientId)
+        if (fi != null) {
+            fi.id?.let { deleteFoodIngredient(it) }
+        }
+    }
     fun createFoodIngredient(foodId: Long, ingredientId: Long, amount: Double, unitId: Long): FoodIngredient {
         val food = foodRepository.findById(foodId).orElseThrow { RuntimeException("Food not found") }
         val ingredient = ingredientRepository.findById(ingredientId).orElseThrow { RuntimeException("Ingredient not found") }

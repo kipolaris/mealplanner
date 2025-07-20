@@ -6,11 +6,11 @@ export const useMealTime = (mealPlan, updateMealPlan) => {
     const [isNameModalOpen, setIsNameModalOpen] = useState(false);
     const [editingMealTime, setEditingMealTime] = useState(null);
 
-    const handleEditMealTime = (mealtime) => {
+    const editMealTime = (mealtime) => {
         setEditingMealTime(mealtime);
         setIsNameModalOpen(true);
     }
-    const handleAddMealTime = (newName) => {
+    const addMealTime = (newName) => {
         const mealTimeData = { name: newName };
 
         fetch(`${BackendUrl}/api/mealtimes`, {
@@ -31,7 +31,7 @@ export const useMealTime = (mealPlan, updateMealPlan) => {
             .catch(error => console.error('Error adding meal time:', error));
     };
 
-    const handleSaveEditedMealTime = (newName) => {
+    const saveEditedMealTime = (newName) => {
         if (!editingMealTime) return;
 
         const updatedMealTime = { ...editingMealTime, name: newName.trim() };
@@ -56,7 +56,7 @@ export const useMealTime = (mealPlan, updateMealPlan) => {
             .catch(error => console.error('Error editing meal time:', error));
     };
 
-    const handleDeleteMealTime = (mealTimeId) => {
+    const deleteMealTime = (mealTimeId) => {
         fetch(`${BackendUrl}/api/mealtimes/${mealTimeId}`, { method: 'DELETE' })
             .then(response => {
                 if (response.ok) {
@@ -103,13 +103,13 @@ export const useMealTime = (mealPlan, updateMealPlan) => {
 
     return {
         mealTimes: mealPlan?.mealTimes || [],
-        handleAddMealTime,
-        handleEditMealTime,
-        handleDeleteMealTime,
+        addMealTime,
+        editMealTime,
+        deleteMealTime,
         handleReorder,
         isNameModalOpen,
         setIsNameModalOpen,
-        handleSaveEditedMealTime,
+        saveEditedMealTime,
         editingMealTime
     };
 };

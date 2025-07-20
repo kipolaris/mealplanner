@@ -1,6 +1,7 @@
 import React from "react";
+import { useEffect } from "react";
 import {useNavigate} from "react-router-dom";
-import '../assets/css/shopping-list-page.css'
+import '../assets/css/shopping-list.css'
 import '../assets/css/ingredients.css'
 import { useIngredient} from "../hooks/useIngredient";
 import {useUnitOfMeasure} from "../hooks/useUnitOfMeasure";
@@ -14,6 +15,8 @@ import EditShoppingItemModal from "../components/modals/EditShoppingItemModal";
 import MergeShoppingItemModal from "../components/modals/MergeShoppingItemModal";
 import MergeAmountModal from "../components/modals/MergeAmountModal";
 import {useHomeIngredients} from "../hooks/useHomeIngredient";
+import ConfirmModal from "../components/modals/ConfirmModal";
+import {useConfirm} from "../hooks/useConfirm";
 
 const ShoppingListPage = () => {
     const navigate = useNavigate();
@@ -29,7 +32,7 @@ const ShoppingListPage = () => {
         homeIngredients,
         pendingMerge,
         setPendingMerge,
-        handleAddHomeIngredient,
+        addHomeIngredient,
         isMergeModalOpen,
         setIsMergeModalOpen,
         confirmMergeHomeIngredient
@@ -52,8 +55,31 @@ const ShoppingListPage = () => {
         handleSaveEditedShoppingItem,
         handleDeleteShoppingItem,
         resetShoppingList,
-        handleCheckShoppingItem
-    } = useShoppingList({ingredients, setIngredients, homeIngredients, setPendingMerge, handleAddHomeIngredient, setIsMergeModalOpen});
+        handleCheckShoppingItem,
+        getTotal
+    } = useShoppingList({ingredients, setIngredients, homeIngredients, setPendingMerge, addHomeIngredient, setIsMergeModalOpen});
+
+    const {
+        isConfirmModalOpen : isDeleteConfirmModalOpen,
+        setIsConfirmModalOpen : setIsDeleteConfirmModalOpen,
+        confirmText : deleteConfirmText,
+        confirmAction : deleteConfirmAction,
+        confirm : confirmDelete
+    } = useConfirm();
+
+    const {
+        isConfirmModalOpen : isResetConfirmModalOpen,
+        setIsConfirmModalOpen : setIsResetConfirmModalOpen,
+        confirmText : resetConfirmText,
+        confirmAction : resetConfirmAction,
+        confirm : confirmReset
+    } = useConfirm();
+
+    useEffect(() => {
+        if (Array.isArray(shoppingList.items) && shoppingList.items.length > 0) {
+            getTotal();
+        }
+    }, [shoppingList.items]);
 
     const navigateToMenu = () => navigate('/menu');
 
@@ -64,6 +90,10 @@ const ShoppingListPage = () => {
             await  handleAddNewShoppingItem(newIngredientName.trim(), amount, unitId, price, currencyId);
         }
     };
+
+    const handleDelete = (shoppingItem) => confirmDelete(`Are you sure you want to delete ${shoppingItem.ingredient.name} from the shopping list?`,() => handleDeleteShoppingItem(shoppingItem.id));
+
+    const handleResetShoppingList = () => confirmReset(`Are you sure you want to reset the shopping list?`,() => resetShoppingList())
 
     if (!Array.isArray(shoppingList.items)) return <PageTitle text="Loading shopping list..."/>;
 
@@ -76,7 +106,7 @@ const ShoppingListPage = () => {
             <div className="page-header">
                 <div className="header-buttons">
                     <TapeButton text="Menu" onClick={navigateToMenu} />
-                    <TapeButton text="Reset" onClick={resetShoppingList} />
+                    <TapeButton text="Reset" onClick={handleResetShoppingList} />
                 </div>
                 <PageTitle text="Shopping list" />
             </div>
@@ -85,56 +115,74 @@ const ShoppingListPage = () => {
                     <TapedTable
                         layout="vertical"
                         rows={sortedShoppingList}
-                        renderRowLabel={(shoppingItem) => (
-                            <div className="shopping-item-label">
-                                <span className="shopping-item-name lobster">{shoppingItem.ingredient?.name}</span>
-                                <div className="shopping-item-cell-icons">
+                        columns={[
+                            {
+                                header: 'Shopping item',
+                                render: (si) => (
+                                    <span className="ingredient-name">{si.ingredient.name}</span>
+                                )
+                            },
+                            {
+                                header: 'Quantity',
+                                render: (si) => (
+                                    <span className="ingredient-quantity">{si.amount} {si.unit ? si.unit.name : "unit"}</span>
+                                )
+                            },
+                            {
+                                header: 'Price',
+                                render: (si) => (
+                                    <span className="ingredient-quantity">{si.price} {si.currency.symbol}</span>
+                                )
+                            },
+                            {
+                                header: 'Actions',
+                                render: (si) => (
                                     <div className="edit-buttons">
                                         <img
                                             src={require('../assets/images/pencil.png')}
                                             alt="Edit"
                                             className="edit-button"
-                                            onClick={() => handleEditShoppingItem(shoppingItem)}
+                                            onClick={() => handleEditShoppingItem(si)}
                                         />
                                         <img
                                             src={require('../assets/images/trashcan.png')}
                                             alt="Delete"
                                             className="edit-button"
-                                            onClick={() => handleDeleteShoppingItem(shoppingItem.id)}
+                                            onClick={() => handleDelete(si)}
                                         />
                                         <img
                                             src={require('../assets/images/checkbox.png')}
                                             alt="Check"
                                             className="edit-button"
-                                            onClick={() => handleCheckShoppingItem(shoppingItem)}
+                                            onClick={() => handleCheckShoppingItem(si)}
                                         />
                                     </div>
-                                </div>
-                            </div>
-                        )}
-                        renderCell={(rowIndex) => {
-                            const item = sortedShoppingList[rowIndex];
-                            return (
-                                <div className="ingredient-row">
-                                    <div className="shopping-item-param">
-                                        {item.amount} {item.unit?.name}
-                                    </div>
-                                    <div className="shopping-item-param">
-                                        {item.price} {item.currency?.symbol}
-                                    </div>
-                                </div>
-                            );
-                        }}
+                                )
+                            }
+                        ]}
                         allowReorder={false}
-                        showHeader={false}
+                        showHeader={true}
+                        showRowLabels={false}
                         extraBottomRow={
-                            <tr>
-                                <td colSpan={2}>
-                                    <button className="table-button lobster" onClick={() => setIsAddModalOpen(true)}>
-                                        Add shopping item
-                                    </button>
-                                </td>
-                            </tr>
+                            <>
+                                {shoppingList.items.length > 0 && (
+                                    <tr>
+                                        <td colSpan={4} className="lobster">
+                                            {shoppingList.totalError
+                                                ? <span>Total unavailable</span>
+                                                : <>Total:&nbsp;{shoppingList.total}&nbsp;{shoppingList.items[0]?.currency?.symbol}</>
+                                            }
+                                        </td>
+                                    </tr>
+                                )}
+                                <tr>
+                                    <td colSpan={4}>
+                                        <button className="table-button lobster" onClick={() => setIsAddModalOpen(true)}>
+                                            Add shopping item
+                                        </button>
+                                    </td>
+                                </tr>
+                            </>
                         }
                     />
                 </div>
@@ -171,6 +219,18 @@ const ShoppingListPage = () => {
                 listName="ingredients at home"
                 amount={pendingMerge?.amount}
                 unit={pendingMerge?.unit}
+            />
+            <ConfirmModal
+                isOpen={isDeleteConfirmModalOpen}
+                onClose={() => setIsDeleteConfirmModalOpen(false)}
+                onSave={deleteConfirmAction}
+                text={deleteConfirmText}
+            />
+            <ConfirmModal
+                isOpen={isResetConfirmModalOpen}
+                onClose={() => setIsResetConfirmModalOpen(false)}
+                onSave={resetConfirmAction}
+                text={resetConfirmText}
             />
         </div>
     )

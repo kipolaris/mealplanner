@@ -126,8 +126,7 @@
 }
 
 .ingredient-quantity {
-    font-size: 0.9rem;
-    opacity: 0.8;
+    font-size: 1.1rem;
     margin-left: 2px;
     white-space: nowrap;
 }

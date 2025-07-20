@@ -15,7 +15,7 @@ class CorsConfig {
         config.allowCredentials = true
         config.allowedOrigins = listOf("http://localhost:3000") // Frontend requests
         config.allowedMethods = listOf("GET", "POST", "PUT", "DELETE", "OPTIONS")
-        config.allowedHeaders = listOf("Authorization", "Content-Type")
+        config.allowedHeaders = listOf("*")
         source.registerCorsConfiguration("/**", config)
         return CorsFilter(source)
     }

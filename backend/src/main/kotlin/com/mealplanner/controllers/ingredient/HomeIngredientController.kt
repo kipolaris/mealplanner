@@ -2,17 +2,11 @@ package com.mealplanner.controllers.ingredient
 
 import com.mealplanner.data.ingredient.HomeIngredient
 import com.mealplanner.service.ingredient.HomeIngredientService
+import jakarta.persistence.*
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.CrossOrigin
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
+import java.time.LocalDate
 
 @RestController
 @RequestMapping("/api/home-ingredients")
@@ -23,7 +17,8 @@ class HomeIngredientController(
     data class HomeIngredientRequest(
         val ingredientId: Long,
         val amount: Double,
-        val unitId: Long
+        val unitId: Long,
+        val expirationDate: LocalDate? = null
     )
     @GetMapping
     fun getAllHomeIngredients(): List<HomeIngredient> {
@@ -53,7 +48,8 @@ class HomeIngredientController(
             val created = homeIngredientService.createHomeIngredient(
                 request.ingredientId,
                 request.amount,
-                request.unitId
+                request.unitId,
+                request.expirationDate
             )
             ResponseEntity.status(HttpStatus.CREATED).body(created)
         } catch (e: RuntimeException) {
@@ -66,7 +62,7 @@ class HomeIngredientController(
         @PathVariable id: Long,
         @RequestBody request: HomeIngredientRequest
     ) : ResponseEntity<HomeIngredient> {
-        val homeIngredient = homeIngredientService.updateHomeIngredient(id, request.amount, request.unitId)
+        val homeIngredient = homeIngredientService.updateHomeIngredient(id, request.amount, request.unitId, request.expirationDate)
         return ResponseEntity.ok(homeIngredient)
     }
 
@@ -79,7 +75,7 @@ class HomeIngredientController(
     @PutMapping("/merge")
     fun mergeHomeIngredient(@RequestBody request: HomeIngredientRequest): ResponseEntity<Any> {
         return try {
-            ResponseEntity.ok(homeIngredientService.mergeHomeIngredient(request.ingredientId,request.amount,request.unitId))
+            ResponseEntity.ok(homeIngredientService.mergeHomeIngredient(request.ingredientId,request.amount,request.unitId, request.expirationDate))
         } catch (e: Exception) {
             ResponseEntity.badRequest().body(mapOf("error" to e.message))
         }

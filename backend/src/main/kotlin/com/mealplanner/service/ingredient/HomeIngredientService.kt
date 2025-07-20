@@ -5,6 +5,7 @@ import com.mealplanner.data.ingredient.UnitOfMeasure
 import com.mealplanner.repositories.ingredient.HomeIngredientRepository
 import com.mealplanner.repositories.ingredient.IngredientRepository
 import org.springframework.stereotype.Service
+import java.time.LocalDate
 import kotlin.RuntimeException
 
 @Service
@@ -25,7 +26,14 @@ class HomeIngredientService(
         return homeIngredientRepository.findAll().find { it.ingredient?.id == ingredientId }
     }
 
-    fun createHomeIngredient(ingredientId: Long, amount: Double, unitId: Long): HomeIngredient {
+    fun deleteByIngredientId(ingredientId: Long) {
+        val hi = getByIngredientId(ingredientId)
+        if (hi != null) {
+            hi.id?.let { deleteHomeIngredient(it) }
+        }
+    }
+
+    fun createHomeIngredient(ingredientId: Long, amount: Double, unitId: Long, expirationDate: LocalDate?): HomeIngredient {
         val ingredient = ingredientRepository.findById(ingredientId).orElseThrow { RuntimeException("Ingredient not found")}
         val unit = unitOfMeasureService.getUnitById(unitId)
 
@@ -40,15 +48,16 @@ class HomeIngredientService(
             id = null,
             ingredient = ingredient,
             amount = amount,
-            unit = unit
+            unit = unit,
+            expirationDate = expirationDate
         )
         return homeIngredientRepository.save(homeIngredient)
     }
 
-    fun updateHomeIngredient(id: Long, amount: Double, unitId: Long): HomeIngredient {
+    fun updateHomeIngredient(id: Long, amount: Double, unitId: Long, expirationDate: LocalDate?): HomeIngredient {
         val existing = homeIngredientRepository.findById(id).orElseThrow { RuntimeException("Home ingredient not found") }
         val unit = unitOfMeasureService.getUnitById(unitId)
-        val updated = existing.copy(amount = amount, unit=unit)
+        val updated = existing.copy(amount = amount, unit=unit, expirationDate = expirationDate)
         return homeIngredientRepository.save(updated)
     }
 
@@ -57,7 +66,7 @@ class HomeIngredientService(
         homeIngredientRepository.delete(homeIngredient)
     }
 
-    fun mergeHomeIngredient(ingredientId: Long, amount: Double, unitId: Long): HomeIngredient {
+    fun mergeHomeIngredient(ingredientId: Long, amount: Double, unitId: Long, expirationDate: LocalDate?): HomeIngredient {
         val homeIngredients = homeIngredientRepository.findAll()
         val unit = unitOfMeasureService.getUnitById(unitId)
 
@@ -68,6 +77,12 @@ class HomeIngredientService(
 
         val newTotal = existing.amount + convertedAmount
 
-        return updateHomeIngredient(existing.id!!, newTotal, existing.unit.id)
+        val mergedExpiration = when {
+            expirationDate == null -> existing.expirationDate
+            existing.expirationDate == null -> expirationDate
+            else -> minOf(existing.expirationDate!!, expirationDate)
+        }
+
+        return updateHomeIngredient(existing.id!!, newTotal, existing.unit.id, mergedExpiration)
     }
 }

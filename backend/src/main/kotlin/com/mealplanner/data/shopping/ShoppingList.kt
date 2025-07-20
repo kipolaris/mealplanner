@@ -9,5 +9,7 @@ data class ShoppingList(
 
     @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "shopping_list_id")
-    var items: MutableList<ShoppingItem> = mutableListOf()
+    var items: MutableList<ShoppingItem> = mutableListOf(),
+
+    var total: Double = 0.0
 )

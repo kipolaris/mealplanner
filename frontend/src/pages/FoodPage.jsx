@@ -4,7 +4,7 @@ import { useIngredient } from "../hooks/useIngredient";
 import { useFoodIngredient } from "../hooks/useFoodIngredient";
 import { useUnitOfMeasure } from "../hooks/useUnitOfMeasure";
 import { useNavigate, useParams } from "react-router-dom";
-import '../assets/css/food-page.css'
+import '../assets/css/food.css'
 import '../assets/css/ingredients.css'
 import paperBackground from '../assets/images/paperbackground.png'
 import PageTitle from "../components/PageTitle";
@@ -18,13 +18,15 @@ import {useShoppingList} from "../hooks/useShoppingList";
 import {useCurrency} from "../hooks/useCurrency";
 import MergeShoppingItemModal from "../components/modals/MergeShoppingItemModal";
 import AddFiToShoppingListModal from "../components/modals/AddFiToShoppingListModal";
+import {useConfirm} from "../hooks/useConfirm";
+import ConfirmModal from "../components/modals/ConfirmModal";
 
 const FoodPage = () => {
     const { foodName } = useParams();
     const navigate = useNavigate();
 
     const { foods, setFoods } = useFoods();
-    const { ingredients } = useIngredient();
+    const { ingredients, setIngredients } = useIngredient();
     const unitsOfMeasure = useUnitOfMeasure();
     const currencies = useCurrency();
 
@@ -60,13 +62,21 @@ const FoodPage = () => {
         setIsAddIngredientModalOpen,
         isQuantityModalOpen,
         setIsQuantityModalOpen,
-        handleAddFoodIngredient,
-        handleAddNewFoodIngredient,
-        handleEditFoodIngredient,
-        handleSaveEditedFoodIngredient,
-        handleDeleteFoodIngredient,
+        addFoodIngredient,
+        addNewFoodIngredient,
+        editFoodIngredient,
+        saveEditedFoodIngredient,
+        deleteFoodIngredient,
         handleAddToShoppingList
-    } = useFoodIngredient(food?.id, shoppingList, setPendingShoppingItemMerge, setIsShoppingItemMergeModalOpen, handleAddShoppingItem);
+    } = useFoodIngredient(food?.id, shoppingList, setPendingShoppingItemMerge, setIsShoppingItemMergeModalOpen, handleAddShoppingItem, setIngredients);
+
+    const {
+        isConfirmModalOpen,
+        setIsConfirmModalOpen,
+        confirmText,
+        confirmAction,
+        confirm
+    } = useConfirm();
 
     const navigateToMenu = () => {
         navigate('/menu');
@@ -78,9 +88,9 @@ const FoodPage = () => {
 
     const handleSave = async (selectedIngredient, newIngredientName, amount, unitId) => {
         if (selectedIngredient) {
-            await handleAddFoodIngredient(selectedIngredient.id, amount, unitId);
+            await addFoodIngredient(selectedIngredient.id, amount, unitId);
         } else if (newIngredientName.trim()) {
-            await handleAddNewFoodIngredient(newIngredientName.trim(), amount, unitId);
+            await addNewFoodIngredient(newIngredientName.trim(), amount, unitId);
         }
     };
 
@@ -88,6 +98,8 @@ const FoodPage = () => {
         setFoodIngredientToShoppingList(foodIngredient);
         setIsAddToShoppingListModalOpen(true);
     }
+
+    const handleDeleteFoodIngredient = (foodIngredient) => confirm(`Are you sure you want to delete ${foodIngredient.ingredient.name} from ${foodName}?`,() => deleteFoodIngredient(foodIngredient));
 
     if (!food) return <PageTitle text="Loading food..." />
 
@@ -151,16 +163,23 @@ const FoodPage = () => {
                     <TapedTable
                         layout="vertical"
                         rows={sortedFoodIngredients}
-                        renderCell={(rowIndex) => {
-                            const fi = sortedFoodIngredients[rowIndex];
-                            console.log("Rendering row:", fi);
-                            return (
-                                <div className="table-row">
-                                    <div className="ingredient-label-wrapper">
-                                        <span className="ingredient-name patrick">{fi.ingredient?.name || `ingredientId=${fi.ingredient?.id}`}</span>
-                                        <span className="ingredient-quantity">({fi?.amount} {fi?.unit ? fi?.unit.abbreviation : "unit"})</span>
-                                    </div>
-                                    <div className="cell-icons">
+                        columns={[
+                            {
+                                header: 'Ingredient',
+                                render: (fi) => (
+                                    <span className="ingredient-name">{fi.ingredient.name}</span>
+                                )
+                            },
+                            {
+                                header: 'Quantity',
+                                render: (fi) => (
+                                    <span className="ingredient-quantity">{fi?.amount} {fi?.unit ? fi?.unit.abbreviation : "unit"}</span>
+                                )
+                            },
+                            {
+                                header: "Actions",
+                                render: (fi) => (
+                                    <div className="edit-buttons">
                                         <img
                                             src={require('../assets/images/shoppingcart.png')}
                                             alt="Add to shopping list"
@@ -171,7 +190,7 @@ const FoodPage = () => {
                                             src={require('../assets/images/pencil.png')}
                                             alt="Edit"
                                             className="edit-button"
-                                            onClick={() => handleEditFoodIngredient(fi)}
+                                            onClick={() => editFoodIngredient(fi)}
                                         />
                                         <img
                                             src={require('../assets/images/trashcan.png')}
@@ -180,15 +199,15 @@ const FoodPage = () => {
                                             onClick={() => handleDeleteFoodIngredient(fi)}
                                         />
                                     </div>
-                                </div>
-                            );
-                        }}
+                                )
+                            }
+                        ]}
                         allowReorder={false}
-                        showHeader={false}
+                        showHeader={true}
                         showRowLabels={false}
                         extraBottomRow={
                             <tr>
-                                <td>
+                                <td colSpan={3}>
                                     <button className="table-button lobster" onClick={() => setIsAddIngredientModalOpen(true)}>
                                         Add ingredient
                                     </button>
@@ -207,7 +226,7 @@ const FoodPage = () => {
                 <EditQuantityModal
                     isOpen={isQuantityModalOpen}
                     onClose={() => setIsQuantityModalOpen(false)}
-                    onSave={handleSaveEditedFoodIngredient}
+                    onSave={saveEditedFoodIngredient}
                     ingredient={editingFoodIngredient}
                     unitsOfMeasure={unitsOfMeasure}
                 />
@@ -218,7 +237,6 @@ const FoodPage = () => {
                     foodIngredient={foodIngredientToShoppingList}
                     currencies={currencies}
                 />
-
                 <MergeShoppingItemModal
                     isOpen={isShoppingItemMergeModalOpen}
                     onClose={() => setIsShoppingItemMergeModalOpen(false)}
@@ -227,6 +245,12 @@ const FoodPage = () => {
                     unit={pendingShoppingItemMerge?.unit}
                     price={pendingShoppingItemMerge?.price}
                     currency={pendingShoppingItemMerge?.currency}
+                />
+                <ConfirmModal
+                    isOpen={isConfirmModalOpen}
+                    onClose={() => setIsConfirmModalOpen(false)}
+                    onSave={confirmAction}
+                    text={confirmText}
                 />
             </div>
         </div>
